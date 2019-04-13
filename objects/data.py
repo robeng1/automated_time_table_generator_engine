@@ -1,0 +1,111 @@
+
+
+from objects.section import Section
+from objects.course import Course
+from objects.lecturer import Lecturer
+
+
+class CurriculaItem:
+    """
+        This class repr an item on the curriculum
+        we combine a class, a lecturer and a course
+        to create a unique tuple
+
+        for instance (MATH151, Computer Eng1, Dr.Barnes)
+        this tuple uniquely identifies a ``lecture``
+
+        for instances of shared courses
+        the section will be a list of all the sections
+        taking that class
+        eg. Economics
+        ...
+
+        Attributes
+        ----------
+        section: Section
+            this is effectively a class eg. comp eng 3
+        course : Course
+            this is course
+        lecturers : Lecturer
+            a list of lecturers thus the first and second examiner
+        allocated : int
+            the mins of the total teaching mins that have been
+            allocated
+
+    """
+
+    def __init__(self, section, course, lecturers):
+        self.section = section
+        self.course = course
+        self.lecturers = lecturers
+        self.allocated = 0
+
+    @property
+    def section(self):
+        return self.section
+
+    @section.setter
+    def section(self, value):
+        self.section = value
+
+    @property
+    def course(self):
+        return self.course
+
+    @course.setter
+    def course(self, value):
+        if not isinstance(value, Course):
+            raise TypeError("Value must be of type Course")
+        self.course = value
+
+    @property
+    def lecturers(self):
+        return self.lecturers
+
+    @lecturers.setter
+    def lecturers(self, value):
+        if not isinstance(value, Lecturer):
+            raise TypeError("Value must be of type Lecturer")
+        self.lecturers = value
+
+    @property
+    def teaching_mins(self):
+        return self.course.get_teaching_mins()
+
+    def __str__(self) -> str:
+        return ''
+
+
+class Curriculum:
+    """
+        This will be fed into the generator to generate the timetable
+            ...
+
+            Attributes
+            ----------
+            items: list
+                this is a list of curriculum items
+
+        """
+    def __init__(self, items):
+        self.items = items
+        self._index = 0
+        self._length = len(items)
+
+    def __len__(self):
+        return len(self.items)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self._length == 0 or self._index == self._length - 1:
+            raise StopIteration
+        item = self.items[self._index]
+        self._index = self._index + 1
+        return item
+
+    def add(self, item: CurriculaItem):
+        if not isinstance(item, CurriculaItem):
+            raise TypeError("Value must be of type CurriculaItem")
+        self.items.append(item)
