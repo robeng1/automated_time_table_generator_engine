@@ -8,7 +8,7 @@ from course import Course
 from lecturer import Lecturer
 
 
-class CurriculumItem:
+class Lecture:
     """
         This class repr an item on the curriculum
         we combine a class, a lecturer and a course
@@ -37,12 +37,14 @@ class CurriculumItem:
 
     """
 
-    def __init__(self, section, course, lecturers):
+    def __init__(self, section, course, lecturers,duration):
         self.section = section
         self.course = course
         self.lecturers = lecturers
-        self.allocated = 0
+        self.duration = duration
 
+    def __str__(self):
+        return ''
     @property
     def section(self):
         return self.section
@@ -72,43 +74,9 @@ class CurriculumItem:
         self.lecturers = value
 
     @property
-    def teaching_mins(self):
-        return self.course.get_teaching_mins()
+    def duration(self):
+        return self.duration
 
-    def __str__(self) -> str:
-        return ''
-
-
-class Curriculum:
-    """
-        This will be fed into the generator to generate the timetable
-            ...
-
-            Attributes
-            ----------
-            items: list
-                this is a list of curriculum items
-
-        """
-    def __init__(self, items):
-        self.items = items
-        self._index = 0
-        self._length = len(items)
-
-    def __len__(self):
-        return len(self.items)
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if self._length == 0 or self._index == self._length - 1:
-            raise StopIteration
-        item = self.items[self._index]
-        self._index = self._index + 1
-        return item
-
-    def add(self, item: CurriculumItem):
-        if not isinstance(item, CurriculumItem):
-            raise TypeError("Value must be of type CurriculumItem")
-        self.items.append(item)
+    @duration.setter
+    def duration(self,duration):
+        self.duration = duration

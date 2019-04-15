@@ -3,7 +3,7 @@
 #  Date: 13/04/2019
 #  Time: 01:27
 
-class Section:
+class Section(object):
     """
     A class used to represent a class
     we are calling it section here

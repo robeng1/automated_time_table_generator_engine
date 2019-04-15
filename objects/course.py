@@ -3,7 +3,7 @@
 #  Date: 13/04/2019
 #  Time: 01:27
 
-class Course:
+class Course(object):
     #TODO add validation to setter methods       
     """
       A class for representing Courses
@@ -61,7 +61,7 @@ class Course:
 
     def __str__(self):
         pass
-        
+
     def get_name(self):
         return self._name
 

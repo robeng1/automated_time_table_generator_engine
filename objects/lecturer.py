@@ -3,7 +3,7 @@
 #  Date: 13/04/2019
 #  Time: 01:27
 
-class Lecturer:
+class Lecturer(object):
     #TODO add validation to setter methods
     #     implement rank/priority for each lecturer        
     """
