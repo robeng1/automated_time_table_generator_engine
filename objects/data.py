@@ -74,7 +74,7 @@ class CurriculumItem:
     @property
     def teaching_mins(self):
         return self.course.get_teaching_mins()
-
+    
     def __str__(self) -> str:
         return ''
 

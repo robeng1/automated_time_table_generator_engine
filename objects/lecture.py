@@ -3,9 +3,7 @@
 #  Date: 13/04/2019
 #  Time: 06:27
 
-from section import Section
-from course import Course
-from lecturer import Lecturer
+from data import CurriculumItem
 
 
 class Lecture:
@@ -37,10 +35,8 @@ class Lecture:
 
     """
 
-    def __init__(self, section, course, lecturers,duration):
-        self.section = section
-        self.course = course
-        self.lecturers = lecturers
+    def __init__(self,c_item,duration):
+        self.curriculum_item = c_item
         self.duration = duration
 
     def __str__(self):
@@ -49,29 +45,13 @@ class Lecture:
     def section(self):
         return self.section
 
-    @section.setter
-    def section(self, value):
-        self.section = value
-
     @property
-    def course(self):
-        return self.course
+    def curriculum_item(self):
+        return self.curriculum_item
 
-    @course.setter
-    def course(self, value):
-        if not isinstance(value, Course):
-            raise TypeError("Value must be of type Course")
-        self.course = value
-
-    @property
-    def lecturers(self):
-        return self.lecturers
-
-    @lecturers.setter
-    def lecturers(self, value):
-        if not isinstance(value, Lecturer):
-            raise TypeError("Value must be of type Lecturer")
-        self.lecturers = value
+    @curriculum_item.setter
+    def curriculum_item(self,value):
+        self.curriculum_item = value
 
     @property
     def duration(self):
@@ -80,3 +60,7 @@ class Lecture:
     @duration.setter
     def duration(self,duration):
         self.duration = duration
+    
+    @property
+    def section_size(self):
+        return self.section.size

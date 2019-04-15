@@ -17,6 +17,13 @@ class Timetableslot():
 
     def _str__(self):
         return str(self.day) + str(self.room.name) + str(self.timeslot)#edit
+
+    def remove_lecture(self):
+        #only remove lecture from an occupied slot
+        if self._occupied:
+            self._occupied = False
+        #delete the lecture
+
     @property
     def day(self):
         return self._day
@@ -58,6 +65,4 @@ class Timetableslot():
     @property
     def isoccupied(self):
         return self._occupied
-        
-    def remlecture(self):
-        self._occupied = False
+  

@@ -25,13 +25,14 @@ class Classroom(object):
                     self._location=location
 
                 def __str__(self):
-                    return "classsroom name :"+ self._name+"\n"+"size of classroom:"+str(self._capacity)+"\n" +"location of the classroom:"+self._location+"\n"  
+                    return "classsroom name :"+ self._name+"\n"+"size of classroom:"\
+                        +str(self._capacity)+"\n" +"location of the classroom:"+self._location+"\n"  
                 
                 @property
                 def name(self):
                     return self._name
 
-                @name.setter
+                @name.setter      
                 def name(self,new_name):
                     self._name=new_name
                 
@@ -43,11 +44,16 @@ class Classroom(object):
                 def capacity(self,capacity):
                     self._capacity=capacity
 
-                def set_location(self,location):
+                @property
+                def location(self):
+                    return self._location
+
+                @location.setter
+                def location(self,location):
                     self._location=location
 
-                def get_location(self):
-                    return self._location
+                def can_accomodate(self,size,allowance=0):
+                    return (self._capacity + allowance) >= size
 
                 
                
