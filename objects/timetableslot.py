@@ -60,7 +60,7 @@ class Timetableslot():
 
     @property
     def isfree(self):
-        return ~self._occupied
+        return not self._occupied
     
     @property
     def isoccupied(self):

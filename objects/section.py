@@ -28,7 +28,7 @@ class Section(object):
 
     # TODO: add validations to attributes
 
-    def __init__(self, name, faculty, department, size, year):
+    def __init__(self, name,size,year, faculty='', department=''):
         self._name = name
         self._faculty = faculty
         self._department = department
@@ -36,37 +36,48 @@ class Section(object):
         self._year = year
 
     def __str__(self):
-        return '{name} {year}'.format(
+        return '{name} {year} {size}'.format(
             name=self._name,
             year=self._year,
+            size=self._size
         )
 
-    def set_name(self, name):
-        self._name = name
-
-    def set_faculty(self, faculty):
-        self._faculty = faculty
-
-    def set_department(self, department):
-        self._department = department
-
-    def set_size(self, size):
-        self._size = size
-
-    def set_year(self, year):
-        self._year = year
-
-    def get_name(self) -> str:
+    @property
+    def name(self) -> str:
         return self._name
 
-    def get_faculty(self) -> str:
+    @property
+    def faculty(self) -> str:
         return self._faculty
 
-    def get_department(self) -> str:
+    @property
+    def department(self) -> str:
         return self._department
 
-    def get_size(self) -> int:
+    @property
+    def size(self) -> int:
         return self._size
 
-    def get_year(self) -> int:
+    @property
+    def year(self) -> int:
         return self._year
+
+    @name.setter
+    def name(self, name):
+        self._name = name
+
+    @faculty.setter
+    def faculty(self, faculty):
+        self._faculty = faculty
+
+    @department.setter
+    def department(self, department):
+        self._department = department
+
+    @size.setter
+    def size(self, size):
+        self._size = size
+
+    @year.setter
+    def year(self, year):
+        self._year = year

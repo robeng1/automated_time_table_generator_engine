@@ -48,88 +48,88 @@ class Lecturer(object):
     def __init__(self,name,lect_id,title,department,email="",off_num="", phone_num="",\
          hours=[],rank = 0):
 
-        self.name = name
-        self.id = lect_id
-        self.title = title
-        self.department = department
-        self.email =  email
-        self.phone_number =phone_num
-        self.office_number = off_num
-        self.office_hours = hours
-        self.rank = rank 
+        self._name = name
+        self._id = lect_id
+        self._title = title
+        self._department = department
+        self._email =  email
+        self._phone_number =phone_num
+        self._office_number = off_num
+        self._office_hours = hours
+        self._rank = rank 
     
     def __str__(self):
-        pass
+        return self._id+ '  '+self._title + '. ' + self._name + '\n'
         
     @property
     def name(self):
-        return self.name
+        return self._name
     
     @name.setter
     def name(self,name):
-        self.name = name
+        self._name = name
     @property
     def id(self):
-        return self.id
+        return self._id
 
     @id.setter
     def id(self,id):
-        self.id = id
+        self._id = id
 
     @property
     def title(self):
-        return self.title
+        return self._title
 
     @title.setter
     def title(self,department):
-        self.department = department
+        self._department = department
 
     @property
     def department(self):
-        return self.department
+        return self._department
 
     @department.setter
     def department(self,department):
-        self.department = department
+        self._department = department
     
     @property
     def email(self):
-        return self.email
+        return self._email
 
     @email.setter
     def email(self,email):
-        self.email = email
+        self._email = email
 
     @property
     def phone_number(self):
-        return self.phone_number
+        return self._phone_number
 
     @phone_number.setter
     def phone_number(self,number):
-        self.phone_number = number
+        self._phone_number = number
     
     @property
     def office_number(self):
-        return self.office_number
+        return self._office_number
     
     @office_number.setter
     def office_number(self,number):
-        self.office_number = number
+        self._office_number = number
 
     @property
     def office_hours(self):
-        return self.office_hours
+        return self._office_hours
 
     @office_hours.setter
     def office_hours(self,hours):
-        self.office_hours = hours
+        self._office_hours = hours
 
     @property
     def rank(self):
-        return self.rank
+        return self._rank
 
     @rank.setter
     def rank(self,rank=-1):
-        self.rank = rank
+        self._rank = rank
 
 

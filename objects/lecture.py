@@ -36,31 +36,28 @@ class Lecture:
     """
 
     def __init__(self,c_item,duration):
-        self.curriculum_item = c_item
-        self.duration = duration
+        self._curriculum_item = c_item
+        self._duration = duration
 
     def __str__(self):
-        return ''
-    @property
-    def section(self):
-        return self.section
+        return str(self.curriculum_item.course) +'\n'+\
+            str(self.curriculum_item.section)+'\n'+\
+            str(self.curriculum_item.lecturers)+'\n'+\
+            str(self.duration)+'\n'+'-----------------------------------------'
 
     @property
     def curriculum_item(self):
-        return self.curriculum_item
+        return self._curriculum_item
 
     @curriculum_item.setter
     def curriculum_item(self,value):
-        self.curriculum_item = value
+        self._curriculum_item = value
 
     @property
     def duration(self):
-        return self.duration
+        return self._duration
 
     @duration.setter
     def duration(self,duration):
-        self.duration = duration
+        self._duration = duration
     
-    @property
-    def section_size(self):
-        return self.section.size
