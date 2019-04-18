@@ -15,6 +15,7 @@ from lecture import Lecture
 from timeslot import Timeslot
 
 ##################################TODO######################################
+# 0. Allow segmentation in time in timetable
 # 1. Validation for all function paramers                                  #
 # 2. Exceptions and exception handlers                                     #
 # 3. Doc strings                                                           #
@@ -96,7 +97,7 @@ class Daytimetable:
     timeslots =[] 
     table = {}
 
-    def __init__(self,classrooms=[],timeslots=[]):
+    def __init__(self,classrooms=[],timeslots=[],day = None):
         """
         Parameters
         ----------
@@ -105,8 +106,11 @@ class Daytimetable:
         timeslots : str
             Represents all the possible time intervals allowed for scheduling on that day
         """
+        
         #TODO
         #validate to check instances of particular class
+        
+        self._day = day
 
         #ensures each classroom only appears once on the list
         classrooms = list(set(classrooms))
@@ -130,7 +134,7 @@ class Daytimetable:
         for room in self.rooms:
             slots = []
             for timeslot in self.timeslots:
-                timetableslot = Timetableslot(0,room,timeslot) #convert 0 to enums use enum for days
+                timetableslot = Timetableslot(self.day,room,timeslot) 
                 slots.append(timetableslot)
             self.table[room] = slots
 
@@ -139,6 +143,13 @@ class Daytimetable:
         #print the entire timetable for that particular day
         pass
 
+    @property
+    def day(self):
+        return self._day
+    
+    @day.setter
+    def day(self,value):
+        self._day = value
 
     def add_lecture(self,lecture,timetableslot,free=True):
         #timetable slot could be the actual timetableslot or just a wrapper that contains the room
@@ -495,7 +506,8 @@ class Daytimetable:
             if slot.timeslot == timeslot:
                 return slot
     
-    def best_fit(self,lecture,allowance = 0):
+    def best_fit(self,lecture,allowance = 0, free= True):
+        #true indicates if the best fit is being found only among free slots
         """returns the free timetable slot with smallest room size big big enough to hold lecture
 
         Parameters
@@ -519,25 +531,31 @@ class Daytimetable:
         #TODO:
         #Validate lecture and allowance
         #take care of if none is found
+
+        #changed logic to use free and occupied slots
+        #verify slots 
         class_size = lecture.curriculum_item.section.size
         
-        best = self.first_fit(lecture)
+        best = self.first_fit(lecture,free)
 
         if best != None:
             min_cur = best.room.capacity + allowance - class_size 
 
-        for room in self.rooms:
-            for slot in self.table[room]:
-                if slot.isfree:
-                    if 0 <= (slot.room.capacity +allowance - class_size) < min_cur: #check
-                        if lecture.duration <= slot.timeslot.duration: #check after construction
-                            best = slot
-                            min_cur = slot.room.capacity - class_size
+        if free:
+            slots = self.free_slots()
+        else:
+            slots = self.occupied_slots()
+
+        for slot in slots:
+            if 0 <= (slot.room.capacity +allowance - class_size) < min_cur: #check
+                if lecture.duration <= slot.timeslot.duration: #check after construction
+                    best = slot
+                    min_cur = slot.room.capacity - class_size
 
         #*take care of if none is found 
         return best
 
-    def first_fit(self,lecture):
+    def first_fit(self,lecture,free =True):
         """returns the first position in the timetable that is can hold lecture
 
         Parameters
@@ -560,12 +578,17 @@ class Daytimetable:
         #take care of if none is found
         class_size = lecture.curriculum_item.section.size
 
-        for room in self.rooms:
-            for slot in self.table[room]:
-                if slot.isfree:
-                    if slot.room.capacity >= class_size :
-                        if lecture.duration <= slot.timeslot.duration: #check after construction
-                            return slot
+        #change logic to use free slots function and occupied slots
+
+        if free:
+            slots = self.free_slots()
+        else:
+            slots = self.occupied_slots()
+
+        for slot in slots:
+            if slot.room.capacity >= class_size :
+                if lecture.duration <= slot.timeslot.duration: #check after construction
+                    return slot
 
     #dummy test stub
     #remove after developing unit tests
@@ -575,3 +598,6 @@ class Daytimetable:
                 if slot.isoccupied:
                     print(str(slot.day)+ '\n'+ str(slot.timeslot)+ '\n'+ str(slot.room))
                     print(str(slot.lecture))
+
+
+#check for or not check for clashes?

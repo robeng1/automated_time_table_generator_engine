@@ -43,7 +43,10 @@ class Timetable:
 
         for day in self.days:
             self.timetable[day] = daytables[self.days.index(day)]
+            self.timetable[day].day = day #makes sure daytiemtable has a day
+            #verify
 
+        #set the day for each timetable slot
 
     def add_lecture(self,day,lecture,timetableslot,free=True):
         # validate the day //day should belong to days[]
@@ -126,26 +129,48 @@ class Timetable:
 
         return True
 
-    def occupied_slots(self,day):
+    def occupied_slots(self,day=None):
         # returns a list of all occupied slots on day
         # validate day
         # can return none
+        occupied = []
 
-        if self.day_is_valid(day):
-            return self.timetable[day].occupied_slots()
+        if day == None:
+            for d in self.days:
+                occupied += self.timetable[d].occupied_slots()
+        else:
+            if self.day_is_valid(day):
+                occupied  = self.timetable[day].occupied_slots()
 
-    def free_slots(self,day):
+        return occupied
+
+    def free_slots(self,day=None):
         # returns a list of all free slots on day
         # validate day 
+        free =  []
 
-        return self.timetable[day].free_slots()
+        if day == None:
+            for d in self.days:
+                free+= self.timetable[d].free_slots()
+        else:
+            if self.day_is_valid(day):
+                free = self.timetable[day].free_slots()
 
-    def all_slots(self,day):
+        return free
+
+    def all_slots(self,day = None):
         # returns a list of all the slots in day
         # validate day
         #calls all_slots(unverified function) from daytimetable
-        return self.timetable[day].all_slots()
+        slots = []
+
+        if day == None:
+            slots = self.occupied_slots() + self.free_slots()
+        else:
+            if self.day_is_valid(day):
+                slots = self.occupied_slots(day) + self.free_slots(day)
         
+        return slots
 
     def lecturer_is_free(self,day,lecturer,timeslot):
         # returns true if lecturer is free on day at timeslot, false otherwise

@@ -61,6 +61,11 @@ class Course(object):
         self._department  = department
         self._preferred_room = room
 
+        #change to be taken in as parameters
+        self._min_mins_per_meeting  = 60 
+        self._max_mins_per_meeting = 120
+        self._max_meetings_per_day  = 1
+
     def __str__(self):
         coursestr = self._code + ' '+ self._name + ' '
         for lecturer in self._lecturers:
