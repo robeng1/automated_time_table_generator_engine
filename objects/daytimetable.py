@@ -24,6 +24,7 @@ from timeslot import Timeslot
 # 6. Add partitioning to timetable if the added lecture is less than slot
 # duration           
 # 7. Type hinting
+# 8. Add spliting of timeslots after addition of lecture with smaller duration
 ############################################################################
 
 class Daytimetable:
@@ -69,10 +70,10 @@ class Daytimetable:
         free_slots(self)
                 Returns a list of all free timetable slots
 
-        lecturer_free(self,lecturer,timeslot)
+        lecturer_is_free(self,lecturer,timeslot)
                 Checks if lecturer is free at time specified by timeslot
 
-        room_free(self,room,timeslot)
+        room_is_free(self,room,timeslot)
                 Checks if room is free at time specified by timeslot
 
         timetableslot(self,room,timeslot)
@@ -140,6 +141,9 @@ class Daytimetable:
 
 
     def add_lecture(self,lecture,timetableslot,free=True):
+        #timetable slot could be the actual timetableslot or just a wrapper that contains the room
+        #and the timeslot 
+
         """Assigns lecture to timetableslot.
 
         Parameters
@@ -166,11 +170,10 @@ class Daytimetable:
         #TODO
         #validate lecture
         #validate timetableslot
-        #check if timetableslot has a lecture in it
-
-        
-        #Edit blocks till end
-        if timetableslot == None:
+        #update docstring
+                
+        #Edit blocks till end#################################################
+        if timetableslot == None:#remove and catch exceptions rather 
             return False
 
         try:
@@ -182,7 +185,10 @@ class Daytimetable:
         except AttributeError:
             #handle exception
             return
-        #end
+        #end##################################################################
+
+    
+        timetableslot = self.timetableslot(timetableslot.room,timetableslot.timeslot)
 
         if free:#assign slot only if the lecture is free
             if timetableslot.isfree:
@@ -228,10 +234,16 @@ class Daytimetable:
         #validate the sourceslot and destslot
 
         #move the lecture from the sourceslot to the destlot
+
+        #*****Only move if the source slot is occupied
+
         timetableslot = self.timetableslot(sourceslot.room,sourceslot.timeslot)
-        if  self.add_lecture(sourceslot.lecture,destslot,free):
-            if self.remove_lecture(timetableslot):
-                return True
+
+        #**********check when debuggin *****************************#
+        if timetableslot.isoccupied:
+            if  self.add_lecture(sourceslot.lecture,destslot,free):#if lecture is added but
+                if self.remove_lecture(timetableslot): #fails to be removed what happens?
+                    return True
         return False
 
     def swap_lectures(self,slot1,slot2):
@@ -257,15 +269,25 @@ class Daytimetable:
         #TODO
         #validate slot1
         #validate slot2
+        #edit docstring
 
-        if (slot1 != slot2) and (slot1.isoccupied and slot2.isoccupied):
+        #slot1 and slot2 may just be wrappers containing timeslot and rooms
+        #get actual timetable slot from those positions
+
+        slot1 = self.timetableslot(slot1.room,slot1.timeslot)
+        slot2 = self.timetableslot(slot2.room,slot2.timeslot)
+
+        if slot1 == slot2:
+            return True
+
+        if (slot1.isoccupied and slot2.isoccupied):
             if slot1.timeslot.duration == slot2.timeslot.duration: #proove
                 if slot1.room.can_accomodate(slot2.lecture.curriculum_item.section.size)\
                     and slot2.room.can_accomodate(slot1.lecture.curriculum_item.section.size): 
                     index_1 = self.table[slot1.room].index(slot1)
                     index_2 = self.table[slot2.room].index(slot2)
                     self.table[slot1.room][index_1],self.table[slot2.room][index_2] =\
-                         slot2,slot1
+                         self.table[slot2.room][index_2],self.table[slot1.room][index_1]#verify
                     return True
         return False
 
@@ -288,13 +310,44 @@ class Daytimetable:
         """
         #TODO
         #validate timetableslot
+        #false should only returned for in valid timetable slot
 
+        removed = False
+
+
+        #review effects of changes 
+        timetableslot = self.timetableslot(timetableslot.room,timetableslot.timeslot)
+
+        if timetableslot.isfree:
+            removed = True
         if timetableslot.isoccupied:
             index = self.table[timetableslot.room].index(timetableslot)
             self.table[timetableslot.room][index].remove_lecture()
-            return True
+            removed = True
         
-        return False
+        return removed
+
+    #Needs review and testing
+    def remove_all(self):
+        """Empties the daytimetable 
+
+        Returns
+        -------
+        bool 
+            True if all lectures are removed
+        
+        Raises
+        ------
+        """
+
+
+        for room in self.rooms:
+            for slot in self.table[room]:
+                removed = self.remove_lecture(slot) #check if lecture was removed
+                
+                if not removed: #if any lecture at all failed to be removed
+                    return False
+
 
     def occupied_slots(self):
         """Returns all the occupied timetable slots in the table
@@ -327,15 +380,32 @@ class Daytimetable:
      
         """
         free = []
-        pass
+
         for room in self.rooms:
             for slot in self.table[room]:
                 if slot.isfree:
                     free.append(slot)
         return free
 
+    def all_slots(self):
+        """Returns all the slots in table
+        
+        Returns
+        -------
+        list
+            List of all timetableslots in table
+        Raises
+        ------
+     
+        """
+        slots = []
 
-    def lecturer_free(self,lecturer,timeslot):
+        for room in self.rooms:
+            for slot in self.table[room]:
+                slots.append(slot)
+        return slots
+
+    def lecturer_is_free(self,lecturer,timeslot):
         """Checks if lecturer is free at time specified by timeslot
 
         Parameters
@@ -370,7 +440,7 @@ class Daytimetable:
         return True
 
 
-    def room_free(self,room,timeslot):
+    def room_is_free(self,room,timeslot):
         """Checks if room is free at time specified by timeslot
 
         Parameters

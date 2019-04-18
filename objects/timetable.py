@@ -1,108 +1,203 @@
-from data import CurriculumItem
-from classroom import Classroom
-from timetableslot import Timetableslot
+#  Copyright (c) 2019.  Hex Inc.
+#  Author: Kumbong Hermann
+#  Date: 16/04/2019
+#  Time: 15:27
 
-#TODO : convert arguments to timetable slot objects
+from daytimetable import Daytimetable
+from random import choice
+##################################TODO######################################
+# 0. Complete logic for best_fit(self,lecture)
+# 1. Validation for all function paramers                                  #
+# 2. Exceptions and exception handlers                                     #
+# 3. Doc strings                                                           #
+# 4. Unit tests                                                            #
+# 5. Adjust logic for lecturer components. courses etc have a list of      #
+# of lecturers not a single lecturer                                       #  
+# 6. Add partitioning to timetable if the added lecture is less than slot
+# duration           
+# 7. Type hinting
+# 8. Add spliting of timeslots after addition of lecture with smaller duration
+############################################################################
 
 class Timetable:
+    #class for holding the timetable structure of the institution
+    # does not handle the creation of day timetables or the days
+    # does not handle business logic
+    # assumes days,timeslots etc make sense passed in make sense*
 
-    table = []
-    hashtable = {}
-    POS_DAY = 0
-    POS_ROOM = 1
-    POS_SLOT = 2
+    days = [] #the days for which lectures can be scheduled
+                #format for days decided by business logic
+                #format must 
+    timetable = {} #holds the timetable for teach day
+                #keys are the days and the values are day timetables
 
-    def __init__(self,days=[],rooms=[],timeslots=[]):
-        count = 0
-        for day in days:
-            for room in rooms:
-                for tslot in timeslots:
-                    key  = hash(day,room,tslot)
-                    self.hashtable[key] = count
-                    timetableslot = Timetableslot(day,room,tslot)
-                    self.table.append(timetableslot)
-                    count+=1
-    
-    def __str__(self):
-        pass
+    def __init__(self,days=[], daytables = []):
+        #days is the list of all days open for scheduling
+        #decide on business rule for validity of days
+        #daytables is a list of Daytimetables representing the timetable
+        #days must be the same as the day tables
+        #decide on application rules to validate day tables
+        #create timetable from days and daytables
 
-    def hash(self,timetableslot):
-        return str(timetableslot.day) + timetableslot.room.name + str(timetableslot.timeslot)
+        self.days = days
 
-    #checks if a lecturer is free at a particular day and a particular time interval
-    #traverse all classes 
-    def lecturerfree(self,day,lecturer,timeslot):
-        for slot in table:
-            if slot.isoccupied and slot.lecture.lecturer == lecturer:
-                return True
-            return False
+        for day in self.days:
+            self.timetable[day] = daytables[self.days.index(day)]
 
 
-    #checks if a room is free at a particular day and at a particular time
-    def roomfree(self,day,room,timeslot):
-        pass
+    def add_lecture(self,day,lecture,timetableslot,free=True):
+        # validate the day //day should belong to days[]
+        # lecture and timetableslot assumed valid
 
-    #checks if lecture can be held in particular room
-    def roomfitslect(self,room,lect):
-        pass
+        if self.day_is_valid(day): #change to duck typing... catch exception
+            return self.timetable[day].add_lecture(lecture,timetableslot,free)
 
-    #assigns a lectuer to a particular position on timetable    
-    def addlect(self,day,room,slot,lecture):
-        key = self.hash(day,room,slot)
-        index = self._hashtable[key]
+        return False
 
-        if self._table[index][POS_SLOT].isfree:
-            self._table[index][POS_SLOT].lecture = lecture
+    def move_lecture(self,sourceday,sourceslot,destday,destslot,free=True):
+        # moves lecture from sourceslot to destslot
+        # validate all day parameters and free
+        # sourceday is compulsory
+        # destday should be optional if user does not specify then move to first possible
+        # sourceslot and destslot are validated by timetableslot module
+        # returns false if parameters are invalid
+        # true only returned from the daytimetable.move_lecture
 
-    #moves the lecture to a particular position on the time table does not check if
-    #the position on the timetable is free
-    #returns true if the lecture was moved
-    def mov_lect(self,f_day,f_room,f_tslot,t_day,t_room,t_tslot):
-        origin_key = self.hash(f_day,f_room,f_tslot)
-        dest_key = self.hash(t_day,t_room,t_tslot)
+        if sourceday == destday:
+            return self.timetable[sourceday].move_lecture(sourceslot,destslot)
+        else:
+            timetableslot = self.timetable[sourceday].timetableslot(sourceslot.room,sourceslot.timeslot)
+            
+            if timetableslot.isoccupied:
+                if self.add_lecture(destday,timetableslot.lecture,destslot,free):
+                    if self.remove_lecture(sourceday,timetableslot):
+                        return True
+        return False
+
+    def swap_lectures(self,day1,slot1,day2,slot2):
+        # swaps the lectures in slots specified by parameters
+        # validate day1 and day2 a
+        # allow validation of slots to daytimetable
+        # return true or false if lectures are swapped
+        # validate slots and day
+        # slot1 and slot2 may just be wrappers and not actually contain lectures
+
+        swapped = False
         
-        origin_index = self._hashtable[origin_key]
-        dest_index = self._hashtable[dest_key]
+        slot1 = self.timetable[day1].timetableslot(slot1.room,slot1.timeslot)
+        slot2 = self.timetable[day2].timetableslot(slot2.room,slot2.timeslot)
 
-        self._table[dest_index][POS_SLOT] = self._table[origin_index][POS_SLOT]
+        if day1 == day2 and slot1 == slot2:
+            swapped = True
 
-    #moves the lecture from a particular position to another
-    #first checks if the destination is true
-    #returns true if the lecture was moved
-    #lecture does not change position if destination isfull
-    def mov_lect_if_free(self,f_day,f_room,f_tslot,t_day,t_room,t_tslot):
-        pass
-    def remlect(self,day,room,tslot):
-        key  = self.hash(day,room,tslot)
-        index = self._hashtable[key]
-        self._table[index][POS_SLOT].remlect()
+        elif day1 == day2  and slot1 != slot2:
+            swapped = self.timetable[day1].swap_lectures(slot1,slot2)
 
-    def lect_info(self):
-        pass
+        else:
+             if (slot1.isoccupied and slot2.isoccupied):
+                if slot1.timeslot.duration == slot2.timeslot.duration: #proove
+                    if slot1.room.can_accomodate(slot2.lecture.curriculum_item.section.size)\
+                        and slot2.room.can_accomodate(slot1.lecture.curriculum_item.section.size): 
+                        
+                        #overwrite the values in the slots by setting free = False
+                        #verify
+                        if self.timetable[day1].add_lecture(slot2.lecture,slot1,False):
+                            if self.timetable[day2].add_lecture(slot1.lecture,slot2,False):
+                                swapped = True
+        return swapped
+    
+    def remove_lecture(self,day,timetableslot):
+        # removes the lecture at day and timetable slot
+        # leave timetableslot validation to daytimetable
 
-    def free_slots(self):
-        pass
-    def free_slots(self):
-        pass
-    def best_fit(self):
-        pass
-    def first_fit(self):
-        #returns the index of the first position in the timetable that is can contain the given
-        #lecture based on all the given constraints
-        pass
-    def isfree(self,ttableslot):
-        #returns true if there is no course assigend to that slot
-        #returns false otherwise
-        pass
-    def assignlecture(self,ttableslot,lecture):
-        #assigns the lecture to the timetable slot
-        pass
-    def freeslots(self):
-        #returns a list with all the indices of free positions available in the timetable
-        freeslots = []
-        for position in self._table:
-            if position[POS_SLOT].isfree:
-                key = self.hash(position[POS_DAY],position[POS_ROOM],position[POS_SLOT])
-                index = self._hashtable[key]
-                freeslots.append(index)
-        return freeslots  
+        if self.day_is_valid(day):
+            return self.timetable[day].remove_lecture(timetableslot)
+
+        return False
+
+    def remove_all(self):
+        # removes all the lectures in the entire table
+        
+        for day in self.days:
+            removed = self.timetable[day].remove_all()
+
+            if not removed:
+                return False
+
+        return True
+
+    def occupied_slots(self,day):
+        # returns a list of all occupied slots on day
+        # validate day
+        # can return none
+
+        if self.day_is_valid(day):
+            return self.timetable[day].occupied_slots()
+
+    def free_slots(self,day):
+        # returns a list of all free slots on day
+        # validate day 
+
+        return self.timetable[day].free_slots()
+
+    def all_slots(self,day):
+        # returns a list of all the slots in day
+        # validate day
+        #calls all_slots(unverified function) from daytimetable
+        return self.timetable[day].all_slots()
+        
+
+    def lecturer_is_free(self,day,lecturer,timeslot):
+        # returns true if lecturer is free on day at timeslot, false otherwise
+        # validate day and lecturer
+        # leave validation of timeslo to daytimetable
+        # calls unverified function
+        return self.timetable[day].lecturer_is_free()
+
+    def room_is_free(self,day,room,timeslot):
+        # returns true if room is free on day at timeslot, false otherwise
+        # validate day
+        # validate room** 
+        # leave validation of timeslot for daytimetable
+        # calss unverified function
+        return self.timetable[day].room_is_free()
+
+    def timetableslot(self,day,room,timeslot):
+        # returns the timetableslot on day at room and at timeslot
+        # validate day and * room
+        # day should be an optional parameter 
+        # if day not specified returns a list with timetable slots on all  those days
+        # timeslot verified by daytimetable
+        return self.timetable[day].timetableslot(room,timeslot)
+    
+    def best_fit(self,lecture):
+        #  returns the best fit slot on day
+        #  daytimetable may not return a timetable slot
+        best_fits = []
+        
+        for day in self.days:
+            best_fits.append(self.timetable[day].best_fit)
+
+        #assuming all slots in best_fits are valid
+        # deal with case where some of the slots are invalid
+        
+        return choice(best_fits)
+
+    def first_fit(self,day,lecture):
+        # returns the first fit for lecture on day
+        # some days may not have any slot that can fit the lecture
+        # that is some items in first may be None
+        # may also return none 
+
+        first_fits = []
+
+        for slot in first_fits:
+            if slot != None:
+                return slot
+
+    def day_is_valid(self,day): #returns true if the day is part of the initial days
+        for d in self.days:
+            if d == day:
+                return True
+        
+        return False

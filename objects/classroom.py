@@ -9,10 +9,10 @@ class Classroom(object):
                 Attributes
                 ----------
                 
-                'name : str
+                name : str
                 ' the name of the classroom
-                'capacity : int
-                    the capacity of the class room/the number of students the classroom can occupy a particular lecture room
+                capacity : int
+                   the capacity of the class room/the number of students the classroom can occupy a particular lecture room
                 location : int
                     the location of the class room
                  
