@@ -5,6 +5,7 @@
 
 from timeslot import Timeslot
 from data import CurriculumItem
+from classroom import Classroom
 
 #TODO:  dealing with lectures within the timetableslot
 class Timetableslot():
@@ -14,15 +15,37 @@ class Timetableslot():
         self._timeslot = timeslot
         self._room = room
         self._occupied = False
+        
+    def __eq__(self,other):
+        if isinstance(self,other.__class__):
+            return self.day == other.day and self.timeslot == other.timeslot \
+                and self.room == other.room
+        else:
+            return NotImplemented
+    
+    def __ne__(self, other):
+        if isinstance(self,other.__class__):
+            return self.day != other.day or self.timeslot != other.timeslot \
+                or self.room != other.room
+        else:
+            return NotImplemented
+    
+   # def __hash__(self):#should not be hashable
+    #    return ((self.day,self.timeslot,self.room))
+
 
     def _str__(self):
-        return str(self.day) + str(self.room.name) + str(self.timeslot)#edit
+        return str(self.timeslot) # str(self.room.name) + str(self.timeslot)#edit
 
     def remove_lecture(self):
         #only remove lecture from an occupied slot
         if self._occupied:
             self._occupied = False
         #delete the lecture
+
+    def can_hold(self,lecture):
+        return self.room.can_accomodate(lecture.curriculum_item.section.size) and \
+            self.timeslot.duration >= lecture.duration
 
     @property
     def day(self):

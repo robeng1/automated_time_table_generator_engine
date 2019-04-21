@@ -3,6 +3,8 @@
 #  Date: 13/04/2019
 #  Time: 15:27
 
+#  modifications  
+
 
 from data import CurriculumItem
 from classroom import Classroom
@@ -11,9 +13,8 @@ from lecturer import Lecturer
 from course import Course
 from section import Section
 from lecture import Lecture
-
 from timeslot import Timeslot
-
+import copy
 ##################################TODO######################################
 # 0. Allow segmentation in time in timetable
 # 1. Validation for all function paramers                                  #
@@ -28,7 +29,8 @@ from timeslot import Timeslot
 # 8. Add spliting of timeslots after addition of lecture with smaller duration
 ############################################################################
 
-class Daytimetable:
+
+class DayTimetable:
     """
         Represents a timetable for a particular day
         ...
@@ -88,23 +90,18 @@ class Daytimetable:
 
     """
 
-#knows nothing about collisions
-#only checks to make sure that a lecture can fit into a particular slot
-#based on the room size and the section size 
-#and on if the duration of the lecture can fit into the slot
+    rooms = []#all classrooms that are available for that day
+    table = {}#maps each classroom to the different times it is available for lectures
 
-    rooms = [] 
-    timeslots =[] 
-    table = {}
 
-    def __init__(self,classrooms=[],timeslots=[],day = None):
+    def __init__(self,classrooms,timeslots=[],day = None):
         """
         Parameters
         ----------
         classrooms : list
             All classrooms available for the day 
-        timeslots : str
-            Represents all the possible time intervals allowed for scheduling on that day
+        timeslots : list
+            If specified represents all the possible time intervals allowed for scheduling on that day
         """
         
         #TODO
@@ -112,36 +109,63 @@ class Daytimetable:
         
         self._day = day
 
-        #ensures each classroom only appears once on the list
+        #remove duplicates from the list of classrooms
+        #problems may arise if classrooms is mutated
         classrooms = list(set(classrooms))
-    
+
+        
+        #sort classrooms according to capacity
         classrooms.sort(key = lambda classroom: classroom.capacity,reverse =True)
         self.rooms = classrooms
-
-        #ensures each timeslot only occurs once in the least
-        timeslots = list(set(timeslots))
-
-        #sort the timeslots according to starting time
-        timeslots.sort(key = lambda timeslot: timeslot.start)
-
-        #ensures there are no overlapping times in the timeslots
-        for i in range(len(timeslots)-1):
-            if timeslots[i].end > timeslots[i+1].start: #proove correctness
-                #raise exception
-                pass
-        self.timeslots = timeslots
+        
+        timeslots = self.validate_timeslots(timeslots)
 
         for room in self.rooms:
-            slots = []
-            for timeslot in self.timeslots:
-                timetableslot = Timetableslot(self.day,room,timeslot) 
-                slots.append(timetableslot)
-            self.table[room] = slots
-
-
+            self.set_timeslots(room,timeslots)
+        
     def __str__(self):
         #print the entire timetable for that particular day
-        pass
+        mystr = ''
+        for room in self.rooms:
+            for timetableslot in self.table[room]:
+                mystr+=str(room) +'    '+str(timetableslot.timeslot) + '\n'
+                
+                if(timetableslot.isoccupied):
+                    mystr += str(timetableslot.lecture.curriculum_item.course)+' \n'
+        return mystr
+
+
+    def set_timeslots(self,room,timeslots):
+        self.validate_timeslots(timeslots)
+        slots = []
+        for timeslot in timeslots:
+            timetableslot = Timetableslot(self.day,room,timeslot) 
+            slots.append(timetableslot)
+        self.table[room] = slots
+
+    @staticmethod
+    def validate_timeslots(timeslots):
+         #if timeslots are not specified then they can be added specifically for each room
+        #through the set_timeslots(self,room,timeslots) function
+        if timeslots != []:
+
+            #remove duplicates from timeslot
+            #problems may arise if timeslots is mutated
+            timeslots = list(set(timeslots))
+
+            #sort the timeslots according to starting time
+            timeslots.sort(key = lambda timeslot: timeslot.start)
+            
+
+            #ensures there are no overlapping times in the timeslots
+            #############################################################################
+            for i in range(len(timeslots)-2):
+                if timeslots[i].end > timeslots[i+1].start: #proove correctness
+                    #raise overlap exception
+                    pass
+            #############################################################################
+        return timeslots
+
 
     @property
     def day(self):
@@ -150,6 +174,119 @@ class Daytimetable:
     @day.setter
     def day(self,value):
         self._day = value
+        for room in self.rooms:
+            for slot in self.table[room]:
+                slot.day = value
+
+    
+    def has_left_neighbour(self,timetableslot):
+        try:
+            index = (self.table[timetableslot.room]).index(timetableslot)
+        except Exception:
+            return False
+        else:
+            return index > 0 and index <len(self.table[timetableslot.room])
+
+    def has_right_neighbour(self,timetableslot):
+        try:
+            index = self.table[timetableslot.room].index(timetableslot)
+        except Exception:
+            return False
+        else:
+            return index >= 0 and index < len(self.table[timetableslot.room])-1
+
+
+    def left_neighbour(self,timetableslot):
+        if self.has_left_neighbour(timetableslot):
+            neighbour_index = self.table[timetableslot.room].index(timetableslot) -1
+            return self.table[timetableslot.room][neighbour_index]
+
+    def right_neighbour(self,timetableslot):
+        if self.has_right_neighbour(timetableslot):
+            neighbour_index = self.table[timetableslot.room].index(timetableslot) +1
+            return self.table[timetableslot.room][neighbour_index]
+
+    def left_neighbours(self,timetableslot):
+        index = self.table[timetableslot.room].index(timetableslot)
+        
+        neighbours = []
+
+        if index < len(self.table[timetableslot.room]):
+            for i in range(index-1,-1,-1):
+                #if self.table[timetableslot.room][i].timeslot.end \
+                 #   == self.table[timetableslot.room][i+1].timeslot.start:
+                neighbours.append(self.table[timetableslot.room][i])
+            neighbours.sort(key = lambda ttslot: ttslot.timeslot.start)
+        return neighbours
+
+    def right_neighbours(self,timetableslot):
+        index = self.table[timetableslot.room].index(timetableslot)
+        
+        neighbours = []
+
+        if index > 0:
+            for i in range(index+1,len(self.table[timetableslot.room])):
+                #if self.table[timetableslot.room][i].timeslot.start \
+                 #   == self.table[timetableslot.room][i-1].timeslot.end:
+                neighbours.append(self.table[timetableslot.room][i])
+            neighbours.sort(key = lambda ttslot: ttslot.timeslot.start)
+        return neighbours
+    
+    def insert_timetableslot(self,room,timetableslot):
+        if not timetableslot in self.table[room]:
+            self.table[room].append(timetableslot)
+            self.table[room].sort(key= lambda ttslot: ttslot.timeslot.start)
+
+    def assign_lecture(self,lecture,timetableslot):
+        #TODO : change for function to have single exit point
+        timeslot_index = self.table[timetableslot.room].index(timetableslot)
+    
+        timetableslot = self.timetableslot(timetableslot.room,timetableslot.timeslot)
+
+
+        if timetableslot.room.can_accomodate(lecture.curriculum_item.section.size):
+            timetableslot.lecture = lecture
+
+            if lecture.duration == timetableslot.timeslot.duration:                  
+                self.table[timetableslot.room][timeslot_index]  = timetableslot
+                return True
+
+            elif timetableslot.timeslot.duration > lecture.duration:
+                index = self.table[timetableslot.room].index(timetableslot)
+                time_diff = timetableslot.timeslot.duration - lecture.duration 
+
+                
+                if self.has_right_neighbour(timetableslot) and \
+                    self.right_neighbour(timetableslot).isfree:
+                        timetableslot.timeslot.start
+                        self.left_neighbour(timetableslot).timeslot.end
+                        if timetableslot.timeslot.end == self.right_neighbour(timetableslot).timeslot.start:
+
+                            timetableslot.timeslot.shift_end(-time_diff)
+                            self.table[timetableslot.room][index+1].timeslot.shift_start(-time_diff)
+                            self.table[timetableslot.room][index] = timetableslot
+                                
+                            return True
+
+                if self.has_left_neighbour(timetableslot) and \
+                    self.left_neighbour(timetableslot).isfree: 
+                        if timetableslot.timeslot.start == self.left_neighbour(timetableslot).timeslot.end:                  
+                            timetableslot.timeslot.shift_start(time_diff)
+                            self.table[timetableslot.room][index-1].timeslot.shift_end(time_diff)
+                            self.table[timetableslot.room][index] = timetableslot
+                            return True    
+
+            new_slot = copy.deepcopy(timetableslot)
+            new_slot.remove_lecture()
+            new_slot.timeslot.shift_start(time_diff)
+            timetableslot.timeslot.shift_end(-time_diff)
+            print(new_slot.timeslot.start)
+            print(new_slot.timeslot.end)
+            print(timetableslot.timeslot.start)
+            print(timetableslot.timeslot.end)
+            self.table[timetableslot.room][index] = timetableslot
+            self.insert_timetableslot(new_slot.room,new_slot)
+            return True
 
     def add_lecture(self,lecture,timetableslot,free=True):
         #timetable slot could be the actual timetableslot or just a wrapper that contains the room
@@ -182,42 +319,27 @@ class Daytimetable:
         #validate lecture
         #validate timetableslot
         #update docstring
-                
-        #Edit blocks till end#################################################
-        if timetableslot == None:#remove and catch exceptions rather 
-            return False
+        #lecture_added = False
 
         try:
-            self.rooms.index(timetableslot.room)
-            timeslot_index = self.timeslots.index(timetableslot.timeslot)
-        except ValueError:
-            #handle exception
-            return
-        except AttributeError:
-            #handle exception
-            return
-        #end##################################################################
+            timetableslot = self.timetableslot(timetableslot.room,timetableslot.timeslot)
 
-    
-        timetableslot = self.timetableslot(timetableslot.room,timetableslot.timeslot)
+            lecture_added  = False
 
-        if free:#assign slot only if the lecture is free
-            if timetableslot.isfree:
-                if lecture.duration <= timetableslot.timeslot.duration:
-                    if lecture.curriculum_item.section.size <= timetableslot.room.capacity:
-                        timetableslot.lecture = lecture
-                        self.table[timetableslot.room][timeslot_index]  = timetableslot
-                        return True
-        elif not free: #assign lecture wether slot is free or not
-            if lecture.duration <= timetableslot.timeslot.duration:
-                if lecture.curriculum_item.section.size <= timetableslot.room.capacity:
-                    timetableslot.lecture = lecture
-                    self.table[timetableslot.room][timeslot_index]  = timetableslot
-                    return True
-    
-        return False
-        
-    def move_lecture(self,sourceslot,destslot,free=True):#convert to decorator
+            if free:#assign slot only if the lecture is free
+                if timetableslot.isfree:
+                    lecture_added = self.assign_lecture(lecture,timetableslot)
+
+            elif not free: #assign lecture wether slot is free or not
+                    lecture_added = self.assign_lecture(lecture,timetableslot)
+        except Exception as e:
+            print(e)
+            return False
+        else:
+            return lecture_added
+
+
+    def move_lecture(self,sourceslot,destslot,free=True):
         """MOves the lecture in soourceslot to destslot.
 
         Parameters
@@ -250,9 +372,8 @@ class Daytimetable:
 
         timetableslot = self.timetableslot(sourceslot.room,sourceslot.timeslot)
 
-        #**********check when debuggin *****************************#
         if timetableslot.isoccupied:
-            if  self.add_lecture(sourceslot.lecture,destslot,free):#if lecture is added but
+            if  self.add_lecture(timetableslot.lecture,destslot,free):#if lecture is added but
                 if self.remove_lecture(timetableslot): #fails to be removed what happens?
                     return True
         return False
@@ -416,6 +537,36 @@ class Daytimetable:
                 slots.append(slot)
         return slots
 
+    def lecturers_are_free(self,lecturers,timeslot):
+        """Checks if lecturer is free at time specified by timeslot
+
+        Parameters
+        ----------
+        lecturer :  Lecturer
+            lecturer to check if is free
+
+        timeslot : Timeslot
+            Time to check if lecturer is free
+        
+        Returns
+        -------
+        bool
+            True if lecturer is free at time specified by timeslot, false otherwise
+
+        Raises
+        ------
+     
+        """
+        #TODO
+        #validate the lecturer and the timeslot
+        for room in self.rooms:
+            for timetableslot in self.table[room]:
+                if timetableslot.isoccupied and \
+                    set(lecturers) == set(timetableslot.lecture.curriculum_item.lecturers):
+                        if self.timeslots_overlap(timeslot,timetableslot.timeslot):
+                            return False
+        return True
+     
     def lecturer_is_free(self,lecturer,timeslot):
         """Checks if lecturer is free at time specified by timeslot
 
@@ -438,18 +589,29 @@ class Daytimetable:
         """
         #TODO
         #validate the lecturer and the timeslot
-        #change logic. slot.lecture.curriculum_item.lecturers is a list not a single value
-
-        index = self.timeslots.index(timeslot)
         for room in self.rooms:
-            slot = self.table[room][index]
-            if slot.isoccupied:
-                for lect in slot.lecture.curriculum_item.lecturers:
-                    if lect == lecturer:
-                        return False
-        
+            for timetableslot in self.table[room]:
+                if timetableslot.isoccupied and \
+                    lecturer in timetableslot.lecture.curriculum_item.lecturers:
+                        if self.timeslots_overlap(timeslot,timetableslot.timeslot):
+                            return False
         return True
 
+    def section_is_free(self,section,timeslot):
+        for room in self.rooms:
+            for timetableslot in self.table[room]:
+                    sec = timetableslot.lecture.curriculum_item.section  
+                    if timetableslot.isoccupied and sec == section:
+                        if self.timeslots_overlap(timeslot,timetableslot.timeslot):
+                            return False
+        return True
+
+    @staticmethod
+    def timeslots_overlap(timeslot1,timeslot2):
+        if (timeslot1.start<=timeslot2.end and timeslot1.end>=timeslot2.start) or \
+            (timeslot2.start<=timeslot1.end and timeslot2.end >= timeslot1.start):
+            return True
+        return False
 
     def room_is_free(self,room,timeslot):
         """Checks if room is free at time specified by timeslot
@@ -601,3 +763,5 @@ class Daytimetable:
 
 
 #check for or not check for clashes?
+
+

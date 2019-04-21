@@ -3,7 +3,7 @@
 #  Date: 16/04/2019
 #  Time: 15:27
 
-from daytimetable import Daytimetable
+from daytimetable import DayTimetable
 from random import choice
 ##################################TODO######################################
 # 0. Complete logic for best_fit(self,lecture)
@@ -172,12 +172,13 @@ class Timetable:
         
         return slots
 
+#############################################################################################
     def lecturer_is_free(self,day,lecturer,timeslot):
         # returns true if lecturer is free on day at timeslot, false otherwise
         # validate day and lecturer
         # leave validation of timeslo to daytimetable
         # calls unverified function
-        return self.timetable[day].lecturer_is_free()
+        return self.timetable[day].lecturer_is_free(lecturer,timeslot)
 
     def room_is_free(self,day,room,timeslot):
         # returns true if room is free on day at timeslot, false otherwise
@@ -185,7 +186,7 @@ class Timetable:
         # validate room** 
         # leave validation of timeslot for daytimetable
         # calss unverified function
-        return self.timetable[day].room_is_free()
+        return self.timetable[day].room_is_free(room,timeslot)
 
     def timetableslot(self,day,room,timeslot):
         # returns the timetableslot on day at room and at timeslot

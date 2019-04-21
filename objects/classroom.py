@@ -24,9 +24,26 @@ class Classroom(object):
                     self._capacity=capacity
                     self._location=location
 
+                def __eq__(self,other):
+                    if isinstance(self,other.__class__):
+                        return self.name == other.name and self.capacity == other.capacity and\
+                            self.location == self.location
+                    else:
+                        return NotImplemented
+
+                def __ne__(self, other):
+                    if isinstance(self,other.__class__):
+                        return self.name != other.name or self.capacity != other.capacity or\
+                            self.location != self.location
+                    else:
+                        return NotImplemented
+
+                def __hash__(self):
+                        return hash((self.name,self.capacity,self.location))
+
                 def __str__(self):
-                    return "classsroom name :"+ self._name+"\n"+"size of classroom:"\
-                        +str(self._capacity)+"\n" +"location of the classroom:"+self._location+"\n"  
+                    return "Room:"+ self._name+'\t'+"Capacity :"\
+                        +str(self._capacity)  
                 
                 @property
                 def name(self):

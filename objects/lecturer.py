@@ -45,7 +45,7 @@ class Lecturer(object):
 
     """
 
-    def __init__(self,name,lect_id,title,department,email="",off_num="", phone_num="",\
+    def __init__(self,name,lect_id,title,department="",email="",off_num="", phone_num="",\
          hours=[],rank = 0):
 
         self._name = name
@@ -58,6 +58,21 @@ class Lecturer(object):
         self._office_hours = hours
         self._rank = rank 
     
+    def __eq__(self, other):
+        if isinstance(self,other.__class__):
+            return self.name == other.name and self.id == other.id
+        else:
+            return NotImplemented
+
+    def __ne__(self, other):
+        if isinstance(self,other.__class__):
+            return self.name != other.name or self.id != other.id
+        else:
+            return NotImplemented
+    
+    def __hash__(self):
+        return hash((self.name,self.id))
+
     def __str__(self):
         return self._id+ '  '+self._title + '. ' + self._name + '\n'
         
@@ -68,6 +83,7 @@ class Lecturer(object):
     @name.setter
     def name(self,name):
         self._name = name
+        
     @property
     def id(self):
         return self._id

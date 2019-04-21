@@ -41,12 +41,35 @@ class Timeslot(object):
 
         #used datetime for start and end instead of time 
         #to allow for arithmetic on the start and end times
+        #only time portion of datetime is of interest
         self._start = datetime.strptime(start,self.fmt)
         self._end  = datetime.strptime(end,self.fmt)
+
+    def __eq__(self, other):
+        if isinstance(self,other.__class__):
+            return self.start == other.start and self.end == other.end
+        else:
+            return NotImplemented
+
+    def __ne__(self, other):
+        if isinstance(self,other.__class__):
+            return self.start != other.start or self.end != other.end
+        else:
+            return NotImplemented
+
+    def __hash__(self):
+        #should not be hashable, only used in methods for removing duplicates via set
+        return hash((self.start,self.end))
 
     def __str__(self):
         return self._start.strftime(self.fmt) + ' - ' + self._end.strftime(self.fmt)
 
+    def shift_start(self,duration):
+        self._start += timedelta(minutes = duration)
+
+    def shift_end(self,duration):
+        self._end += timedelta(minutes = duration)
+        
     @property
     def duration(self):
         tdelta = self._end - self._start #returns a timedelta object not a datetime object
@@ -55,6 +78,7 @@ class Timeslot(object):
     @duration.setter
     def duration(self,duration):
         #duration is the time of the slot in minutes
+        #duration must be non negative
         self._end = self._start + timedelta(minutes = duration)
 
     @property
@@ -71,18 +95,7 @@ class Timeslot(object):
 
     @end.setter
     def end(self,end):
+        #end time must be greater than start time
         self._end = datetime.strptime(end,self.fmt)
     
-if __name__ == '__main__':
-    t1 = Timeslot('11:15','12:15')
-    print(t1)
-    print(t1.duration)
-    print(t1.start)
-    print(t1.end)
-    t1.duration = 40
-    print(t1)
-    print(t1.duration)
-    print(t1.start)
-    print(t1.end)    
-    t1.start = '08:15'
-    print(t1.start)
+

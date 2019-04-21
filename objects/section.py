@@ -35,6 +35,23 @@ class Section(object):
         self._size = size
         self._year = year
 
+    def __eq__(self, other):
+        if isinstance(self,other.__class__):
+            return self.name == other.name and self.department == self.department\
+                and self.year == self.year
+        else:
+            return NotImplemented
+
+    def __ne__(self, other):
+        if isinstance(self,other.__class__):
+            return self.name == other.name and self.department == self.department\
+                and self.year == self.year
+        else:
+            return NotImplemented
+
+    def __hash__(self):
+        return hash((self.year,self.department,self.year))
+
     def __str__(self):
         return '{name} {year} {size}'.format(
             name=self._name,
