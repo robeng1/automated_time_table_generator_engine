@@ -411,7 +411,8 @@ class DayTimetable:
 
         if slot1 == slot2:
             return True
-
+        #TODO
+        #add check for lecturers free and for section free
         if (slot1.isoccupied and slot2.isoccupied):
             if slot1.timeslot.duration == slot2.timeslot.duration: #proove
                 if slot1.room.can_accomodate(slot2.lecture.curriculum_item.section.size)\
@@ -668,100 +669,45 @@ class DayTimetable:
             if slot.timeslot == timeslot:
                 return slot
     
-    def best_fit(self,lecture,allowance = 0, free= True):
-        #true indicates if the best fit is being found only among free slots
-        """returns the free timetable slot with smallest room size big big enough to hold lecture
-
-        Parameters
-        ----------
-        lecture :  Lecture
-            lecture to find best fit timetable slot for
-
-        allowance : int
-            allowance applicable to room size
-            Defaults to 0
-
-        Returns
-        -------
-        Timetableslot
-            timetable slot with smallest room size big big enough to hold lecture
-
-        Raises
-        ------
-        """
-        
-        #TODO:
-        #Validate lecture and allowance
-        #take care of if none is found
-
-        #changed logic to use free and occupied slots
-        #verify slots 
-        class_size = lecture.curriculum_item.section.size
-        
-        best = self.first_fit(lecture,free)
-
-        if best != None:
-            min_cur = best.room.capacity + allowance - class_size 
-
-        if free:
-            slots = self.free_slots()
-        else:
-            slots = self.occupied_slots()
-
-        for slot in slots:
-            if 0 <= (slot.room.capacity +allowance - class_size) < min_cur: #check
-                if lecture.duration <= slot.timeslot.duration: #check after construction
-                    best = slot
-                    min_cur = slot.room.capacity - class_size
-
-        #*take care of if none is found 
-        return best
-
-    def first_fit(self,lecture,free =True):
-        """returns the first position in the timetable that is can hold lecture
-
-        Parameters
-        ----------
-        lecture :  Lecture
-            lecture to find first fit timetable slot for
-
-        Returns
-        -------
-        Timetableslot
-            first timetable slot big enough to hold lecture
-
-        Raises
-        ------
-        """
-        
-        #TODO
-        #Validate lecture
-        #Add allowance
-        #take care of if none is found
-        class_size = lecture.curriculum_item.section.size
-
-        #change logic to use free slots function and occupied slots
-
-        if free:
-            slots = self.free_slots()
-        else:
-            slots = self.occupied_slots()
-
-        for slot in slots:
-            if slot.room.capacity >= class_size :
-                if lecture.duration <= slot.timeslot.duration: #check after construction
-                    return slot
-
-    #dummy test stub
-    #remove after developing unit tests
-    def testprint(self):
+    def lecturer_clashes(self):
+        #returns a list of tupples 
+        all_clashes = []
+        #list of tupples
+        #each tupple contains ttable slots  where the lecturer is scheduled
+        #at overlapping times
         for room in self.rooms:
             for slot in self.table[room]:
-                if slot.isoccupied:
-                    print(str(slot.day)+ '\n'+ str(slot.timeslot)+ '\n'+ str(slot.room))
-                    print(str(slot.lecture))
+                l_clashes = ()
+                for other_room in self.rooms:
+                    if other_room != room:
+                        for other_slot in self.table[other_room]:
+                            if slot.lecture.curriculum_item.lecturers == \
+                                other_slot.lecture.curriculum_item.lecturers:
+                                if self.timeslots_overlap(slot,other_slot):
+                                    l_clashes = l_clashes + (slot,other_slot)
+                if l_clashes:
+                    all_clashes.append(l_clashes)
 
+        return list(set(all_clashes))
 
-#check for or not check for clashes?
-
-
+    def section_clashes(self):
+        #returns a list of tupples 
+        all_clashes = []
+        #list of tupples
+        #each tupple contains ttable slots  where the lecturer is scheduled
+        #at overlapping times
+        for room in self.rooms:
+            for slot in self.table[room]:
+                l_clashes = ()
+                for other_room in self.rooms:
+                    if other_room != room:
+                        for other_slot in self.table[other_room]:
+                            if slot.lecture.curriculum_item.section == \
+                                other_slot.lecture.curriculum_item.section:
+                                if self.timeslots_overlap(slot,other_slot):
+                                    l_clashes = l_clashes + (slot,other_slot)
+                if l_clashes:
+                    all_clashes.append(l_clashes)
+            
+        #filter duplicates
+        return list(set(all_clashes))

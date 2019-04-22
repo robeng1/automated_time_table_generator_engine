@@ -5,104 +5,143 @@
 # left over lectures
 
 #****************************************************************#
-# take care of segmentation in general timetable
 
-#from .../objects/timetable import Timetable
-class Time_table_generator(object):
+
+#TODO 
+#modify add_lecture to take in a [] of slots
+#lecture should not already be added to the same day 
+#lectures 
+from random import choice
+
+class TimeTableGenerator(object):
    
-    def __init__(self,timetable,lectures):
+    def __init__(self,timetable,lectures=[]):
         #validates timetable and lectures
-        
+
+        lectures.sort(key = lambda lecture: lecture.duration,reverse = True)
+
         self.timetable = timetable
-        self.unscheduled_lectures = lectures
-        self.scheduled_lectures = []
+        self.unscheduled = lectures
+        self.scheduled = []
+
+        
+    @property
+    def unscheduled(self):
+        return self.unscheduled
+
+    @property
+    def scheduled(self):
+        return self.scheduled
+
+    @property
+    def timetable(self):
+        return self.timetable
 
     def generate_timetable(self):
-        #modify to take in constraints 
-        for lecture in self.unscheduled_lectures:
-            #first look for the best free slot in which the lecture can fit
-            #remember that best fit for now can return None hence leadinog to raised exception here
-            timetableslot = self.timetable.bestfit(lecture,True)
-            
-            #try adding course to that slot if succeded
-            #mark the lecture as scheduled
-            
-            if timetableslot != None:
-            #ensure all timetableslots are assigned a day in timetable constructor
-                if self.timetable.add_lecture(timetableslot.day,lecture,timetableslot,True):
-                    self.unscheduled_lectures.remove(lecture)
-                    self.scheduled_lectures.append(lecture)
-            else: 
-                relocatable = {}
+        for lecture in self.unscheduled:
+        	if self.schedule(lecture):
+        		self.scheduled.append(lecture)
+        		self.unscheduled.remove(lecture)
+        return self.timetable
 
-                #fill relocatable with all occupied slots that can accomodate lecture
-                #alongside with all possible free slots they can be moved to 
-                for occupied_slot in self.timetable.occupied_slots():
-                    if occupied_slot.can_hold(lecture):#implement  in timetableslot
-                        for free_slot in self.timetable.free_slots():
-                            possible_dest_slots = []
-                            if free_slot.can_hold(occupied_slot.lecture):
-                                possible_dest_slots.append(free_slot)
-                        relocatable[occupied_slot] = possible_dest_slots
-                
-                if relocatable: #only run if relocatable slots found
-                #associate occupied slots only with only the best fit dest slots 
-                    for occupied_slot in relocatable.keys():#keys are occupied slots
-                        dest_slots = relocatable[occupied_slot]
-                        relocatable[occupied_slot] = occupied_slot.best_fit(dest_slots)#implement in timetableslot
+    def schedule(self,lecture):
+        best_slot =  self.best_fit(lecture)
 
-                         #decide on which slot to remove
-                         #get the best slot and move
-                    best_slot = list(relocatable.keys())[0]
-                    for occupied_slot in relocatable.keys():
-                        #occupied slot must have a lecture
-                        free_slot = relocatable[occupied_slot]
-                        if ((free_slot.room.capacity - \
-                            occupied_slot.lecture.curriculum_item.section.size) + \
-                            (lecture.curriculum_item.section.size -\
-                            occupied_slot.room.capacity)) < ((best_slot.room.capacity - \
-                            best_slot.lecture.curriculum_item.section.size) + \
-                            (lecture.curriculum_item.section.size -\
-                            best_slot.room.capacity)) :
-                            best_slot  = occupied_slot
-                    
-                    #move occupied lecture to free slot
-                    dest_slot = relocatable[best_slot]
-                    self.timetable.move_lecture(best_slot.day,best_slot,dest_slot.day,dest_slot,False)
-                    self.timetable.add_lecture(best_slot.day,lecture,best_slot)
+        if best_slot:
+            #TODO
+            #modify add_lecture to merge adjaecent same slots
+            return self.timetable.add_lecture(best_slot)
+        else:
+            #add after swapping
+            return self.schedule_via_swap(lecture)
+        
+    def schedule_via_swap(self,lecture):
+        occupied_slots = self.timetable.occupied_slots()
 
-                else: #if not relocatable
-                        pass
-    def schudule_lecture(self,lecture):
-        #modify to take in constraints
-        pass
+        #swap method 1. move occupied slot to free slot and lecture to its position
+        can_hold  =  filter(lambda slot: self.can_hold(lecture,slot),occupied_slots)
 
-    try:
-            timetableslot = self.timetableslot(timetableslot.room,timetableslot.timeslot)
-            if free:#add_lecture to slot only if slot is free
-                if self.lecturers_are_free(timetableslot.timetlost,lecture.curriculum_item.lecturers):
-                    if self.section_is_free(lecture.curriculum_item.section,timetableslot.timeslot):
-                        if timetableslot.room.can_accomodate(lecture.curriculum_item.section.size):
-                            if timetableslot.timeslot.duration == lecture.duration:
-                                index = self.table[timetableslot.room].index(timetableslot)
-                                self.table[timetableslot.room][index] = timetableslot
-                                
+        #TODO
+        #add metric to select the best to move not just the first 
+
+        for slot in can_hold:
+            best_slot = self.best_fit(slot.lecture)
+
+            if best_slot:#slot can be move to empty position
+                #TODO
+                #modify move_lecture to taein a [] of ttslots
+                self.timetable.move_lecture(slot,best_slot)
+                self.timetable.add_lecture(slot,lecture,False)
+
+                return True
+        
+        #if swap method 1 fails use second order swapping
+        #move slot that cannot hold lecture to free slot
+        #move slot that can hold lecture to its place
+        #move lecture to place of slot that can hold lecture
+
+        cannot_hold = filter(lambda slot: not self.can_hold(lecture,slot),occupied_slots)
+
+        for dslot in cannot_hold:
+            best_slot = self.best_fit(dslot.lecture)
+
+            if best_slot:#can be moved to a free slot
+                for sslot in can_hold:
+                    if self.can_hold(sslot.lecture,dslot):
+                        #has a can_hold slot that can take it's place
+                        if self.timetable.move_lecture(dslot,best_slot):
+                            if self.timetable.move_lecture(sslot,dslot):
                                 return True
 
-                            elif timetableslot.timeslot.duration < lecture.duration:
-                                #get a list of all contiguous free left neighbours
-                                #get a list of all contiguous free right neighbours
-                                #add left neighbours to slot until it's duration can
-                                #add right neighbours to slot until it's durration can
-                                left = self.free_left_neighbours(timetableslot)
-                                right = self.free_right_neighbours(timetableslot)
+        return False
 
-                                #check if the right and left neighbours combined can provide the
-                                #excess of time needed
+    def best_fit(self,lecture):
+        free_slots = self.timetable.free_slots()
 
-                           
-                                
-            elif not free:#add_lecture to slot even if it is not free
-                pass
-        except Exception:
-            return False
+        #only slots that can hold lecture
+        dest_slots = filter(lambda slot: self.can_hold(lecture,slot),free_slots)
+
+        #TODO
+        #change to get metric for obtaining the best
+
+        if dest_slots:
+            return [choice(dest_slots)]# return a list with a single dest slot
+
+        #we require merging slots to obtain a slot 
+        else:
+            for ttslot in free_slots:
+                #TODO
+                #modify left_neighbours and right_neighbours function
+                left = self.timetable.left_neighbours(ttslot)#free contiguous left neighbours of slot
+                right = self.timetable.right_neighbours(ttslot)
+                
+                all_slots = left + [ttslot] + right
+
+                total_duration = 0
+                
+                #determine if the combined duration of all slots can accomodate lecture
+                for lslot in all_slots:
+                    total_duration += lslot.timeslot.duration
+                
+                if lecture.duration <= total_duration:
+                    total_duration = 0
+                    
+                    dest_slots = []
+                    for lslot in all_slots:
+                        if total_duration >=lecture.duration:
+                            break
+                        dest_slots.append(lslot)
+                        total_duration+= lslot.timetslot.duration
+
+                    return dest_slots
+
+                
+    #duration check is problematic
+    #remove checking for duration
+    def can_hold(self,lecture,slot):
+        #duration checking is problematic
+        if slot.can_hold(lecture):#here
+            if self.timetable.section_is_free(lecture.curriculum_item.section,slot): 
+                if self.timetable.lecturers_are_free(lecture.curriculum_item.lecturers):
+                    return True
+        return False

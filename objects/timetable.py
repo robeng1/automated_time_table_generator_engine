@@ -21,35 +21,38 @@ from random import choice
 
 class Timetable:
     #class for holding the timetable structure of the institution
-    # does not handle the creation of day timetables or the days
+    # does not handle the creation of day timetables or the _days
     # does not handle business logic
-    # assumes days,timeslots etc make sense passed in make sense*
+    # assumes _days,timeslots etc make sense passed in make sense*
 
-    days = [] #the days for which lectures can be scheduled
-                #format for days decided by business logic
+    _days = [] #the _days for which lectures can be scheduled
+                #format for _days decided by business logic
                 #format must 
     timetable = {} #holds the timetable for teach day
-                #keys are the days and the values are day timetables
+                #keys are the _days and the values are day timetables
 
     def __init__(self,days=[], daytables = []):
-        #days is the list of all days open for scheduling
-        #decide on business rule for validity of days
+        #_days is the list of all _days open for scheduling
+        #decide on business rule for validity of _days
         #daytables is a list of Daytimetables representing the timetable
-        #days must be the same as the day tables
+        #_days must be the same as the day tables
         #decide on application rules to validate day tables
-        #create timetable from days and daytables
+        #create timetable from _days and daytables
 
-        self.days = days
+        self._days = days
 
-        for day in self.days:
-            self.timetable[day] = daytables[self.days.index(day)]
+        for day in self._days:
+            self.timetable[day] = daytables[self._days.index(day)]
             self.timetable[day].day = day #makes sure daytiemtable has a day
             #verify
 
         #set the day for each timetable slot
+    @property
+    def days(self):
+        return self._days
 
     def add_lecture(self,day,lecture,timetableslot,free=True):
-        # validate the day //day should belong to days[]
+        # validate the day //day should belong to _days[]
         # lecture and timetableslot assumed valid
 
         if self.day_is_valid(day): #change to duck typing... catch exception
@@ -121,7 +124,7 @@ class Timetable:
     def remove_all(self):
         # removes all the lectures in the entire table
         
-        for day in self.days:
+        for day in self._days:
             removed = self.timetable[day].remove_all()
 
             if not removed:
@@ -136,7 +139,7 @@ class Timetable:
         occupied = []
 
         if day == None:
-            for d in self.days:
+            for d in self._days:
                 occupied += self.timetable[d].occupied_slots()
         else:
             if self.day_is_valid(day):
@@ -150,7 +153,7 @@ class Timetable:
         free =  []
 
         if day == None:
-            for d in self.days:
+            for d in self._days:
                 free+= self.timetable[d].free_slots()
         else:
             if self.day_is_valid(day):
@@ -192,7 +195,7 @@ class Timetable:
         # returns the timetableslot on day at room and at timeslot
         # validate day and * room
         # day should be an optional parameter 
-        # if day not specified returns a list with timetable slots on all  those days
+        # if day not specified returns a list with timetable slots on all  those _days
         # timeslot verified by daytimetable
         return self.timetable[day].timetableslot(room,timeslot)
     
@@ -201,7 +204,7 @@ class Timetable:
         #  daytimetable may not return a timetable slot
         best_fits = []
         
-        for day in self.days:
+        for day in self._days:
             best_fits.append(self.timetable[day].best_fit)
 
         #assuming all slots in best_fits are valid
@@ -211,7 +214,7 @@ class Timetable:
 
     def first_fit(self,day,lecture):
         # returns the first fit for lecture on day
-        # some days may not have any slot that can fit the lecture
+        # some _days may not have any slot that can fit the lecture
         # that is some items in first may be None
         # may also return none 
 
@@ -221,9 +224,25 @@ class Timetable:
             if slot != None:
                 return slot
 
-    def day_is_valid(self,day): #returns true if the day is part of the initial days
-        for d in self.days:
+    def day_is_valid(self,day): #returns true if the day is part of the initial _days
+        for d in self._days:
             if d == day:
                 return True
         
         return False
+
+    def lecturer_clashes(self):
+        clashes = []
+        for day in self._days:
+            clashes.append(self.timetable[day].lecturer_clashes())
+
+        return clashes
+
+    def section_clashes(self):
+        clashes = []
+
+        for day in self._days:
+            clashes.append(self.timetable[day].lecturer_clashes())
+
+        return clashes
+

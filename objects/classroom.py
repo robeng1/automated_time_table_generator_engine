@@ -18,28 +18,27 @@ class Classroom(object):
                  
                     """
 
-                def __init__(self,name,capacity,location=''):
-                    'the constructor for this class specifies the classroom name,the capacity,the location of the class'
-                    self._name=name
-                    self._capacity=capacity
-                    self._location=location
+                def __init__(self,name,capacity):
+                    self.name=name
+                    self.capacity=capacity
+                    #self._location=location
 
                 def __eq__(self,other):
                     if isinstance(self,other.__class__):
-                        return self.name == other.name and self.capacity == other.capacity and\
-                            self.location == self.location
+                        return self.name == other.name and self.capacity == other.capacity# and\
+                            #self.location == self.location
                     else:
                         return NotImplemented
 
                 def __ne__(self, other):
                     if isinstance(self,other.__class__):
-                        return self.name != other.name or self.capacity != other.capacity or\
-                            self.location != self.location
+                        return self.name != other.name or self.capacity != other.capacity #or\
+                            #self.location != self.location
                     else:
                         return NotImplemented
 
                 def __hash__(self):
-                        return hash((self.name,self.capacity,self.location))
+                        return hash((self.name,self.capacity))
 
                 def __str__(self):
                     return "Room:"+ self._name+'\t'+"Capacity :"\
@@ -51,6 +50,8 @@ class Classroom(object):
 
                 @name.setter      
                 def name(self,new_name):
+                    #TODO
+                    #validate, new_name cannot be empty
                     self._name=new_name
                 
                 @property 
@@ -59,15 +60,17 @@ class Classroom(object):
 
                 @capacity.setter
                 def capacity(self,capacity):
+                    #TODO
+                    #capacity should not be negative
                     self._capacity=capacity
 
-                @property
-                def location(self):
-                    return self._location
+                #@property
+                #def location(self):
+                 #   return self._location
 
-                @location.setter
-                def location(self,location):
-                    self._location=location
+                #@location.setter
+                #def location(self,location):
+                 #   self._location=location
 
                 def can_accomodate(self,size,allowance=0):
                     return (self._capacity + allowance) >= size
