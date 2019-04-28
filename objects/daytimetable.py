@@ -402,7 +402,8 @@ class DayTimetable:
 
         if slot1 == slot2:
             return True
-
+        #TODO
+        #add check for lecturers free and for section free
         if (slot1.isoccupied and slot2.isoccupied):
             if slot1.timeslot.duration == slot2.timeslot.duration:  # proove
                 if slot1.room.can_accomodate(slot2.lecture.curriculum_item.section.size) \
@@ -655,6 +656,7 @@ class DayTimetable:
         for slot in self.table[room]:
             if slot.timeslot == timeslot:
                 return slot
+<<<<<<< HEAD
 
     def best_fit(self, lecture, allowance=0, free=True):
         # true indicates if the best fit is being found only among free slots
@@ -750,3 +752,48 @@ class DayTimetable:
                     print(str(slot.lecture))
 
 # check for or not check for clashes?
+=======
+    
+    def lecturer_clashes(self):
+        #returns a list of tupples 
+        all_clashes = []
+        #list of tupples
+        #each tupple contains ttable slots  where the lecturer is scheduled
+        #at overlapping times
+        for room in self.rooms:
+            for slot in self.table[room]:
+                l_clashes = ()
+                for other_room in self.rooms:
+                    if other_room != room:
+                        for other_slot in self.table[other_room]:
+                            if slot.lecture.curriculum_item.lecturers == \
+                                other_slot.lecture.curriculum_item.lecturers:
+                                if self.timeslots_overlap(slot,other_slot):
+                                    l_clashes = l_clashes + (slot,other_slot)
+                if l_clashes:
+                    all_clashes.append(l_clashes)
+
+        return list(set(all_clashes))
+
+    def section_clashes(self):
+        #returns a list of tupples 
+        all_clashes = []
+        #list of tupples
+        #each tupple contains ttable slots  where the lecturer is scheduled
+        #at overlapping times
+        for room in self.rooms:
+            for slot in self.table[room]:
+                l_clashes = ()
+                for other_room in self.rooms:
+                    if other_room != room:
+                        for other_slot in self.table[other_room]:
+                            if slot.lecture.curriculum_item.section == \
+                                other_slot.lecture.curriculum_item.section:
+                                if self.timeslots_overlap(slot,other_slot):
+                                    l_clashes = l_clashes + (slot,other_slot)
+                if l_clashes:
+                    all_clashes.append(l_clashes)
+            
+        #filter duplicates
+        return list(set(all_clashes))
+>>>>>>> 606e1e09f411f3099ad835c32cbdc11365b7a368
