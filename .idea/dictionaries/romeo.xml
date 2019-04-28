@@ -2,6 +2,7 @@
   <dictionary name="romeo">
     <words>
       <w>mins</w>
+      <w>tablename</w>
     </words>
   </dictionary>
 </component>

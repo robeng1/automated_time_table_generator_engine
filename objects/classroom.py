@@ -4,7 +4,7 @@
 #  Time: 01:27
 
 class Classroom(object):
-                """classroom allocation class specifies the capacity of a class,the location
+    """classroom allocation class specifies the capacity of a class,the location
                 
                 Attributes
                 ----------
@@ -18,67 +18,56 @@ class Classroom(object):
                  
                     """
 
-                def __init__(self,name,capacity,location=''):
-                    'the constructor for this class specifies the classroom name,the capacity,the location of the class'
-                    self._name=name
-                    self._capacity=capacity
-                    self._location=location
+    def __init__(self, name, capacity, location=''):
+        'the constructor for this class specifies the classroom name,the capacity,the location of the class'
+        self._name = name
+        self._capacity = capacity
+        self._location = location
 
-                def __eq__(self,other):
-                    if isinstance(self,other.__class__):
-                        return self.name == other.name and self.capacity == other.capacity and\
-                            self.location == self.location
-                    else:
-                        return NotImplemented
+    def __eq__(self, other):
+        if isinstance(self, other.__class__):
+            return self.name == other.name and self.capacity == other.capacity and \
+                   self.location == self.location
+        else:
+            return NotImplemented
 
-                def __ne__(self, other):
-                    if isinstance(self,other.__class__):
-                        return self.name != other.name or self.capacity != other.capacity or\
-                            self.location != self.location
-                    else:
-                        return NotImplemented
+    def __ne__(self, other):
+        if isinstance(self, other.__class__):
+            return self.name != other.name or self.capacity != other.capacity or \
+                   self.location != self.location
+        else:
+            return NotImplemented
 
-                def __hash__(self):
-                        return hash((self.name,self.capacity,self.location))
+    def __hash__(self):
+        return hash((self.name, self.capacity, self.location))
 
-                def __str__(self):
-                    return "Room:"+ self._name+'\t'+"Capacity :"\
-                        +str(self._capacity)  
-                
-                @property
-                def name(self):
-                    return self._name
+    def __str__(self):
+        return "Room:" + self._name + '\t' + "Capacity :" \
+               + str(self._capacity)
 
-                @name.setter      
-                def name(self,new_name):
-                    self._name=new_name
-                
-                @property 
-                def capacity(self):
-                    return self._capacity
+    @property
+    def name(self):
+        return self._name
 
-                @capacity.setter
-                def capacity(self,capacity):
-                    self._capacity=capacity
+    @name.setter
+    def name(self, new_name):
+        self._name = new_name
 
-                @property
-                def location(self):
-                    return self._location
+    @property
+    def capacity(self):
+        return self._capacity
 
-                @location.setter
-                def location(self,location):
-                    self._location=location
+    @capacity.setter
+    def capacity(self, capacity):
+        self._capacity = capacity
 
-                def can_accomodate(self,size,allowance=0):
-                    return (self._capacity + allowance) >= size
+    @property
+    def location(self):
+        return self._location
 
-                
-               
-                 
-                    
-                
+    @location.setter
+    def location(self, location):
+        self._location = location
 
-
-
-                
-
+    def can_accomodate(self, size, allowance=0):
+        return (self._capacity + allowance) >= size

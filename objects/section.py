@@ -28,7 +28,7 @@ class Section(object):
 
     # TODO: add validations to attributes
 
-    def __init__(self, name,size,year, faculty='', department=''):
+    def __init__(self, name, size, year, faculty='', department=''):
         self._name = name
         self._faculty = faculty
         self._department = department
@@ -36,21 +36,21 @@ class Section(object):
         self._year = year
 
     def __eq__(self, other):
-        if isinstance(self,other.__class__):
-            return self.name == other.name and self.department == self.department\
-                and self.year == self.year
+        if isinstance(self, other.__class__):
+            return self.name == other.name and self.department == self.department \
+                   and self.year == self.year
         else:
             return NotImplemented
 
     def __ne__(self, other):
-        if isinstance(self,other.__class__):
-            return self.name == other.name and self.department == self.department\
-                and self.year == self.year
+        if isinstance(self, other.__class__):
+            return self.name == other.name and self.department == self.department \
+                   and self.year == self.year
         else:
             return NotImplemented
 
     def __hash__(self):
-        return hash((self.year,self.department,self.year))
+        return hash((self.year, self.department, self.year))
 
     def __str__(self):
         return '{name} {year} {size}'.format(
