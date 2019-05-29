@@ -1,5 +1,7 @@
+from flask import jsonify
 from flask_restful import Resource, reqparse
-from .models import UserModel, RevokedTokenModel
+from .models import UserModel, RevokedTokenModel, ModuleModel, SectionModel
+from .parser import moduleParser, sectionParser
 from . import status
 from flask_jwt_extended import (
     create_access_token,
@@ -13,6 +15,7 @@ from flask_jwt_extended import (
 parser = reqparse.RequestParser()
 parser.add_argument('username', help='This field cannot be blank', required=True)
 parser.add_argument('password', help='This field cannot be blank', required=True)
+
 
 # TODO: test
 
@@ -39,7 +42,7 @@ class UserRegistration(Resource):
                 'access_token': access_token,
                 'refresh_token': refresh_token
             }
-        except:
+        except IOError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
 
 
@@ -72,7 +75,7 @@ class UserLogoutAccess(Resource):
             revoked_token = RevokedTokenModel(jti=jti)
             revoked_token.add()
             return {'message': 'Access token has been revoked'}
-        except:
+        except IOError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
 
 
@@ -84,7 +87,7 @@ class UserLogoutRefresh(Resource):
             revoked_token = RevokedTokenModel(jti=jti)
             revoked_token.add()
             return {'message': 'Refresh token has been revoked'}
-        except:
+        except IOError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
 
 
@@ -112,3 +115,58 @@ class SecretResource(Resource):
         return {
             'answer': 42
         }
+
+
+class ModuleResource(Resource):
+
+    @staticmethod
+    def post(module_id=None):
+        if module_id:
+            return
+        # parses the request argument
+        data = moduleParser.parse_args(strict=True)
+
+        # initializes a new module
+        new_module = ModuleModel()
+        new_module.code = data['code']
+        new_module.name = data['name']
+        new_module.teaching = data['teaching']
+        new_module.practicals = data['practicals']
+        new_module.credit = data['credit']
+        new_module.first_examiner = data["first_examiner"]
+        new_module.second_examiner = data["second_examiner"]
+
+        # writes the module to the database
+        new_module.save_to_db()
+
+        return jsonify(new_module.to_json()), status.HTTP_201_CREATED
+
+    @staticmethod
+    def get(code=None):
+        if code is None:
+            return {
+                'error': 'must provide the course code'
+            }
+        module = ModuleModel.find_module_by_course_code(code)
+        return jsonify(module.to_json()), status.HTTP_200_OK
+
+
+class SectionResource(Resource):
+    @staticmethod
+    def post():
+        data = sectionParser.parse_args()
+        new_section = SectionModel()
+        new_section.klass = data["klass"]
+        new_section.code = data["code"]
+        new_section.shared = data["shared"]
+        new_section.save_to_db()
+        return jsonify(new_section.to_json()), status.HTTP_201_CREATED
+
+    @staticmethod
+    def get(klass=None):
+        if klass is None:
+            return {
+                'error': 'must provide the klass identifier'
+            }
+        section = SectionModel.find_by_klass(klass)
+        return jsonify(section.to_json()), status.HTTP_200_OK

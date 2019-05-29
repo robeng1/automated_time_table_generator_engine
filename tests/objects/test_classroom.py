@@ -21,9 +21,9 @@ class TestSection(unittest.TestCase):
         self.assertEqual(self.room2.capacity,100)
     
     def test_can_accomodate(self):
-        self.assertEqual(self.room1.can_accomodate(120),True)
-        self.assertEqual(self.room1.can_accomodate(130),False)
-        self.assertEqual(self.room1.can_accomodate(130,10),True)
+        self.assertEqual(self.room1.can_accommodate(120), True)
+        self.assertEqual(self.room1.can_accommodate(130), False)
+        self.assertEqual(self.room1.can_accommodate(130, 10), True)
     
     def test___eq__(self):
         self.assertEqual((self.room1==self.room2),False)

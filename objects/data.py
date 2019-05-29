@@ -3,9 +3,9 @@
 #  Date: 13/04/2019
 #  Time: 06:27
 
-from section import Section
-from course import Course
-from lecturer import Lecturer
+from .section import Section
+from .course import Course
+from .lecturer import Lecturer
 
 
 class CurriculumItem:
@@ -31,7 +31,7 @@ class CurriculumItem:
             this is course
         lecturers : Lecturer
             a list of lecturers thus the first and second examiner
-        allocated : int
+        _allocated : int
             the mins of the total teaching mins that have been
             allocated
 

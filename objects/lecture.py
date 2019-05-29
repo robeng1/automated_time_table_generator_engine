@@ -3,7 +3,7 @@
 #  Date: 13/04/2019
 #  Time: 06:27
 
-from data import CurriculumItem
+# from .data import CurriculumItem
 
 
 class Lecture:
@@ -35,22 +35,22 @@ class Lecture:
 
     """
 
-    def __init__(self,c_item,duration):
+    def __init__(self, c_item, duration):
         self._curriculum_item = c_item
         self._duration = duration
 
     def __str__(self):
-        return str(self.curriculum_item.course) +'\n'+\
-            str(self.curriculum_item.section)+'\n'+\
-            str(self.curriculum_item.lecturers)+'\n'+\
-            str(self.duration)+'\n'+'-----------------------------------------'
+        return str(self.curriculum_item.course) + '\n' + \
+               str(self.curriculum_item.section) + '\n' + \
+               str(self.curriculum_item.lecturers) + '\n' + \
+               str(self.duration) + '\n' + '-----------------------------------------'
 
     @property
     def curriculum_item(self):
         return self._curriculum_item
 
     @curriculum_item.setter
-    def curriculum_item(self,value):
+    def curriculum_item(self, value):
         self._curriculum_item = value
 
     @property
@@ -58,6 +58,5 @@ class Lecture:
         return self._duration
 
     @duration.setter
-    def duration(self,duration):
+    def duration(self, duration):
         self._duration = duration
-    
