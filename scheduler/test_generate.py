@@ -20,6 +20,7 @@ class TestGenerate(TestCase):
         timetable = self.gen.generate
         self.assertNotEqual(timetable, None)
         self.assertIsInstance(timetable, Timetable)
+        print(timetable.timetable)
 
 
 

@@ -17,34 +17,35 @@ from random import choice
 class TimeTableGenerator(object):
 
     def __init__(self, timetable, lectures=None):
-        # validates timetable and lectures
+        # validates
+        # timetable and lectures
 
         if lectures is None:
             lectures = []
         lectures.sort(key=lambda lecture: lecture.duration, reverse=True)
 
-        self.timetable = timetable
-        self.unscheduled = lectures
-        self.scheduled = []
+        self._timetable = timetable
+        self._unscheduled = lectures
+        self._scheduled = []
 
     @property
     def unscheduled(self):
-        return self.unscheduled
+        return self._unscheduled
 
     @property
     def scheduled(self):
-        return self.scheduled
+        return self._scheduled
 
     @property
-    def table(self):
-        return self.timetable
+    def timetable(self):
+        return self._timetable
 
     def generate_timetable(self):
-        for lecture in self.unscheduled:
+        for lecture in self._unscheduled:
             if self.schedule(lecture):
-                self.scheduled.append(lecture)
-                self.unscheduled.remove(lecture)
-        return self.timetable
+                self._scheduled.append(lecture)
+                self._unscheduled.remove(lecture)
+        return self._timetable
 
     def schedule(self, lecture):
         best_slot = self.best_fit(lecture)
@@ -52,13 +53,13 @@ class TimeTableGenerator(object):
         if best_slot:
             # TODO
             # modify add_lecture to merge adjaecent same slots
-            return self.timetable.add_lecture(best_slot)
+            return self._timetable.add_lecture(best_slot)
         else:
             # add after swapping
             return self.schedule_via_swap(lecture)
 
     def schedule_via_swap(self, lecture):
-        occupied_slots = self.timetable.occupied_slots()
+        occupied_slots = self._timetable.occupied_slots()
 
         # swap method 1. move occupied slot to free slot and lecture to its position
         can_hold = filter(lambda slot: self.can_hold(lecture, slot), occupied_slots)
@@ -72,8 +73,8 @@ class TimeTableGenerator(object):
             if best_slot:  # slot can be move to empty position
                 # TODO
                 # modify move_lecture to taein a [] of ttslots
-                self.timetable.move_lecture(slot, best_slot)
-                self.timetable.add_lecture(slot, lecture, False)
+                self._timetable.move_lecture(slot, best_slot)
+                self._timetable.add_lecture(slot, lecture, False)
 
                 return True
 
@@ -91,17 +92,17 @@ class TimeTableGenerator(object):
                 for sslot in can_hold:
                     if self.can_hold(sslot.lecture, dslot):
                         # has a can_hold slot that can take it's place
-                        if self.timetable.move_lecture(dslot, best_slot):
-                            if self.timetable.move_lecture(sslot, dslot):
+                        if self._timetable.move_lecture(dslot, best_slot):
+                            if self._timetable.move_lecture(sslot, dslot):
                                 return True
 
         return False
 
     def best_fit(self, lecture):
-        free_slots = self.timetable.free_slots()
+        free_slots = self._timetable.free_slots()
 
         # only slots that can hold lecture
-        dest_slots = filter(lambda slot: self.can_hold(lecture, slot), free_slots)
+        dest_slots = list(filter(lambda slot: self.can_hold(lecture, slot), free_slots))
 
         # TODO
         # change to get metric for obtaining the best
@@ -114,8 +115,8 @@ class TimeTableGenerator(object):
             for ttslot in free_slots:
                 # TODO
                 # modify left_neighbours and right_neighbours function
-                left = self.timetable.left_neighbours(ttslot)  # free contiguous left neighbours of slot
-                right = self.timetable.right_neighbours(ttslot)
+                left = self._timetable.left_neighbours(ttslot)  # free contiguous left neighbours of slot
+                right = self._timetable.right_neighbours(ttslot)
 
                 all_slots = left + [ttslot] + right
 
@@ -142,19 +143,19 @@ class TimeTableGenerator(object):
     def can_hold(self, lecture, slot):
         # duration checking is problematic
         if slot.can_hold(lecture):  # here
-            if self.timetable.section_is_free(lecture.curriculum_item.section, slot):
-                if self.timetable.lecturers_are_free(lecture.curriculum_item.lecturers):
+            if self._timetable.section_is_free(lecture.curriculum_item.section, slot):
+                if self._timetable.lecturers_are_free(lecture.curriculum_item.lecturers):
                     return True
         return False
 
-    @unscheduled.setter
-    def unscheduled(self, value):
-        self._unscheduled = value
-
-    @table.setter
-    def table(self, value):
-        self._timetable = value
-
-    @scheduled.setter
-    def scheduled(self, value):
-        self._scheduled = value
+    # @unscheduled.setter
+    # def _unscheduled(self, value):
+    #     self._unscheduled = value
+    #
+    # @timetable.setter
+    # def timetable(self, value):
+    #     self._timetable = value
+    #
+    # @scheduled.setter
+    # def _scheduled(self, value):
+    #     self._scheduled = value

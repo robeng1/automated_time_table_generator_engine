@@ -8,9 +8,9 @@
 
 from .classroom import Classroom
 from .timetableslot import TimetableSlot
-from .lecturer import Lecturer
-from .lecture import Lecture
-from .timeslot import TimeSlot
+# from .lecturer import Lecturer
+# from .lecture import Lecture
+# from .timeslot import TimeSlot
 import copy
 
 
@@ -92,7 +92,7 @@ class DayTimetable:
     rooms = []  # all classrooms that are available for that day
     table = {}  # maps each classroom to the different times it is available for lectures
 
-    def __init__(self, classrooms, time_slots=[], day=None):
+    def __init__(self, classrooms, time_slots=None, day=None):
         """
         Parameters
         ----------
@@ -105,6 +105,8 @@ class DayTimetable:
         # TODO
         # validate to check instances of particular class
 
+        if time_slots is None:
+            time_slots = []
         self._day = day
 
         # remove duplicates from the list of classrooms
@@ -115,7 +117,7 @@ class DayTimetable:
         classrooms.sort(key=lambda classroom: classroom.capacity, reverse=True)
         self.rooms = classrooms
 
-        time_slots = self.validate_time_slots(time_slots)
+        time_slots = self.validate_time_slots()
 
         for room in self.rooms:
             self.set_time_slots(room, time_slots)
@@ -132,22 +134,22 @@ class DayTimetable:
         return my_str
 
     def set_time_slots(self, room, time_slots):
-        self.validate_time_slots(time_slots)
+        self.validate_time_slots()
         slots = []
         for time_slot in time_slots:
             time_table_slot = TimetableSlot(self.day, room, time_slot)
             slots.append(time_table_slot)
         self.table[room] = slots
 
-    @staticmethod
-    def validate_time_slots(time_slots):
+    def validate_time_slots(self):
+        passes = False
         # if time_slots are not specified then they can be added specifically for each room
         # through the set_time_slots(self,room,time_slots) function
-        if time_slots:
-
+        if self.time_slots:
+            passes = True
             # remove duplicates from timeslot
             # problems may arise if time_slots is mutated
-            time_slots = list(set(time_slots))
+            time_slots = list(set(self.time_slots))
 
             # sort the time_slots according to starting time
             time_slots.sort(key=lambda timeslot: timeslot.start)
@@ -155,11 +157,13 @@ class DayTimetable:
             # ensures there are no overlapping times in the time_slots
             #############################################################################
             for i in range(len(time_slots) - 2):
-                if time_slots[i].end > time_slots[i + 1].start:  # proove correctness
-                    # raise overlap exception
-                    pass
+                if time_slots[i].end > time_slots[i+1].start:  # proove correctness
+                    continue
+                else:
+                    passes = False
+                    break
             #############################################################################
-        return time_slots
+        return passes
 
     @property
     def day(self):

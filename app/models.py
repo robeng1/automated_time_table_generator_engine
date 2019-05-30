@@ -2,6 +2,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, joinedload
 from app import db
 from passlib.hash import pbkdf2_sha256 as sha256
+from sqlalchemy.dialects.postgresql import JSONB
 
 
 class BaseModel(db.Model):
@@ -128,3 +129,21 @@ class SectionModel(BaseModel):
     @classmethod
     def find_by_klass(cls, kls):
         return cls.query.filter_by(klass=kls)
+
+
+class ClassRoomModel(BaseModel):
+    name = db.Column(db.String(10), primary_key=True)
+    capacity = db.Column(db.Integer)
+    location = db.Column(JSONB)
+
+    def to_json(self):
+        json_model = {
+            'name': self.name,
+            'capacity': self.capacity,
+            'location': self.location,
+        }
+        return json_model
+
+    @classmethod
+    def find_room(cls, name ):
+        return cls.query.filter_by(name=name).first()

@@ -15,4 +15,5 @@ class Generate:
         )
     @property
     def generate(self):
-        return self.gen.timetable
+        return self.gen.generate_timetable();
+
