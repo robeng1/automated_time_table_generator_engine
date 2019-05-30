@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, joinedload
 from .run import db
 from passlib.hash import pbkdf2_sha256 as sha256
 
@@ -12,6 +12,10 @@ class BaseModel(db.model):
     @classmethod
     def return_all(cls):
         return {cls.__name__: list(map(lambda x: x.to_json(), cls.query.all()))}
+
+    @classmethod
+    def return_all_raw(cls):
+        return cls.query.all()
 
 
 class UserModel(BaseModel):
@@ -69,7 +73,7 @@ class RevokedTokenModel(db.Model):
 
 
 class ModuleModel(BaseModel):
-    __tablename__ = 'modules'
+    __tablename__ = 'module'
     title = db.Column(db.String(25))
     code = db.Column(db.String(6), primary_key=True)
     teaching = db.Column(db.Integer)
@@ -79,6 +83,7 @@ class ModuleModel(BaseModel):
     second_examiner = db.Column(db.String(60))
     department = db.Column(db.String(30))
     year = db.Column(db.String(4))
+    sections = relationship('SectionModel', back_populates='module')
 
     def to_json(self):
         json_module = {
@@ -98,11 +103,15 @@ class ModuleModel(BaseModel):
     def find_module_by_course_code(cls, code):
         return cls.query.filter_by(code=code).first()
 
+    @classmethod
+    def return_for_gen(cls):
+        return cls.query.options(joinedload('sections')).all()
+
 
 class SectionModel(BaseModel):
-    __tablename__ = 'sections'
+    __tablename__ = 'section'
     klass = db.Column(db.String(50), primary_key=True)
-    code = db.Column(db.String(5), ForeignKey('modules.code'))
+    code = db.Column(db.String(5), ForeignKey('module.code'))
     shared = db.Column(db.BOOLEAN, default=False)
     module = relationship('ModuleModel', back_populates="sections")
 
