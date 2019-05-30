@@ -1,16 +1,13 @@
 import os
 
-from flask import Flask
-from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
-from . import models, resources
-
-app = Flask(__name__)
-api = Api(app)
-app.config.from_object(os.environ['APP_SETTINGS'])
-
-db = SQLAlchemy(app)
+from app import app, db, api
+from app.models import RevokedTokenModel
+from app.resources import (
+    UserRegistration, UserLogin, UserLogoutAccess,
+    UserLogoutRefresh, TokenRefresh,AllUsers,SecretResource,
+    ModuleResource, AllModules
+)
 
 
 @app.before_first_request
@@ -24,14 +21,18 @@ jwt = JWTManager(app)
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
     jti = decrypted_token['jti']
-    return models.RevokedTokenModel.is_jti_blacklisted(jti)
+    return RevokedTokenModel.is_jti_blacklisted(jti)
 
 
-api.add_resource(resources.UserRegistration, '/registration')
-api.add_resource(resources.UserLogin, '/login')
-api.add_resource(resources.UserLogoutAccess, '/logout/access')
-api.add_resource(resources.UserLogoutRefresh, '/logout/refresh')
-api.add_resource(resources.TokenRefresh, '/token/refresh')
-api.add_resource(resources.AllUsers, '/users')
-api.add_resource(resources.SecretResource, '/secret')
-api.add_resource(resources.ModuleResource, '/module')
+api.add_resource(UserRegistration, '/registration')
+api.add_resource(UserLogin, '/login')
+api.add_resource(UserLogoutAccess, '/logout/access')
+api.add_resource(UserLogoutRefresh, '/logout/refresh')
+api.add_resource(TokenRefresh, '/token/refresh')
+api.add_resource(AllUsers, '/users')
+api.add_resource(SecretResource, '/secret')
+api.add_resource(ModuleResource, '/module')
+api.add_resource(AllModules, '/modules')
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -114,6 +114,12 @@ class SecretResource(Resource):
         }
 
 
+class AllModules(Resource):
+    @staticmethod
+    def get():
+        return ModuleModel.return_all()
+
+
 class ModuleResource(Resource):
 
     @staticmethod

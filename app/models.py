@@ -1,17 +1,19 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, joinedload
-from .run import db
+from app import db
 from passlib.hash import pbkdf2_sha256 as sha256
 
 
-class BaseModel(db.model):
+class BaseModel(db.Model):
+    __abstract__ = True
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
     def return_all(cls):
-        return {cls.__name__: list(map(lambda x: x.to_json(), cls.query.all()))}
+        return {'data': list(map(lambda x: x.to_json(), cls.query.all()))}
 
     @classmethod
     def return_all_raw(cls):

@@ -76,7 +76,7 @@ class CurriculumItem:
         return self._course.teaching_mins
     
     def __str__(self) -> str:
-        return ''
+        return self.section.name + ' ' + self.course
 
 
 class Curriculum:
