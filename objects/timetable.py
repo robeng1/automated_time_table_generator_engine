@@ -35,7 +35,7 @@ class Timetable:
 
     # keys are the _days and the values are day timetables
 
-    def __init__(self, days=[], daytables=[]):
+    def __init__(self, days=None, daytables=None):
         # _days is the list of all _days open for scheduling
         # decide on business rule for validity of _days
         # daytables is a list of Daytimetables representing the timetable
@@ -43,6 +43,10 @@ class Timetable:
         # decide on application rules to validate day tables
         # create timetable from _days and daytables
 
+        if daytables is None:
+            daytables = []
+        if days is None:
+            days = []
         self._days = days
 
         for day in self._days:

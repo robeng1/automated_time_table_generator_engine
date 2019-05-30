@@ -36,7 +36,7 @@ class TimeTableGenerator(object):
         return self.scheduled
 
     @property
-    def timetable(self):
+    def table(self):
         return self.timetable
 
     def generate_timetable(self):
@@ -151,8 +151,8 @@ class TimeTableGenerator(object):
     def unscheduled(self, value):
         self._unscheduled = value
 
-    @timetable.setter
-    def timetable(self, value):
+    @table.setter
+    def table(self, value):
         self._timetable = value
 
     @scheduled.setter

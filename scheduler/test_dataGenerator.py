@@ -11,11 +11,6 @@ class TestDataGenerator(TestCase):
         self.modules = factory.generate_batch(ModuleFactory, size=20, strategy='create')
         self.data_gen = DataGenerator(data=self.modules)
 
-    # def test_splits(self):
-    #     for i in self.data_gen._splits():
-    #         print(i.__str__())
-    #     self.assertNotEqual(self.data_gen._splits(), None)
-
     def test_lectures(self):
         for i in self.data_gen.lectures:
             print(i)
