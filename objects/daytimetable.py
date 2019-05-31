@@ -106,7 +106,10 @@ class DayTimetable:
         # validate to check instances of particular class
 
         if time_slots is None:
-            time_slots = []
+            self.time_slots = []
+
+        else:
+            self.time_slots = time_slots
         self._day = day
 
         # remove duplicates from the list of classrooms
@@ -117,10 +120,9 @@ class DayTimetable:
         classrooms.sort(key=lambda classroom: classroom.capacity, reverse=True)
         self.rooms = classrooms
 
-        time_slots = self.validate_time_slots()
-
-        for room in self.rooms:
-            self.set_time_slots(room, time_slots)
+        if self.validate_time_slots():
+            for room in self.rooms:
+                self.set_time_slots(room, self.time_slots)
 
     def __str__(self):
         # print the entire timetable for that particular day
@@ -158,10 +160,10 @@ class DayTimetable:
             #############################################################################
             for i in range(len(time_slots) - 2):
                 if time_slots[i].end > time_slots[i+1].start:  # proove correctness
-                    continue
-                else:
                     passes = False
                     break
+                else:
+                    continue
             #############################################################################
         return passes
 

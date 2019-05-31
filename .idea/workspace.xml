@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="468d901d-48a6-4c70-8440-62baa6ab571d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/objects/test_dayTimetable.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scheduler/test_timeTableGenerator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/objects/daytimetable.py" beforeDir="false" afterPath="$PROJECT_DIR$/objects/daytimetable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scheduler/generate.py" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler/generate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scheduler/test_generate.py" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler/test_generate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scheduler/timetablegenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler/timetablegenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects/test_dayTimetable.py" beforeDir="false" afterPath="$PROJECT_DIR$/objects/test_dayTimetable.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scheduler/timetablegenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+            <state relative-caret-position="1944">
+              <caret line="108" selection-start-line="108" selection-end-line="108" />
             </state>
           </provider>
         </entry>
@@ -31,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scheduler/test_timeTableGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="288">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -44,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
-              <caret line="11" column="56" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
+              <caret line="11" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -52,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="216">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -70,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/objects/daytimetable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-12366">
-              <caret line="63" column="18" lean-forward="true" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+            <state relative-caret-position="-705">
+              <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
               <folding>
                 <element signature="e#117#149#0" expanded="true" />
               </folding>
@@ -85,7 +80,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scheduler/datagenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-439">
+            <state relative-caret-position="378">
               <caret line="23" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
@@ -97,8 +92,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="1242">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
             </state>
           </provider>
         </entry>
@@ -107,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/scheduler/generate.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="342">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -115,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/objects/test_dayTimetable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+            <state relative-caret-position="342">
+              <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -177,10 +172,10 @@
         <option value="$PROJECT_DIR$/scheduler/test_generate.py" />
         <option value="$PROJECT_DIR$/scheduler/generate.py" />
         <option value="$PROJECT_DIR$/app/models.py" />
-        <option value="$PROJECT_DIR$/objects/test_dayTimetable.py" />
-        <option value="$PROJECT_DIR$/objects/daytimetable.py" />
         <option value="$PROJECT_DIR$/scheduler/timetablegenerator.py" />
         <option value="$PROJECT_DIR$/scheduler/test_timeTableGenerator.py" />
+        <option value="$PROJECT_DIR$/objects/daytimetable.py" />
+        <option value="$PROJECT_DIR$/objects/test_dayTimetable.py" />
       </list>
     </option>
   </component>
@@ -250,22 +245,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled">
-    <configuration name="Unittests for scheduler.test_dataGenerator.TestDataGenerator" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="hex-backend" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;scheduler.test_dataGenerator.TestDataGenerator&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour">
     <configuration name="Unittests for scheduler.test_generate.TestGenerate" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="hex-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -281,21 +261,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for scheduler.test_generate.TestGenerate.test_generate" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="hex-backend" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;scheduler.test_generate.TestGenerate.test_generate&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="hex-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -308,6 +273,36 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_dayTimetable.TestDayTimetable" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="hex-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/objects" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_dayTimetable.TestDayTimetable&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="hex-backend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/objects" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_dayTimetable.TestDayTimetable.test_has_left_neighbour&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -328,11 +323,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" />
+        <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" />
+        <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable" />
         <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots" />
+        <item itemvalue="Python tests.Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" />
         <item itemvalue="Python tests.Unittests for scheduler.test_generate.TestGenerate" />
-        <item itemvalue="Python tests.Unittests for scheduler.test_generate.TestGenerate.test_generate" />
-        <item itemvalue="Python tests.Unittests for scheduler.test_dataGenerator.TestDataGenerator" />
       </list>
     </recent_temporary>
   </component>
@@ -356,55 +351,55 @@
       <workItem from="1558953478587" duration="9406000" />
       <workItem from="1559078856766" duration="493000" />
       <workItem from="1559128616772" duration="27624000" />
-      <workItem from="1559218296719" duration="13201000" />
+      <workItem from="1559218296719" duration="18642000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 22h 52m 29s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable - 2019.05.31 at 00h 40m 15s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 22h 56m 59s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable - 2019.05.31 at 00h 47m 09s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 22h 57m 24s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable - 2019.05.31 at 00h 48m 17s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 22h 57m 56s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_validate_time_slots - 2019.05.31 at 00h 50m 33s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 22h 59m 47s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_validate_time_slots - 2019.05.31 at 00h 51m 11s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 23h 07m 34s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_validate_time_slots - 2019.05.31 at 00h 53m 18s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 23h 09m 55s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable - 2019.05.31 at 00h 54m 23s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 23h 10m 22s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour - 2019.05.31 at 01h 01m 28s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 23h 10m 37s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour - 2019.05.31 at 01h 02m 07s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled - 2019.05.30 at 23h 11m 36s.xml">
-      <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" configurationId="tests" />
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour - 2019.05.31 at 01h 03m 05s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66911000" />
+    <option name="totallyTimeSpent" value="72352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1366" height="740" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16995448" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17602427" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2967213" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26065573" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -413,7 +408,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.652459" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.60819674" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3295082" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -448,22 +443,6 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/objects/test_dayTimetable.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/objects/test_dayTimetable.py</url>
-          <line>9</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_dataGenerator_TestDataGenerator.coverage" NAME="Unittests for scheduler.test_dataGenerator.TestDataGenerator Coverage Results" MODIFIED="1559219184100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hex_backend$Flask__app_run_py_.coverage" NAME="Flask (app/run.py) Coverage Results" MODIFIED="1559179804243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -471,7 +450,9 @@
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_dataGenerator_TestDataGenerator_test_lectures.coverage" NAME="Unittests for scheduler.test_dataGenerator.TestDataGenerator.test_lectures Coverage Results" MODIFIED="1559183714520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hex_backend$run.coverage" NAME="run Coverage Results" MODIFIED="1559186281983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled.coverage" NAME="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled Coverage Results" MODIFIED="1559257895810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable_test_validate_time_slots.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots Coverage Results" MODIFIED="1559228988292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
+    <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable Coverage Results" MODIFIED="1559264063543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
+    <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable_test_validate_time_slots.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots Coverage Results" MODIFIED="1559263998786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
+    <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour Coverage Results" MODIFIED="1559264585321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_generate_TestGenerate.coverage" NAME="Unittests for scheduler.test_generate.TestGenerate Coverage Results" MODIFIED="1559222116376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
@@ -657,53 +638,26 @@
     <entry file="file://$PROJECT_DIR$/scheduler/generate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
+    <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="11" column="56" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/timetablegenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/test_timeTableGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1242">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scheduler/datagenerator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-439">
+        <state relative-caret-position="378">
           <caret line="23" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -715,29 +669,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
+    <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/objects/test_dayTimetable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+        <state relative-caret-position="216">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="11" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/test_timeTableGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/timetablegenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/objects/daytimetable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12366">
-          <caret line="63" column="18" lean-forward="true" selection-start-line="63" selection-start-column="18" selection-end-line="63" selection-end-column="18" />
+        <state relative-caret-position="-705">
+          <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
           <folding>
             <element signature="e#117#149#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/objects/test_dayTimetable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

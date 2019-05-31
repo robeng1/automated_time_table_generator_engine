@@ -3,23 +3,59 @@ import factory
 from objects.classroom import Classroom
 from objects.timeslot import TimeSlot
 from objects.daytimetable import DayTimetable
+from objects.timetableslot import TimetableSlot
 
 
 class TestDayTimetable(TestCase):
     def setUp(self) -> None:
-        self.classrooms = factory.generate_batch(ClassRoomFactory, size=20, strategy="build")
-        self.slots = slots
-        self.day_tt = DayTimetable(classrooms=self.classrooms, time_slots=self.slots)
+        # self.classrooms = factory.generate_batch(ClassRoomFactory, size=20, strategy="build")
+        # self.slots = slots
+        # self.day_tt = DayTimetable(classrooms=self.classrooms, time_slots=self.slots)
+
+        classrooms = [
+            Classroom('PB001', 100, 'Petroleum building'),
+            Classroom('PBOO2 ', 45, 'Petroleum building'),
+            Classroom('LT ', 300, 'Near building'),
+            Classroom('Pb103', 67, 'Petroleum Building'),
+            Classroom('PB119', 150, 'Petroluem'),
+            Classroom('PB001', 100, 'Petroluem'),
+            Classroom('LT ', 45, 'PBOO2'),
+            Classroom(' A110', 300, 'Libary'),
+            Classroom('Computer lab', 67, 'vodafone'),
+            Classroom('LAB-12', 40, 'vodafone'),
+            Classroom('Room A', 100, 'tyeh'),
+            Classroom('Room B ', 45, 'PBOO2'),
+            Classroom('Main Library ', 60, 'Admiss'),
+            Classroom('Room C', 67, 'N1')]
+
+        timeslots = [
+            TimeSlot('8:00','9:00'),
+            TimeSlot('9:00','10:00'),
+            TimeSlot('10:00', '11:00'),
+            TimeSlot('11:00', '12:00'),
+            TimeSlot('12:00', '13:00'),
+            TimeSlot('13:00', '14:00'),
+            TimeSlot('14:00', '15:00'),
+            TimeSlot('15:00', '16:00'),
+            TimeSlot('16:00', '17:00')
+        ]
+
+        self.day = 'Mon'
+        self.timetable = DayTimetable(classrooms, timeslots)
+        print(self.timetable)
 
     def test_validate_time_slots(self):
-       self.assertTrue(self.day_tt.validate_time_slots())
+       self.assertTrue(self.timetable.validate_time_slots())
 
     def test_day(self):
         self.fail()
 
     def test_has_left_neighbour(self):
-        self.fail()
-
+        self.assertFalse(self.timetable.has_left_neighbour(TimetableSlot('Mon',TimeSlot('8:00','9:00'),Classroom('PB001', 100, 'Petroleum building'))))
+        self.assertTrue(self.timetable.has_left_neighbour(
+            TimetableSlot('Mon', TimeSlot('9:00', '9:00'), Classroom('PB001', 100, 'Petroleum building'))))
+        self.assertTrue(self.timetable.has_left_neighbour(
+            TimetableSlot('Mon', TimeSlot('16:00', '17:00'), Classroom('PB001', 100, 'Petroleum building'))))
     def test_has_right_neighbour(self):
         self.fail()
 
@@ -114,7 +150,7 @@ class ClassRoomFactory(factory.Factory):
 
 
 time1 = TimeSlot('8:00', '10:00')
-time2 = TimeSlot('11:00', '13:00')
+time2 = TimeSlot('1:00', '13:00')
 time3 = TimeSlot('15:00', '17:00')
 time4 = TimeSlot('9:00', '11:00')
 time5 = TimeSlot('12:00', '14:00')
