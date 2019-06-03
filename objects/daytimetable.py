@@ -406,12 +406,17 @@ class DayTimetable:
 
         # *****Only move if the source slot is occupied
 
-        timetableslot = self.timetableslot(source_slot.room, source_slot.time_slot)
+        try:
+            timetableslot = self.timetableslot(source_slot.room, source_slot.time_slot)
+   
+            if timetableslot.is_occupied:
+                if self.add_lecture(timetableslot.lecture, dest_slot, free):  # if lecture is added but
+                    if self.remove_lecture(timetableslot):  # fails to be removed what happens?
+                        return True
 
-        if timetableslot.is_occupied:
-            if self.add_lecture(timetableslot.lecture, dest_slot, free):  # if lecture is added but
-                if self.remove_lecture(timetableslot):  # fails to be removed what happens?
-                    return True
+        except Exception:
+            return False
+
         return False
 
     def swap_lectures(self, slot1, slot2):
@@ -484,14 +489,17 @@ class DayTimetable:
         removed = False
 
         # review effects of changes
-        timetableslot = self.timetableslot(timetableslot.room, timetableslot.time_slot)
 
-        if timetableslot.is_free:
-            removed = True
-        if timetableslot.is_occupied:
-            index = self.table[timetableslot.room].index(timetableslot)
-            self.table[timetableslot.room][index].remove_lecture()
-            removed = True
+        try:
+            timetableslot = self.timetableslot(timetableslot.room, timetableslot.time_slot)
+
+            if timetableslot.is_occupied:
+                index = self.table[timetableslot.room].index(timetableslot)
+                self.table[timetableslot.room][index].remove_lecture()
+                removed = True
+
+        except Exception:
+            return False
 
         return removed
 
@@ -512,8 +520,11 @@ class DayTimetable:
             for slot in self.table[room]:
                 removed = self.remove_lecture(slot)  # check if lecture was removed
 
-                if not removed:  # if any lecture at all failed to be removed
+                if not removed and slot.is_occupied:  # if any lecture at all failed to be removed
                     return False
+
+        #return true if all lectures were successfully removed
+        return True
 
     def occupied_slots(self):
         """Returns all the occupied timetable slots in the table
@@ -595,10 +606,9 @@ class DayTimetable:
         # validate the lecturer and the timeslot
         for room in self.rooms:
             for timetableslot in self.table[room]:
-                if timetableslot.is_occupied and \
-                        set(lecturers) == set(timetableslot.lecture.curriculum_item.lecturers):
-                    if self.time_slots_overlap(timeslot, timetableslot.time_slot):
-                        return False
+                if timetableslot.is_occupied and set(lecturers) == set(timetableslot.lecture.curriculum_item.lecturers):
+                    #if self.time_slots_overlap(timeslot, timetableslot.time_slot):
+                    return False
         return True
 
     def lecturer_is_free(self, lecturer, timeslot):
@@ -625,8 +635,7 @@ class DayTimetable:
         # validate the lecturer and the timeslot
         for room in self.rooms:
             for timetableslot in self.table[room]:
-                if timetableslot.is_occupied and \
-                        lecturer in timetableslot.lecture.curriculum_item.lecturers:
+                if timetableslot.is_occupied and lecturer == timetableslot.lecture.curriculum_item.lecturer:
                     if self.time_slots_overlap(timeslot, timetableslot.time_slot):
                         return False
         return True
@@ -634,16 +643,15 @@ class DayTimetable:
     def section_is_free(self, section, timeslot):
         for room in self.rooms:
             for timetableslot in self.table[room]:
-                sec = timetableslot.lecture.curriculum_item.section
-                if timetableslot.is_occupied and sec == section:
+                if timetableslot.is_occupied and timetableslot.lecture.curriculum_item.section == section:
                     if self.time_slots_overlap(timeslot, timetableslot.time_slot):
                         return False
         return True
 
     @staticmethod
     def time_slots_overlap(timeslot1, timeslot2):
-        if (timeslot1.start <= timeslot2.end and timeslot1.end >= timeslot2.start) or \
-                (timeslot2.start <= timeslot1.end and timeslot2.end >= timeslot1.start):
+        if (timeslot1.start < timeslot2.end and timeslot1.end > timeslot2.start) or \
+                (timeslot2.start < timeslot1.end and timeslot2.end > timeslot1.start):
             return True
         return False
 
@@ -669,9 +677,13 @@ class DayTimetable:
         # TODO
         # validate room and timeslot
 
-        for slot in self.table[room]:
-            if slot.time_slot == timeslot and slot.is_free:
-                return True
+        try:
+
+            for slot in self.table[room]:
+                if slot.time_slot == timeslot and slot.is_free:
+                    return True
+        except Exception:
+            return False
 
         return False
 

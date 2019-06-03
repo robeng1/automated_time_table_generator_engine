@@ -37,10 +37,10 @@ class CurriculumItem:
 
     """
 
-    def __init__(self, section, course, lecturers):
+    def __init__(self, section, course, lecturer):
         self._section = section
         self._course = course
-        self._lecturers = lecturers
+        self._lecturer = lecturer
         self._allocated = 0
 
     @property
@@ -62,14 +62,14 @@ class CurriculumItem:
         self._course = value
 
     @property
-    def lecturers(self):
-        return self._lecturers
+    def lecturer(self):
+        return self._lecturer
 
-    @lecturers.setter
-    def lecturers(self, value):
+    @lecturer.setter
+    def lecturer(self, value):
         if not isinstance(value, Lecturer):
             raise TypeError("Value must be of type Lecturer")
-        self._lecturers = value
+        self._lecturer = value
 
     @property
     def teaching_mins(self):

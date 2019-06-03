@@ -35,7 +35,9 @@ class TimetableSlot:
     #    return ((self.day,self.timeslot,self.room))
 
     def _str__(self):
-        return str(self.time_slot)  # str(self.room.name) + str(self.timeslot)#edit
+        return str(self.room.name) + ":  Capacity" + str(self.room.capacity)\
+        + str(self.time_slot.start) + "-"+str(self.time_slot.end)  +\
+        "Occupied: " + str(self._occupied)
 
     def remove_lecture(self):
         # only remove lecture from an occupied slot

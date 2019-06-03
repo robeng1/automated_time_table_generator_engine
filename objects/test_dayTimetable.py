@@ -10,6 +10,9 @@ from section import Section
 from data import CurriculumItem
 from lecture import Lecture
 
+#TODO
+#test for lecturer clashes
+#test for section clashes
 class TestDayTimetable(TestCase):
     def setUp(self) -> None:
         # self.classrooms = factory.generate_batch(ClassRoomFactory, size=20, strategy="build")
@@ -222,7 +225,7 @@ class TestDayTimetable(TestCase):
         course = Course('Embedded Systems','COE 361')
 
         section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
-        c_item = CurriculumItem(section,course,[lecturer])
+        c_item = CurriculumItem(section,course,lecturer)
 
         lecture = Lecture(c_item,60)
 
@@ -237,7 +240,7 @@ class TestDayTimetable(TestCase):
         course = Course('Linear Electronics','COE 361')
 
         section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
-        c_item = CurriculumItem(section,course,[lecturer])
+        c_item = CurriculumItem(section,course,lecturer)
 
         lecture = Lecture(c_item,60)
         
@@ -263,7 +266,7 @@ class TestDayTimetable(TestCase):
         course = Course('Embedded Systems','COE 361')
 
         section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
-        c_item = CurriculumItem(section,course,[lecturer])
+        c_item = CurriculumItem(section,course,lecturer)
 
         lecture = Lecture(c_item,60)
 
@@ -287,62 +290,258 @@ class TestDayTimetable(TestCase):
         print('------------------------------After moving lecture (unoccupied)-------------------------')
         print(self.timetable)
          #test for moving lecture to a slot that is occupied with free as True
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        self.assertFalse(self.timetable.move_lecture(TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00')),
+        TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
+        ))
+        print(self.timetable)
 
-
-
-         #test for moving lecture to a slot that is not occupied with free as False
+        #test for moving lecture to a slot that is not occupied with free as False
 
 
         #test for moving a lecture back to itself
 
 
 
-        #test for moving to a slot that does not exits 
-
-
         #test for moving from a slot that does not exits 
+        self.assertFalse(self.timetable.move_lecture(TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '10:00')),
+        TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
+        ))
 
+        #test for moving to a slot that does not exits 
+        self.assertFalse(self.timetable.move_lecture(TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00')),
+        TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '12:00'))
+        ))
     # def test_swap_lectures(self):
     #     self.fail()
 
-    # def test_remove_lecture(self):
-    #     self.fail()
+    def test_remove_lecture(self):
+        #test for removing a lecture from a slot that exists and is occupied
+        
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
 
-    # def test_remove_all(self):
-    #     self.fail()
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
 
-    # def test_occupied_slots(self):
-    #     self.fail()
+        lecture = Lecture(c_item,60)
 
-    # def test_free_slots(self):
-    #     self.fail()
+        print(self.timetable)
+        print('--------TEST - REMOVE-------------------After Adding Lecture-----------------')
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        print(self.timetable)
+        self.assertTrue(self.timetable.remove_lecture(ttslot))
+        print('-----TEST REMOVE-----------------------After removing Lecture---------------')
+        print(self.timetable)
+
+        #test for removing a lecture from a slot that is empty
+        self.assertFalse(self.timetable.remove_lecture(ttslot))
+
+        #test for removing a lecture from a slot that does not exists
+        self.assertFalse(self.timetable.remove_lecture( TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('7:00', '8:00'))))
+    
+    def test_remove_all(self):
+         #test for the case of adding a lecture to a slot that is free with free parameter
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
+
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
+
+        lecture = Lecture(c_item,60)
+        
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        ttslot1 =TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        ttslot2 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
+        ttslot3 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('11:00', '12:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot1))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot2))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot3))
+        print('---------------------------After Adding Lectures-----------------')
+        print(self.timetable)
+        self.assertTrue(self.timetable.remove_all())
+        print('---------------------------After Removing Lectures-----------------')
+        print(self.timetable)
+
+    def test_occupied_slots(self):
+        #if all slots are empty return an empty lists
+        self.assertEqual([],self.timetable.occupied_slots())
+        print(self.timetable.occupied_slots())
+
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
+
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
+
+        lecture = Lecture(c_item,60)
+        
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        ttslot1 =TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        ttslot2 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
+        ttslot3 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('11:00', '12:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot1))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot2))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot3))
+
+        self.assertEqual([ttslot,ttslot1,ttslot2,ttslot3],self.timetable.occupied_slots())
+
+
+        #test when slots are added to timetable
+
+    
+
+    def test_free_slots(self):
+        free = self.timetable.free_slots()
+
+        print('---------Here are the free slots -------------')
+        for slot in free:
+            print(slot)
 
     # def test_all_slots(self):
     #     self.fail()
 
-    # def test_lecturers_are_free(self):
-    #     self.fail()
+    def test_lecturer_is_free(self):
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
+
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
+
+        lecture = Lecture(c_item,60)
+
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        ttslot1 =TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        ttslot2 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
+        ttslot3 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('11:00', '12:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot1))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot2))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot3))
+
+        self.assertFalse(self.timetable.lecturer_is_free(lecturer,ttslot.time_slot))
+        self.assertFalse(self.timetable.lecturer_is_free(lecturer,ttslot1.time_slot))
+        self.assertFalse(self.timetable.lecturer_is_free(lecturer,ttslot2.time_slot))
+        self.assertFalse(self.timetable.lecturer_is_free(lecturer,ttslot3.time_slot))
+
+        self.assertTrue(self.timetable.lecturer_is_free(lecturer,TimeSlot('15:00', '16:00')))
+        self.assertTrue(self.timetable.lecturer_is_free(lecturer,TimeSlot('12:00', '13:00')))
+        self.assertTrue(self.timetable.lecturer_is_free(lecturer,TimeSlot('16:00', '17:00')))
+        self.assertTrue(self.timetable.lecturer_is_free(lecturer,TimeSlot('7:00', '8:00')))
+        
 
     # def test_lecturer_is_free(self):
     #     self.fail()
 
-    # def test_section_is_free(self):
-    #     self.fail()
+    def test_section_is_free(self):
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
 
-    # def test_time_slots_overlap(self):
-    #     self.fail()
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
 
-    # def test_room_is_free(self):
-    #     self.fail()
+        lecture = Lecture(c_item,60)
 
-    # def test_timetableslot(self):
-    #     self.fail()
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        ttslot1 =TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        ttslot2 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
+        ttslot3 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('11:00', '12:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot1))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot2))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot3))
 
-    # def test_best_fit(self):
-    #     self.fail()
+        self.assertFalse(self.timetable.section_is_free(section,ttslot.time_slot))
+        self.assertFalse(self.timetable.section_is_free(section,ttslot1.time_slot))
+        self.assertFalse(self.timetable.section_is_free(section,ttslot2.time_slot))
+        self.assertFalse(self.timetable.section_is_free(section,ttslot3.time_slot))
 
-    # def test_first_fit(self):
-    #     self.fail()
+        self.assertTrue(self.timetable.section_is_free(section,TimeSlot('15:00', '16:00')))
+        self.assertTrue(self.timetable.section_is_free(section,TimeSlot('12:00', '13:00')))
+        self.assertTrue(self.timetable.section_is_free(section,TimeSlot('16:00', '17:00')))
+        self.assertTrue(self.timetable.section_is_free(section,TimeSlot('7:00', '8:00')))
+
+    def test_time_slots_overlap(self):
+        self.assertTrue(self.timetable.time_slots_overlap(TimeSlot('12:00', '16:00'),TimeSlot('13:00', '15:00')))
+        self.assertTrue(self.timetable.time_slots_overlap(TimeSlot('15:00', '16:00'),TimeSlot('15:00', '16:00')))
+        self.assertTrue(self.timetable.time_slots_overlap(TimeSlot('14:00', '16:00'),TimeSlot('15:00', '16:00')))
+        self.assertFalse(self.timetable.time_slots_overlap(TimeSlot('14:00', '15:00'),TimeSlot('15:00', '16:00')))
+        self.assertFalse(self.timetable.time_slots_overlap(TimeSlot('15:00', '16:00'),TimeSlot('16:00', '16:00')))     
+        
+    def test_room_is_free(self):
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
+
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
+
+        lecture = Lecture(c_item,60)
+
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        ttslot1 =TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        ttslot2 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
+        ttslot3 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('11:00', '12:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot1))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot2))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot3))
+        
+        self.assertFalse(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('7:00', '8:00')))
+        self.assertFalse(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00')))
+        self.assertFalse(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00')))
+        self.assertFalse(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00')))
+
+        self.assertTrue(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('12:00', '13:00')))
+        self.assertTrue(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('13:00', '14:00')))
+        self.assertTrue(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('14:00', '15:00')))
+        self.assertTrue(self.timetable.room_is_free(Classroom('LT ', 45, 'PBOO2'),TimeSlot('15:00', '16:00')))
+
+    def test_timetableslot(self):
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
+
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
+
+        lecture = Lecture(c_item,60)
+
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        self.assertTrue(self.timetable.add_lecture(lecture,ttslot))
+        self.assertEqual(self.timetable.timetableslot(ttslot.room,ttslot.time_slot),ttslot)
+        ttslot1 = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        self.assertEqual(self.timetable.timetableslot(ttslot1.room,ttslot1.time_slot),ttslot1)
+
+    def test_best_fit(self):
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
+
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
+
+        lecture = Lecture(c_item,60)
+
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+
+        print('----------------Best Fit-----------------------------')
+        print(self.timetable.best_fit(lecture))
+
+    def test_first_fit(self):
+        lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+        course = Course('Embedded Systems','COE 361')
+
+        section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+        c_item = CurriculumItem(section,course,lecturer)
+
+        lecture = Lecture(c_item,60)
+
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+
+        print('----------------First Fit-----------------------------')
+        print(self.timetable.first_fit(lecture))
 
     # def test_lecturer_clashes(self):
     #     self.fail()
