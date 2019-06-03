@@ -29,7 +29,7 @@ class Section(object):
 
     # TODO: add validations to attributes
 
-    def __init__(self, name, size, year, faculty='', department=''):
+    def __init__(self, name, size, year, department='', faculty=''):
         self._name = name
         self._faculty = faculty
         self._department = department

@@ -37,7 +37,7 @@ class Lecture:
 
     def __init__(self, c_item, duration):
         self._curriculum_item = c_item
-        self._duration = duration
+        self.duration = duration
 
     def __str__(self):
         return str(self.curriculum_item.course) + '\n' + \
@@ -59,4 +59,7 @@ class Lecture:
 
     @duration.setter
     def duration(self, duration):
-        self._duration = duration
+        if duration >0:
+            self._duration = duration
+        else:
+            raise ValueError("Invalid Duration: Duration less than or equal to 0")
