@@ -125,7 +125,7 @@ class DayTimetable:
 
     def __str__(self):
         # print the entire timetable for that particular day
-        my_str = ''
+        my_str = '\n----------------------------'+self._day +'------------------------------\n'
         for room in self.rooms:
             for time_table_slot in self.table[room]:
                 my_str += str(room) + '    ' + str(time_table_slot.time_slot) + '\n'
@@ -257,6 +257,11 @@ class DayTimetable:
             inserted = True
 
         return inserted
+
+    def remove_time_table_slot(self,room,time_slot):
+        for slot in self.table[room]:
+            if slot.time_slot == time_slot:
+                self.table[room].remove(slot)
 
     def assign_lecture(self, lecture, time_table_slot):
         # TODO : change for function to have single exit point

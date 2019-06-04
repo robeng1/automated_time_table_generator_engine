@@ -50,8 +50,14 @@ class TestDayTimetable(TestCase):
     # def test_validate_time_slots(self):
     #    self.assertTrue(self.timetable.validate_time_slots())
 
-    # def test_day(self):
-    #     self.fail()
+    def test_day(self):
+        self.timetable.day = 'Tues'
+        self.assertEqual(self.timetable.day,'Tues')
+
+        slots = self.timetable.all_slots()
+
+        for slot in slots:
+            self.assertEqual(slot.day,'Tues')
 
     def test_has_left_neighbour(self):
         #TODO
@@ -211,6 +217,14 @@ class TestDayTimetable(TestCase):
         ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
         self.assertFalse(self.timetable.insert_time_table_slot(room,ttslot),ttslot)
 
+    def test_remove_time_table_slot(self):
+        self.timetable.remove_time_table_slot(Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00','9:00'))
+        self.timetable.remove_time_table_slot(Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00','10:00'))
+        self.timetable.remove_time_table_slot(Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00','11:00'))
+        self.timetable.remove_time_table_slot(Classroom('LT ', 45, 'PBOO2'),TimeSlot('11:00','12:00'))
+        print('-------------------------Remove time table slot ------------------')
+        print(self.timetable)
+        
     def test_assign_lecture(self):
 
         #TODO

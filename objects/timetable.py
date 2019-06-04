@@ -3,7 +3,7 @@
 #  Date: 16/04/2019
 #  Time: 15:27
 
-from .daytimetable import DayTimetable
+from daytimetable import DayTimetable
 from random import choice
 
 
@@ -55,6 +55,16 @@ class Timetable:
             # verify
 
         # set the day for each timetable slot
+
+    def __str__(self):
+        temp_str = ''
+
+        for day in self._days:
+
+            temp_str = temp_str + str(self.timetable[day])
+        
+        return temp_str
+
     @property
     def day_table(self):
         return self.timetable
@@ -235,6 +245,12 @@ class Timetable:
         for slot in first_fits:
             if slot != None:
                 return slot
+
+    def remove_slot(self,day,room,timeslot):
+        self.timetable[day].remove_time_table_slot(room,timeslot)
+
+    def insert_slot(self,day,room,ttslot):
+        self.timetable[day].insert_time_table_slot(room,ttslot)
 
     def day_is_valid(self, day):  # returns true if the day is part of the initial _days
         for d in self._days:
