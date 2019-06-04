@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="468d901d-48a6-4c70-8440-62baa6ab571d" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/app/helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/romeo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/romeo.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -9,6 +10,12 @@
       <change beforePath="$PROJECT_DIR$/app/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/run.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/hex-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hex-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects/test_dayTimetable.py" beforeDir="false" afterPath="$PROJECT_DIR$/objects/test_dayTimetable.py" afterDir="false" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,12 +24,72 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="335">
               <caret line="215" column="25" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/timetablegenerator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2616">
+              <caret line="109" selection-start-line="109" selection-end-line="109" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/test_timeTableGenerator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="11" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/objects/timetable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4704">
+              <caret line="197" column="23" selection-start-line="197" selection-start-column="23" selection-end-line="197" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/objects/daytimetable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2976">
+              <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -33,8 +100,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/resources.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="605">
               <caret line="296" lean-forward="true" selection-start-line="296" selection-end-line="296" />
+=======
+            <state relative-caret-position="504">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -43,10 +115,41 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/app/parser.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="659">
               <caret line="152" column="4" selection-start-line="152" selection-start-column="4" selection-end-line="152" selection-end-column="4" />
+=======
+        <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1656">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scheduler/generate.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/objects/test_dayTimetable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1368">
+              <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
             </state>
           </provider>
         </entry>
@@ -146,7 +249,7 @@
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -160,8 +263,13 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Python.run">
     <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true">
+=======
+  <component name="RunManager" selected="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots">
+    <configuration name="Unittests for scheduler.test_generate.TestGenerate" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
       <module name="hex-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -245,10 +353,15 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
         <item itemvalue="Python.run" />
         <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" />
         <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable" />
+=======
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
         <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots" />
+        <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable" />
+        <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" />
         <item itemvalue="Python tests.Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" />
       </list>
     </recent_temporary>
@@ -324,10 +437,13 @@
     <option name="totallyTimeSpent" value="103323000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="28" width="1366" height="740" extended-state="6" />
-    <editor active="true" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
+<<<<<<< HEAD
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24658574" />
+=======
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17550574" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -448,20 +564,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/rooms.csv">
+<<<<<<< HEAD
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
+=======
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
       <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py" />
-    <entry file="file:///usr/lib/python3.7/unittest/loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8467">
-          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file:///usr/lib/python3.7/unittest/loader.py" />
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -565,16 +678,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/generate.py">
+    <entry file="file://$PROJECT_DIR$/scheduler/timetablegenerator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="2616">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/test_timeTableGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
-            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/objects/test_dayTimetable.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -589,21 +710,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+=======
+    <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="11" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/datagenerator.py">
+    <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="414">
           <caret line="23" selection-start-line="23" selection-end-line="23" />
+=======
+        <state relative-caret-position="288">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           <folding>
-            <element signature="e#0#48#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="108">
           <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
         </state>
@@ -615,10 +748,24 @@
           <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
+=======
+        <state relative-caret-position="4704">
+          <caret line="197" column="23" selection-start-line="197" selection-start-column="23" selection-end-line="197" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/objects/daytimetable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2976">
+          <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
+          <folding>
+            <element signature="e#117#149#0" expanded="true" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/helper.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -628,10 +775,19 @@
           <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/scheduler/datagenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/parser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="659">
@@ -645,14 +801,34 @@
           <caret line="296" lean-forward="true" selection-start-line="296" selection-end-line="296" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1656">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/generate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="335">
           <caret line="215" column="25" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
+=======
+        <state relative-caret-position="1368">
+          <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>

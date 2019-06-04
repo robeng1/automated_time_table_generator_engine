@@ -48,7 +48,7 @@ class Course(object):
 
     """
 
-    def __init__(self, name, code, lecturers, assistants=[], t_mins=120, p_mins=0, \
+    def __init__(self, name, code, lecturers=[], assistants=[], t_mins=120, p_mins=0, \
                  tut_mins=0, department='', sections=[], room=''):
         self._name = name
         self._code = code
