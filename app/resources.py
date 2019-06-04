@@ -1,7 +1,17 @@
 from flask import jsonify
-from flask_restful import Resource, reqparse
-from .models import UserModel, RevokedTokenModel, ModuleModel, SectionModel
-from .parser import moduleParser, sectionParser
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from flask_restful import Resource, reqparse, abort
+from .models import (
+    UserModel, RevokedTokenModel,
+    ModuleModel, SectionModel,
+    ClassRoomGroupModel, ClassRoomModel,
+    DepartmentModel, LecturerModel
+)
+from .parser import (
+    moduleParser, sectionParser,
+    classroomGroupParser, classroomParser,
+    departmentParser, lecturer_parser
+)
 from . import status
 from flask_jwt_extended import (
     create_access_token,
@@ -72,7 +82,7 @@ class UserLogoutAccess(Resource):
             revoked_token = RevokedTokenModel(jti=jti)
             revoked_token.add()
             return {'message': 'Access token has been revoked'}
-        except IOError:
+        except SQLAlchemyError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
 
 
@@ -123,10 +133,7 @@ class AllModules(Resource):
 class ModuleResource(Resource):
 
     @staticmethod
-    def post(module_id=None):
-        if module_id:
-            return
-        # parses the request argument
+    def post():
         data = moduleParser.parse_args(strict=True)
 
         # initializes a new module
@@ -138,11 +145,11 @@ class ModuleResource(Resource):
         new_module.credit = data['credit']
         new_module.first_examiner = data["first_examiner"]
         new_module.second_examiner = data["second_examiner"]
-
-        # writes the module to the database
-        new_module.save_to_db()
-
-        return jsonify(new_module.to_json()), status.HTTP_201_CREATED
+        try:
+            new_module.save_to_db()
+        except IOError:
+            return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
+        return new_module.to_json(), status.HTTP_201_CREATED
 
     @staticmethod
     def get(code=None):
@@ -151,7 +158,7 @@ class ModuleResource(Resource):
                 'error': 'must provide the course code'
             }
         module = ModuleModel.find_module_by_course_code(code)
-        return jsonify(module.to_json()), status.HTTP_200_OK
+        return module.to_json(), status.HTTP_200_OK
 
 
 class SectionResource(Resource):
@@ -162,8 +169,11 @@ class SectionResource(Resource):
         new_section.klass = data["klass"]
         new_section.code = data["code"]
         new_section.shared = data["shared"]
-        new_section.save_to_db()
-        return jsonify(new_section.to_json()), status.HTTP_201_CREATED
+        try:
+            new_section.save_to_db()
+        except IOError:
+            return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
+        return new_section.to_json(), status.HTTP_201_CREATED
 
     @staticmethod
     def get(klass=None):
@@ -172,4 +182,115 @@ class SectionResource(Resource):
                 'error': 'must provide the klass identifier'
             }
         section = SectionModel.find_by_klass(klass)
-        return jsonify(section.to_json()), status.HTTP_200_OK
+        return section.to_json(), status.HTTP_200_OK
+
+
+class ClassRoomResource(Resource):
+    @staticmethod
+    def post():
+        data = classroomParser.parse_args()
+        room = ClassRoomModel()
+        room.name = data['name']
+        room.capacity = data['capacity']
+        room.allowance = data['allowance']
+        room.group_name = data['group_name']
+        try:
+            room.save_to_db()
+        except IntegrityError:
+            return {'message': "{} already exists".format(data['name'])}, status.HTTP_400_BAD_REQUEST
+        except SQLAlchemyError:
+            return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
+        return room.to_json(), status.HTTP_201_CREATED
+
+    @staticmethod
+    def get():
+        return ClassRoomModel.return_all(), status.HTTP_200_OK
+
+
+class ClassRoomGroup(Resource):
+    @staticmethod
+    def post():
+        data = classroomGroupParser.parse_args()
+        grp = ClassRoomGroupModel()
+        grp.name = data['name']
+        try:
+            grp.save_to_db()
+        except  IntegrityError:
+            return {'message': "{} already exists".format(data['name'])}
+        except SQLAlchemyError:
+            return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
+        return grp.to_json(), status.HTTP_201_CREATED
+
+    @staticmethod
+    def get():
+        return ClassRoomGroupModel.return_all(), status.HTTP_200_OK
+
+
+class RoomGroup(Resource):
+    @staticmethod
+    def get(name=None):
+        return ClassRoomGroupModel.find_by_name(name=name)
+
+
+class DepartmentResource(Resource):
+    @staticmethod
+    def post():
+        data = departmentParser.parse_args()
+        dep = DepartmentModel()
+        dep.name = data['name']
+
+        try:
+            dep.save_to_db()
+        except IntegrityError:
+            return {'message': "{} already exists".format(data['name'])}, status.HTTP_400_BAD_REQUEST
+        except SQLAlchemyError:
+            return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
+        return dep.to_json(), status.HTTP_201_CREATED
+
+    @staticmethod
+    def get():
+        return DepartmentModel.return_all(), status.HTTP_200_OK
+
+
+class SingleDepartmentResource(Resource):
+    @staticmethod
+    def get(name=None):
+        if name is None:
+            return {'message': "must provide the name of the department"}, status.HTTP_400_BAD_REQUEST
+        return DepartmentModel.find_by_name(name=name)
+
+
+class LecturerResource(Resource):
+    @staticmethod
+    def post():
+        data = lecturer_parser.parse_args()
+        lecturer = LecturerModel()
+        lecturer.title = data['title']
+        lecturer.name = data['name']
+        lecturer.ID = data['id']
+        lecturer.email = data['email']
+        lecturer.department = data['department']
+        lecturer.office = data['office']
+        try:
+            lecturer.save_to_db()
+        except IntegrityError:
+            return {'message': "{} already exists".format(data['name'])}, status.HTTP_400_BAD_REQUEST
+        except SQLAlchemyError:
+            return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
+        return lecturer.to_json(), status.HTTP_201_CREATED
+
+    @staticmethod
+    def get():
+        return LecturerModel.return_all(), status.HTTP_200_OK
+
+
+class SingleLecturer(Resource):
+    @staticmethod
+    def get(name_or_id=None):
+        if name_or_id is None:
+            return {'message': "missing argument"}, status.HTTP_400_BAD_REQUEST
+        try:
+            val = int(name_or_id)
+            return LecturerModel.find_by_id(id=val), status.HTTP_200_OK
+        except ValueError:
+            return LecturerModel.find_by_name(name=name_or_id), status.HTTP_200_OK

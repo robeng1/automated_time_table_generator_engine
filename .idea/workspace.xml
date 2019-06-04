@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="468d901d-48a6-4c70-8440-62baa6ab571d" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/app/helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/romeo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/romeo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/run.py" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/.idea/hex-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hex-backend.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/objects/test_dayTimetable.py" beforeDir="false" afterPath="$PROJECT_DIR$/objects/test_dayTimetable.py" afterDir="false" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,6 +24,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="335">
+              <caret line="215" column="25" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
+=======
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scheduler/timetablegenerator.py">
@@ -71,26 +89,38 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2976">
               <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
               <folding>
-                <element signature="e#117#149#0" expanded="true" />
+                <element signature="e#0#33#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scheduler/datagenerator.py">
+        <entry file="file://$PROJECT_DIR$/app/resources.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="605">
+              <caret line="296" lean-forward="true" selection-start-line="296" selection-end-line="296" />
+=======
             <state relative-caret-position="504">
               <caret line="23" selection-start-line="23" selection-end-line="23" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
               <folding>
-                <element signature="e#0#48#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
+        <entry file="file://$PROJECT_DIR$/app/parser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="659">
+              <caret line="152" column="4" selection-start-line="152" selection-start-column="4" selection-end-line="152" selection-end-column="4" />
+=======
         <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1656">
@@ -119,6 +149,7 @@
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
             </state>
           </provider>
         </entry>
@@ -165,32 +196,34 @@
         <option value="$PROJECT_DIR$/scheduler/datagenerator.py" />
         <option value="$PROJECT_DIR$/objects/data.py" />
         <option value="$PROJECT_DIR$/objects/lecture.py" />
-        <option value="$PROJECT_DIR$/app/resources.py" />
-        <option value="$PROJECT_DIR$/app/run.py" />
         <option value="$PROJECT_DIR$/app/config.py" />
         <option value="$PROJECT_DIR$/scheduler/test_dataGenerator.py" />
         <option value="$PROJECT_DIR$/objects/timetable.py" />
         <option value="$PROJECT_DIR$/scheduler/test_generate.py" />
         <option value="$PROJECT_DIR$/scheduler/generate.py" />
-        <option value="$PROJECT_DIR$/app/models.py" />
         <option value="$PROJECT_DIR$/scheduler/timetablegenerator.py" />
         <option value="$PROJECT_DIR$/scheduler/test_timeTableGenerator.py" />
         <option value="$PROJECT_DIR$/objects/daytimetable.py" />
         <option value="$PROJECT_DIR$/objects/test_dayTimetable.py" />
+        <option value="$PROJECT_DIR$/app/run.py" />
+        <option value="$PROJECT_DIR$/app/helper.py" />
+        <option value="$PROJECT_DIR$/app/parser.py" />
+        <option value="$PROJECT_DIR$/app/resources.py" />
+        <option value="$PROJECT_DIR$/app/models.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="17" />
-    <option name="y" value="52" />
-    <option name="width" value="1221" />
-    <option name="height" value="647" />
+    <option name="y" value="26" />
+    <option name="width" value="683" />
+    <option name="height" value="742" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -203,26 +236,10 @@
               <item name="hex-backend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="hex-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hex-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hex-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hex-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="objects" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hex-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hex-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="scheduler" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -246,20 +263,32 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
+  <component name="RunManager" selected="Python.run">
+    <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true">
+=======
   <component name="RunManager" selected="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots">
     <configuration name="Unittests for scheduler.test_generate.TestGenerate" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
       <module name="hex-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;scheduler.test_generate.TestGenerate&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/run.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
@@ -324,11 +353,16 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
+        <item itemvalue="Python.run" />
+        <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" />
+        <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable" />
+=======
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
         <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots" />
         <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable" />
         <item itemvalue="Python tests.Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" />
         <item itemvalue="Python tests.Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled" />
-        <item itemvalue="Python tests.Unittests for scheduler.test_generate.TestGenerate" />
       </list>
     </recent_temporary>
   </component>
@@ -352,17 +386,22 @@
       <workItem from="1558953478587" duration="9406000" />
       <workItem from="1559078856766" duration="493000" />
       <workItem from="1559128616772" duration="27624000" />
-      <workItem from="1559218296719" duration="18642000" />
+      <workItem from="1559218296719" duration="19829000" />
+      <workItem from="1559299414170" duration="959000" />
+      <workItem from="1559323241072" duration="3024000" />
+      <workItem from="1559335800705" duration="2567000" />
+      <workItem from="1559386609980" duration="12000" />
+      <workItem from="1559399407808" duration="3250000" />
+      <workItem from="1559405294163" duration="657000" />
+      <workItem from="1559466740944" duration="275000" />
+      <workItem from="1559467046924" duration="3130000" />
+      <workItem from="1559514105860" duration="11644000" />
+      <workItem from="1559588991178" duration="60000" />
+      <workItem from="1559641357655" duration="4206000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable - 2019.05.31 at 00h 40m 15s.xml">
-      <configuration name="Unittests for test_dayTimetable.TestDayTimetable" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable - 2019.05.31 at 00h 47m 09s.xml">
-      <configuration name="Unittests for test_dayTimetable.TestDayTimetable" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable - 2019.05.31 at 00h 48m 17s.xml">
       <configuration name="Unittests for test_dayTimetable.TestDayTimetable" configurationId="tests" />
     </history-entry>
@@ -387,19 +426,29 @@
     <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour - 2019.05.31 at 01h 03m 05s.xml">
       <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" configurationId="tests" />
     </history-entry>
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour - 2019.05.31 at 01h 03m 30s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour - 2019.05.31 at 01h 04m 05s.xml">
+      <configuration name="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72352000" />
+    <option name="totallyTimeSpent" value="103323000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
+<<<<<<< HEAD
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24658574" />
+=======
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17550574" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26065573" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.04918033" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -417,12 +466,12 @@
       <window_info anchor="right" id="Database" order="4" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16995448" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24279211" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.9114754" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.9508197" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -431,7 +480,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.91967213" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.60819674" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3295082" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -448,11 +497,11 @@
     <SUITE FILE_PATH="coverage/hex_backend$Flask__app_run_py_.coverage" NAME="Flask (app/run.py) Coverage Results" MODIFIED="1559179804243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_generate_TestGenerate_test_generate.coverage" NAME="Unittests for scheduler.test_generate.TestGenerate.test_generate Coverage Results" MODIFIED="1559221121853" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_dataGenerator_TestDataGenerator_test_lectures.coverage" NAME="Unittests for scheduler.test_dataGenerator.TestDataGenerator.test_lectures Coverage Results" MODIFIED="1559183714520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/hex_backend$run.coverage" NAME="run Coverage Results" MODIFIED="1559186281983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_timeTableGenerator_TestTimeTableGenerator_test_scheduled.coverage" NAME="Unittests for scheduler.test_timeTableGenerator.TestTimeTableGenerator.test_scheduled Coverage Results" MODIFIED="1559257895810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable Coverage Results" MODIFIED="1559264063543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
+    <SUITE FILE_PATH="coverage/hex_backend$run.coverage" NAME="run Coverage Results" MODIFIED="1559521347900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable_test_validate_time_slots.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable.test_validate_time_slots Coverage Results" MODIFIED="1559263998786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
-    <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour Coverage Results" MODIFIED="1559264585321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
+    <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_test_dayTimetable_TestDayTimetable_test_has_left_neighbour.coverage" NAME="Unittests for test_dayTimetable.TestDayTimetable.test_has_left_neighbour Coverage Results" MODIFIED="1559264645629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/objects" />
     <SUITE FILE_PATH="coverage/hex_backend$Unittests_for_scheduler_test_generate_TestGenerate.coverage" NAME="Unittests for scheduler.test_generate.TestGenerate Coverage Results" MODIFIED="1559222116376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
@@ -515,7 +564,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/rooms.csv">
+<<<<<<< HEAD
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+=======
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
       <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py" />
     <entry file="file:///usr/lib/python3.7/unittest/loader.py" />
@@ -529,61 +585,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="31" column="8" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/objects/data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="73" column="13" lean-forward="true" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/parser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/resources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="122" selection-start-line="122" selection-end-line="123" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="31" column="36" lean-forward="true" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -601,16 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2268">
-          <caret line="144" column="25" lean-forward="true" selection-start-line="144" selection-start-column="25" selection-end-line="144" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/objects/department.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -622,6 +617,64 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1199">
           <caret line="99" lean-forward="true" selection-start-line="99" selection-end-line="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/timetablegenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/test_timeTableGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="11" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/objects/timetable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="197" column="23" selection-start-line="197" selection-start-column="23" selection-end-line="197" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/objects/daytimetable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2412">
+          <caret line="134" column="53" selection-start-line="134" selection-start-column="53" selection-end-line="134" selection-end-column="53" />
+          <folding>
+            <element signature="e#117#149#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
         </state>
       </provider>
     </entry>
@@ -642,25 +695,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/objects/test_dayTimetable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="11" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="221">
+          <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/objects/timetable.py">
+    <entry file="file://$PROJECT_DIR$/app/status.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+=======
+    <entry file="file://$PROJECT_DIR$/scheduler/test_dataGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="11" column="56" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="56" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scheduler/test_generate.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="414">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+=======
+        <state relative-caret-position="288">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="108">
+          <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+=======
         <state relative-caret-position="4704">
           <caret line="197" column="23" selection-start-line="197" selection-start-column="23" selection-end-line="197" selection-end-column="23" />
         </state>
@@ -672,20 +760,48 @@
           <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
           <folding>
             <element signature="e#117#149#0" expanded="true" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/helper.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+=======
     <entry file="file://$PROJECT_DIR$/scheduler/datagenerator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="23" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="e#0#48#0" expanded="true" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="152" column="4" selection-start-line="152" selection-start-column="4" selection-end-line="152" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/resources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="605">
+          <caret line="296" lean-forward="true" selection-start-line="296" selection-end-line="296" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+=======
     <entry file="file://$PROJECT_DIR$/objects/timetableslot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1656">
@@ -699,16 +815,22 @@
           <caret line="19" selection-start-line="19" selection-end-line="19" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/objects/test_dayTimetable.py">
+    <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="335">
+          <caret line="215" column="25" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
+=======
         <state relative-caret-position="1368">
           <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
+>>>>>>> 3d52aacb866a3605ec4bc73b67e131fbd0606d51
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
