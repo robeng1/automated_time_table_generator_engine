@@ -1,5 +1,5 @@
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship, joinedload
+from sqlalchemy.orm import relationship, joinedload, backref
 from app import db
 from passlib.hash import pbkdf2_sha256 as sha256
 from sqlalchemy.dialects.postgresql import JSONB
@@ -35,12 +35,9 @@ class UserModel(BaseModel):
     @classmethod
     def return_all(cls):
         def to_json(x):
-            return {
-                'username': x.username,
-                'password': x.password
-            }
+            return dict(username=x.username, password=x.password)
 
-        return {'users': list(map(lambda x: to_json(x), UserModel.query.all()))}
+        return dict(users=list(map(lambda x: to_json(x), UserModel.query.all())))
 
     @classmethod
     def delete_all(cls):
@@ -86,20 +83,23 @@ class ModuleModel(BaseModel):
     second_examiner = db.Column(db.String(60))
     department = db.Column(db.String(30))
     year = db.Column(db.String(4))
-    sections = relationship('SectionModel', back_populates='module')
+    sections = relationship(
+        'SectionModel',
+        backref=backref('section', uselist=True),
+    )
 
     def to_json(self):
-        json_module = {
-            'title': self.title,
-            'code': self.code,
-            'teaching': self.teaching,
-            'practicals': self.practicals,
-            'credit': self.credit,
-            'first_examiner': self.first_examiner,
-            'second_examiner': self.second_examiner,
-            'department': self.department,
-            'year': self.year
-        }
+        json_module = dict(
+            title=self.title,
+            code=self.code, teaching=self.teaching,
+            practicals=self.practicals,
+            credit=self.credit,
+            first_examiner=self.first_examiner,
+            second_examiner=self.second_examiner,
+            department=self.department,
+            year=self.year,
+            sections=list(map(lambda x: x.to_json(), self.sections)),
+        )
         return json_module
 
     @classmethod
@@ -131,19 +131,91 @@ class SectionModel(BaseModel):
         return cls.query.filter_by(klass=kls)
 
 
-class ClassRoomModel(BaseModel):
-    name = db.Column(db.String(10), primary_key=True)
-    capacity = db.Column(db.Integer)
-    location = db.Column(JSONB)
+class ClassRoomGroupModel(BaseModel):
+    __tablename__ = 'roomgroup'
+    name = db.Column(db.String(50), primary_key=True)
+    rooms = relationship(
+        'ClassRoomModel',
+        # Use cascade='delete,all' to propagate the deletion of a group onto its rooms
+        backref=backref('roomgroup', uselist=True, cascade='delete, all'),
+    )
 
     def to_json(self):
-        json_model = {
-            'name': self.name,
-            'capacity': self.capacity,
-            'location': self.location,
-        }
+        model = dict(group_name=self.name, rooms=list(map(lambda x: x.to_json(), self.rooms)))
+        return model
+
+    @classmethod
+    def find_by_name(cls, name):
+        result = cls.query.filter_by(name=name).first()
+        return result.to_json()
+
+
+class ClassRoomModel(BaseModel):
+    __tablename__ = 'classroom'
+    name = db.Column(db.String(10), primary_key=True)
+    capacity = db.Column(db.Integer)
+    location = db.Column(db.String(30))
+    allowance = db.Column(db.Integer)
+    group_name = db.Column(db.String(50), ForeignKey('roomgroup.name'))
+
+    def to_json(self):
+        json_model = dict(name=self.name,
+                          capacity=self.capacity,
+                          location=self.location,
+                          allowance=self.allowance,
+                          group_name=self.group_name,
+                          )
         return json_model
 
     @classmethod
-    def find_room(cls, name ):
+    def find_room(cls, name):
+        return cls.query.filter_by(name=name).first()
+
+
+class DepartmentModel(BaseModel):
+    __tablename__ = 'department'
+    name = db.Column(db.String(50), primary_key=True)
+    lecturers = relationship(
+        'LecturerModel',
+        # Use cascade='delete,all' to propagate the deletion of a group onto its rooms
+        backref=backref('roomgroup', uselist=True, cascade='delete, all'),
+    )
+
+    def to_json(self):
+        model = dict(department=self.name, lecturers=list(map(lambda x: x.to_json(), self.lecturers)))
+        return model
+
+    @classmethod
+    def find_department(cls, name):
+        return cls.query.filter_by(name=name).first()
+
+
+class LecturerModel(BaseModel):
+    __tablename__ = 'lecturer'
+    title = db.Column(db.String(10))
+    name = db.Column(db.String(50))
+    ID = db.Column(db.Integer, primary_key=True)
+    department = db.Column(db.String(50), ForeignKey('department.name'))
+    email = db.Column(db.String(30))
+    office = db.Column(db.String(20))
+
+    def to_json(self):
+        model = dict(title=self.title,
+                     name=self.name, id=self.ID,
+                     department=self.department,
+                     email=self.email,
+                     office=self.office,
+                     )
+        return model
+
+    @classmethod
+    def find_by_department(cls, name):
+        return cls.query.filter_by(department=name)
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter_by(ID=id).first()
+
+    @classmethod
+    def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
