@@ -5,7 +5,7 @@
 
 from daytimetable import DayTimetable
 from random import choice
-
+from copy import deepcopy
 
 ##################################TODO######################################
 # 0. Complete logic for best_fit(self,lecture)
@@ -28,30 +28,30 @@ class Timetable:
     # does not handle business logic
     # assumes _days,timeslots etc make sense passed in make sense*
 
-    _days = []  # the _days for which lectures can be scheduled
+    #_days = []  # the _days for which lectures can be scheduled
     # format for _days decided by business logic
     # format must
-    timetable = {}  # holds the timetable for teach day
+   # timetable = {}  # holds the timetable for teach day
 
     # keys are the _days and the values are day timetables
 
-    def __init__(self, days=None, daytables=None):
+    def __init__(self, days=[], daytables=[]):
         # _days is the list of all _days open for scheduling
         # decide on business rule for validity of _days
         # daytables is a list of Daytimetables representing the timetable
         # _days must be the same as the day tables
         # decide on application rules to validate day tables
         # create timetable from _days and daytables
+        self._days = []
+        self.timetable = {}
+        self._days = deepcopy(days)
 
-        if daytables is None:
-            daytables = []
-        if days is None:
-            days = []
-        self._days = days
-
+        i= 0
         for day in self._days:
-            self.timetable[day] = daytables[self._days.index(day)]
-            self.timetable[day].day = day  # makes sure daytiemtable has a day
+            std= deepcopy(daytables[i])
+            self.timetable[day] = deepcopy(DayTimetable(std.rooms, std.time_slots, std.day))
+            self.timetable[day].day = deepcopy(day)  # makes sure daytiemtable has a day
+            i = i+1
             # verify
 
         # set the day for each timetable slot
@@ -78,6 +78,7 @@ class Timetable:
         # lecture and timetableslot assumed valid
 
         if self.day_is_valid(day):  # change to duck typing... catch exception
+            timetableslot.day = day
             return self.timetable[day].add_lecture(lecture, timetableslot, free)
 
         return False
@@ -91,15 +92,18 @@ class Timetable:
         # returns false if parameters are invalid
         # true only returned from the daytimetable.move_lecture
 
-        if sourceday == destday:
-            return self.timetable[sourceday].move_lecture(sourceslot, destslot)
-        else:
-            timetableslot = self.timetable[sourceday].timetableslot(sourceslot.room, sourceslot.time_slot)
+        try:
+            if sourceday == destday:
+                return self.timetable[sourceday].move_lecture(sourceslot, destslot)
+            else:
+                timetableslot = self.timetable[sourceday].timetableslot(sourceslot.room, sourceslot.time_slot)
 
-            if timetableslot.is_occupied:
-                if self.add_lecture(destday, timetableslot.lecture, destslot, free):
-                    if self.remove_lecture(sourceday, timetableslot):
-                        return True
+                if timetableslot.is_occupied:
+                    if self.add_lecture(destday, timetableslot.lecture, destslot, free):
+                        if self.remove_lecture(sourceday, timetableslot):
+                            return True
+        except Exception:
+            print(Exception)
         return False
 
     def swap_lectures(self, day1, slot1, day2, slot2):
@@ -138,9 +142,12 @@ class Timetable:
         # removes the lecture at day and timetable slot
         # leave timetableslot validation to daytimetable
 
-        if self.day_is_valid(day):
-            return self.timetable[day].remove_lecture(timetableslot)
-
+        try:
+            if self.day_is_valid(day):
+                return self.timetable[day].remove_lecture(timetableslot)
+        except Exception:
+            print(Exception)
+            
         return False
 
     def remove_all(self):
@@ -227,7 +234,7 @@ class Timetable:
         best_fits = []
 
         for day in self._days:
-            best_fits.append(self.timetable[day].best_fit)
+            best_fits.append(self.timetable[day].best_fit(lecture))
 
         # assuming all slots in best_fits are valid
         # deal with case where some of the slots are invalid

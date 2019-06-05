@@ -88,8 +88,8 @@ class DayTimetable:
 
     """
 
-    rooms = []  # all classrooms that are available for that day
-    table = {}  # maps each classroom to the different times it is available for lectures
+    #rooms = []  # all classrooms that are available for that day
+    #table = {}  # maps each classroom to the different times it is available for lectures
 
     def __init__(self, classrooms, time_slots=None, day=None):
         """
@@ -103,7 +103,8 @@ class DayTimetable:
 
         # TODO
         # validate to check instances of particular class
-
+        self.rooms = []
+        self.table = {}
         if time_slots is None:
             self.time_slots = []
 

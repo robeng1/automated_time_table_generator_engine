@@ -34,10 +34,10 @@ class TimetableSlot:
     # def __hash__(self):#should not be hashable
     #    return ((self.day,self.timeslot,self.room))
 
-    def _str__(self):
-        return str(self.room.name) + ":  Capacity" + str(self.room.capacity)\
-        + str(self.time_slot.start) + "-"+str(self.time_slot.end)  +\
-        "Occupied: " + str(self._occupied)
+    def __str__(self):
+        return str(self.day)+ "       " + str(self.room.name) + "  Capacity   :   " + str(self.room.capacity)\
+        +"     "+ str(self.time_slot)  +\
+        "   Occupied: " + str(self._occupied)
 
     def remove_lecture(self):
         # only remove lecture from an occupied slot

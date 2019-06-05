@@ -142,6 +142,8 @@ class TimeTableGenerator(object):
                     temp = TimetableSlot(dest_slots[0].day,dest_slots[0].room,tslot)
 
                     #remove all dest_slots from timetable
+                    for slot in dest_slots:
+                        self.timetable.remove
                     #add temp slot to timetable
                     return dest_slots
 

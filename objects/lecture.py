@@ -41,8 +41,8 @@ class Lecture:
 
     def __str__(self):
         return str(self.curriculum_item.course) + '\n' + \
-               str(self.curriculum_item.section.klass) + '\n' + \
-               str(self.curriculum_item.lecturers) + '\n' + \
+               str(self.curriculum_item.section.name) + '\n' + \
+               str(self.curriculum_item.lecturer) + '\n' + \
                str(self.duration) + '\n' + '-----------------------------------------'
 
     @property

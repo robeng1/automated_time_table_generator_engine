@@ -74,7 +74,7 @@ class Lecturer(object):
         return hash((self.name,self.id))
 
     def __str__(self):
-        return self._id+ '  '+self._title + '. ' + self._name + '\n'
+        return  self._title + '. ' + self._name + '\n'
         
     @property
     def name(self):
