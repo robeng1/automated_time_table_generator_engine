@@ -30,6 +30,8 @@ from random import choice
 from timetable import Timetable
 import math
 from copy import deepcopy
+import csv
+
 
 class TimeTableGenerator(object):
     WEIGHT_DAY_OF_WEEK = 1.15
@@ -57,7 +59,10 @@ class TimeTableGenerator(object):
             #print(lecture)
             #self.unscheduled.remove(lecture)
             #self.scheduled.append(lecture)
-      
+        csv.register_dialect('myDialect',
+        delimiter = ',',
+        skipinitialspace=True)
+
       
     @staticmethod
     def day_multipliers(days):
@@ -175,6 +180,7 @@ class TimeTableGenerator(object):
         for lecture in self._unscheduled:
             if self.schedule(lecture):
                 self._scheduled.append(lecture)
+                print('Scheduled')
                 #self._unscheduled.remove(lecture)
             else:
                 print('Failed to schedule')
@@ -390,13 +396,6 @@ class TimeTableGenerator(object):
 if __name__ == '__main__':
     #create a timetable to schedule lectures
 
-    classrooms = [
-            Classroom('LT ', 45, 'PBOO2'),
-            Classroom('PB001', 100, 'Petroleum building'),
-            # Classroom('Main Library ', 60, 'Admiss'),
-            # Classroom('Room C', 67, 'N1'),
-            # Classroom(' A110', 300, 'Libary')
-    ]
 
     timeslots = [
         TimeSlot('8:00','10:00'),
@@ -407,47 +406,74 @@ if __name__ == '__main__':
         ]
     
     
+     
+
+    csv.register_dialect('myDialect',
+    delimiter = ',',
+    skipinitialspace=True)
+    lectures = []
+    rooms = []
+    with open('/home/kumbong/Desktop/Software Engineering/hex-backend/objects/curriculum.csv', 'r') as csvFile:
+        reader = csv.DictReader(csvFile, dialect='myDialect')
+        for row in reader:
+            r = (dict(row))
+            lecturer = Lecturer(r['Lecturer name'].strip(),r['Lecturer Id'].strip(),r['Lecturer Title'].strip())
+            course = Course(r['Course name'].strip(),r['Department code'].strip(),r['Course code'].strip(),r['T'].strip(),r['P'].strip(),r['C'].strip(),r['Tutorial'].strip())
+            section = Section(r['Section department'].strip(),r['Year'].strip(),r['Section code'].strip(),int(r['Class size'].strip()))
+            c_item = CurriculumItem(section,course,lecturer)
+            lecture = Lecture(c_item,60)
+            lectures.append(lecture)
+
+    csvFile.close()
+
+    with open('/home/kumbong/Desktop/Software Engineering/hex-backend/objects/rooms.csv', 'r') as csvFile:
+        reader = csv.DictReader(csvFile, dialect='myDialect')
+        for row in reader:
+            r = (dict(row))
+            room = Classroom(r['Name'].strip(),int(r['Capacity'].strip()),r['Building'].strip(),r['Allowance'].strip())
+            rooms.append(room)
+    csvFile.close()
+
     days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
     day_tables = []
 
     for day in days:
-        day_tables.append(DayTimetable(classrooms,timeslots,day)) 
-
+        day_tables.append(DayTimetable(rooms,timeslots,day))
     timetable = Timetable(days,day_tables)
-    #print(timetable)
-#create a list of lectures to be scheduled
-    lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
-    course = Course('Opearating Systems','COE 361')
+#     #print(timetable)
+# #create a list of lectures to be scheduled
+#     lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
+#     #course = Course('Opearating Systems','COE 361')
 
-    section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
-    c_item = CurriculumItem(section,course,lecturer)
+#     section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+#     c_item = CurriculumItem(section,course,lecturer)
 
-    lecture = Lecture(c_item,60)
-    lectures = [lecture]
+#     lecture = Lecture(c_item,60)
+#     lectures = [lecture]
 
-    lecturer = Lecturer('Yao Ming',4564541,'Mr')
-    course = Course('Control Systems','COE 63')
+#     lecturer = Lecturer('Yao Ming',4564541,'Mr')
+#     #course = Course('Control Systems','COE 63')
 
-    section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
-    c_item = CurriculumItem(section,course,lecturer)
+#     section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+#     #c_item = CurriculumItem(section,course,lecturer)
 
-    lectures.append(Lecture(c_item,60))
+#     lectures.append(Lecture(c_item,60))
 
-    lecturer = Lecturer('J Yankey',4564541,'Mr')
-    course = Course('Software Systems','COE 371')
+#     lecturer = Lecturer('J Yankey',4564541,'Mr')
+#     course = Course('Software Systems','COE 371')
 
-    section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
-    c_item = CurriculumItem(section,course,lecturer)
+#     section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+#     c_item = CurriculumItem(section,course,lecturer)
 
-    lectures.append(Lecture(c_item,120))
+#     lectures.append(Lecture(c_item,120))
 
-    lecturer = Lecturer('Helle Rubie',4564541,'Mr')
-    course = Course('Embedded Systems','COE 381')
+#     lecturer = Lecturer('Helle Rubie',4564541,'Mr')
+#     course = Course('Embedded Systems','COE 381')
 
-    section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
-    c_item = CurriculumItem(section,course,lecturer)
+#     section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
+#     c_item = CurriculumItem(section,course,lecturer)
 
-    lectures.append(Lecture(c_item,120))
+#     lectures.append(Lecture(c_item,120))
 
 
 
@@ -457,12 +483,14 @@ if __name__ == '__main__':
     generator = TimeTableGenerator(timetable,lectures)
 
   
-    #print(generator.unscheduled)
+    # #print(generator.unscheduled)
 
     generator.generate_timetable()
-
+    
     print(generator.timetable)
-    print(generator.scheduled)
+    print(len(generator.scheduled))
+    print(len(generator.unscheduled))
+    #print(generator.scheduled)
 
 
 

@@ -5,7 +5,7 @@
 
 
 class Classroom(object):
-    """classroom allocation class specifies the capacity of a class,the location
+    """classroom albuilding class specifies the capacity of a class,the building
                 
                 Attributes
                 ----------
@@ -15,35 +15,44 @@ class Classroom(object):
                 capacity : int
                    the capacity of the class room/the number of students the classroom c
                    an occupy a particular lecture room
-                location : int
-                    the location of the class room
+                building : int
+                    the building of the class room
                  
                     """
 
-    def __init__(self, name, capacity, location=''):
+    def __init__(self, name, capacity, building,allowance):
         """the constructor for this class specifies the
-        classroom name,the capacity,the location of the class
+        classroom name,the capacity,the building of the class
         """
         self._name = name
-        self._capacity = capacity
-        self._location = location
+
+        if capacity:
+            self._capacity = int(capacity)
+        else:
+            self._capacity = 0
+        self._building = building
+
+        if allowance:
+            self._allowance = int(allowance)
+        else:
+            self._allowance = 0
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
             return self.name == other.name and self.capacity == other.capacity and \
-                   self.location == self.location
+                   self.building == self.building
         else:
             return NotImplemented
 
     def __ne__(self, other):
         if isinstance(self, other.__class__):
             return self.name != other.name or self.capacity != other.capacity or \
-                   self.location != self.location
+                   self.building != self.building
         else:
             return NotImplemented
 
     def __hash__(self):
-        return hash((self.name, self.capacity, self.location))
+        return hash((self.name, self.capacity, self.building))
 
     def __str__(self):
         return "Room:" + self._name + '\t' + "Capacity :" \
@@ -66,12 +75,23 @@ class Classroom(object):
         self._capacity = capacity
 
     @property
-    def location(self):
-        return self._location
+    def allowance(self):
+        return self._allowance
 
-    @location.setter
-    def location(self, location):
-        self._location = location
+    @allowance.setter
+    def allowance(self, allowance):
+        if allowance:
+            self._allowance = int(allowance)
+        else:
+            self._allowance = 0
+
+    @property
+    def building(self):
+        return self._building
+
+    @building.setter
+    def building(self, building):
+        self._building = building
 
     def can_accommodate(self, size, allowance=0):
-        return (self._capacity + allowance) >= size
+        return (self._capacity + self._allowance) >= size

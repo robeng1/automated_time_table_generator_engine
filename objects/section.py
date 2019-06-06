@@ -29,64 +29,53 @@ class Section(object):
 
     # TODO: add validations to attributes
 
-    def __init__(self, name, size, year, department='', faculty=''):
-        self._name = name
-        self._faculty = faculty
+    def __init__(self,department,year, code, size):
         self._department = department
+        self._code = code
         self._size = size
         self._year = year
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
-            return self.name == other.name and self.department == self.department \
-                   and self.year == self.year
+            return self.department == other.department and self.code == self.code \
+                   and self.year == self.year and self.size == other.size
         else:
             return NotImplemented
 
     def __ne__(self, other):
         if isinstance(self, other.__class__):
-            return self.name == other.name and self.department == self.department \
-                   and self.year == self.year
+            return self.department != other.department or self.code != self.code \
+                   or self.year != self.year or self.size != other.size
         else:
             return NotImplemented
 
     def __hash__(self):
-        return hash((self.year, self.department, self.year))
+        return hash((self.year, self.department, self.code,self.size))
 
     def __str__(self):
-        return '{name} {year} {size}'.format(
-            name=self._name,
-            year=self._year,
-            size=self._size
-        )
-
-    @property
-    def name(self) -> str:
-        return self._name
-
-    @property
-    def faculty(self) -> str:
-        return self._faculty
+        return str(self._code) +' '+ str(self._department) + ' ' + str(self._year)
+        
 
     @property
     def department(self) -> str:
         return self._department
 
     @property
-    def size(self) -> int:
+    def size(self) :
         return self._size
 
     @property
-    def year(self) -> int:
+    def year(self):
         return self._year
 
-    @name.setter
-    def name(self, name):
-        self._name = name
+    @property
+    def code(self) -> str:
+        return self._code
 
-    @faculty.setter
-    def faculty(self, faculty):
-        self._faculty = faculty
+
+    @code.setter
+    def code(self, code):
+        self._code = code
 
     @department.setter
     def department(self, department):

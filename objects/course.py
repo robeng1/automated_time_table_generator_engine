@@ -48,29 +48,31 @@ class Course(object):
 
     """
 
-    def __init__(self, name, code, lecturers=[], assistants=[], t_mins=120, p_mins=0, \
-                 tut_mins=0, department='', sections=[], room=''):
+    def __init__(self, name, dept_code,course_code, t, p,c,tutorial):
         self._name = name
-        self._code = code
-        self._lecturers = lecturers
-        self._assistants = assistants
-        self._teaching_mins = t_mins
-        self._practical_mins = p_mins
-        self._tutorial_mins = tut_mins
-        self._sections = sections
-        self._department = department
-        self._preferred_room = room
+        self._dept_code = dept_code
+        self._course_code = course_code
+        if t:
+            self._teaching = int(t)
+        else:
+            self._teaching = 0
 
-        # change to be taken in as parameters
-        self._min_mins_per_meeting = 60
-        self._max_mins_per_meeting = 120
-        self._max_meetings_per_day = 1
+        if p:
+            self._practical = int(p)
+        else:
+            self._practical = 0 
+        if c:
+            self._credits = int(c)
+        else:
+            self._credits = 0
+
+        if tutorial:
+            self._tutorial = int(tutorial)
+        else:
+            self._tutorial = 0
 
     def __str__(self):
-        coursestr = self._code + ' ' + self._name + ' '
-        for lecturer in self._lecturers:
-            coursestr += ' ' + lecturer.name + '   '
-
+        coursestr = self._dept_code +' '+self._course_code + ' ' + self._name + ' '
         return coursestr
 
     @property
@@ -82,73 +84,62 @@ class Course(object):
         self._name = name
 
     @property
-    def code(self):
-        return self._code
-
-    @code.setter
-    def code(self, code):
-        self._code = code
+    def dept_code(self):
+        return self._dept_code
 
     @property
-    def lecturers(self):
-        return self._lecturers
+    def course_code(self):
+        return self._course_code
 
-    @lecturers.setter
-    def lecturers(self, lecturers):
-        self._lecturers = lecturers
+    @dept_code.setter
+    def dept_code(self,code):
+        self._course_code = code
 
-    @property
-    def assistants(self):
-        return self._assistants
-
-    @assistants.setter
-    def assistants(self, assistants):
-        self._assistants = assistants
+    @course_code.setter
+    def course_code(self, code):
+        self._course_code = code
 
     @property
-    def teaching_mins(self):
-        return self._teaching_mins
+    def teaching(self):
+        return self._teaching
 
-    @teaching_mins.setter
-    def teaching_mins(self, teaching_mins):
-        self._teaching_mins = teaching_mins
-
-    @property
-    def practical_mins(self):
-        return self._practical_mins
-
-    @practical_mins.setter
-    def practical_mins(self, practical_mins):
-        self._practical_mins = practical_mins
+    @teaching.setter
+    def teaching(self, t):
+        if t:
+            self._teaching = int(t)
+        else:
+            self._teaching = 0
 
     @property
-    def tutorial_mins(self):
-        return self._tutorial_mins
+    def practical(self):
+        return self._practical
 
-    @tutorial_mins.setter
-    def tutorial_mins(self, tutorial_mins):
-        self._tutorial_mins = tutorial_mins
-
-    @property
-    def sections(self):
-        return self._sections
-
-    @sections.setter
-    def sections(self, sections):
-        self._sections = sections
+    @practical.setter
+    def practical(self, p):
+        if p:
+            self._practical = int(p)
+        else:
+            self._practical = 0
 
     @property
-    def department(self):
-        return self._department
-
-    @department.setter
-    def department(self, department):
-        self._department = department
+    def credits(self):
+        return self._credits
+        
+    @credits.setter
+    def credits(self, c):
+        if c:
+            self._credits = int(c)
+        else:
+            self._credits = 0
 
     @property
-    def preferred_room(self):
-        return self._preferred_room
+    def tutorial(self):
+        return self._tutorial
 
-    @preferred_room.setter
-    def preferred_room(self, preferred_room):
-        self._preferred_room = preferred_room
+    @tutorial.setter
+    def tutorial(self, tutorial):
+        if tutorial:
+            self._tutorial = int(tutorial)
+        else:
+            self._tutorial = 0
+    
