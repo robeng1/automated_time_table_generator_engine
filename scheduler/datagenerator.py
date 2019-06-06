@@ -1,4 +1,4 @@
-from app.models import ModuleModel, SectionModel
+from app.models import ModuleModel
 from objects.data import CurriculumItem, Curriculum
 from objects.lecture import Lecture
 
@@ -7,7 +7,7 @@ class DataGenerator:
     def __init__(self, data=None):
 
         # eagerly loads sections related to each module
-        # might be slow to set up but errtin will be in memory
+        # might be slow to set up but err tin will be in memory
         if data is None:
             self.modules = ModuleModel.return_all_raw()
         else:
@@ -18,7 +18,7 @@ class DataGenerator:
         if self.modules is not None:
             return [CurriculumItem(
                 section=item.sections,
-                lecturers=[item.first_examiner, item.second_examiner],
+                lecturer=[item.first_examiner, item.second_examiner],
                 course=item.code
             ) for item in self.modules]
 
@@ -35,14 +35,14 @@ class DataGenerator:
                 while item.credit > 2:
                     splits.append((CurriculumItem(
                         section=item.sections,
-                        lecturers=[item.first_examiner, item.second_examiner],
+                        lecturer=[item.first_examiner, item.second_examiner],
                         course=item.code
                     ), 2))
                     item.credit -= 2
                 if item.credit > 0:
                     splits.append((CurriculumItem(
                         section=item.sections,
-                        lecturers=[item.first_examiner, item.second_examiner],
+                        lecturer=[item.first_examiner, item.second_examiner],
                         course=item.code
                     ), item.credit))
             else:
@@ -52,7 +52,7 @@ class DataGenerator:
                         for i in item.sections:
                             splits.append((CurriculumItem(
                                 section=i,
-                                lecturers=[item.first_examiner, item.second_examiner],
+                                lecturer=[item.first_examiner, item.second_examiner],
                                 course=item.code
                             ), 2))
                         item.credit -= 2
@@ -60,7 +60,7 @@ class DataGenerator:
                         for i in item.sections:
                             splits.append((CurriculumItem(
                                 section=i,
-                                lecturers=[item.first_examiner, item.second_examiner],
+                                lecturer=[item.first_examiner, item.second_examiner],
                                 course=item.code
                             ), item.credit))
         if len(splits) != 0:

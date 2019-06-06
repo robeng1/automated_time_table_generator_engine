@@ -59,7 +59,7 @@ class Lecture:
 
     @duration.setter
     def duration(self, duration):
-        if duration >0:
+        if duration > 0:
             self._duration = duration
         else:
             raise ValueError("Invalid Duration: Duration less than or equal to 0")

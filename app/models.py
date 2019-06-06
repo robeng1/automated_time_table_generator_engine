@@ -2,7 +2,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, joinedload, backref
 from app import db
 from passlib.hash import pbkdf2_sha256 as sha256
-from sqlalchemy.dialects.postgresql import JSONB
+# from sqlalchemy.dialects.postgresql import JSONB
 
 
 class BaseModel(db.Model):
@@ -141,7 +141,7 @@ class ClassRoomGroupModel(BaseModel):
     )
 
     def to_json(self):
-        model = dict(group_name=self.name, rooms=list(map(lambda x: x.to_json(), self.rooms)))
+        model = dict(groupName=self.name, rooms=list(map(lambda x: x.to_json(), self.rooms)))
         return model
 
     @classmethod
@@ -154,17 +154,18 @@ class ClassRoomModel(BaseModel):
     __tablename__ = 'classroom'
     name = db.Column(db.String(10), primary_key=True)
     capacity = db.Column(db.Integer)
-    location = db.Column(db.String(30))
+    location = db.Column(db.String(50))
     allowance = db.Column(db.Integer)
     group_name = db.Column(db.String(50), ForeignKey('roomgroup.name'))
 
     def to_json(self):
-        json_model = dict(name=self.name,
-                          capacity=self.capacity,
-                          location=self.location,
-                          allowance=self.allowance,
-                          group_name=self.group_name,
-                          )
+        json_model = dict(
+            name=self.name,
+            capacity=self.capacity,
+            location=self.location,
+            allowance=self.allowance,
+            groupName=self.group_name,
+            )
         return json_model
 
     @classmethod

@@ -1,8 +1,8 @@
 from unittest import TestCase,main
 #import factory
-from classroom import Classroom
-from timeslot import TimeSlot
-from timetableslot import TimetableSlot
+from .classroom import Classroom
+from .timeslot import TimeSlot
+from .timetableslot import TimetableSlot
 
 
 class TestTimetableSlot(TestCase):

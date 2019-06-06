@@ -13,7 +13,7 @@ class Generate:
         self.gen = TimeTableGenerator(
             timetable=self.empty_table, lectures=self.data
         )
+
     @property
     def generate(self):
-        return self.gen.generate_timetable();
-
+        return self.gen.generate_timetable()

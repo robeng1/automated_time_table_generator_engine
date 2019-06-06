@@ -20,13 +20,14 @@ class Classroom(object):
                  
                     """
 
-    def __init__(self, name, capacity, location=''):
+    def __init__(self, name, capacity, allowance, location='',):
         """the constructor for this class specifies the
         classroom name,the capacity,the location of the class
         """
         self._name = name
         self._capacity = capacity
         self._location = location
+        self._allowance = allowance
 
     def __eq__(self, other):
         if isinstance(self, other.__class__):
@@ -69,9 +70,23 @@ class Classroom(object):
     def location(self):
         return self._location
 
+    @property
+    def allowance(self):
+        return self._allowance
+
     @location.setter
     def location(self, location):
         self._location = location
 
     def can_accommodate(self, size, allowance=0):
         return (self._capacity + allowance) >= size
+
+    @property
+    def to_json(self):
+        model = dict(
+            name=self.name,
+            capacity=self.capacity,
+            location=self.location,
+            allowance=self.allowance
+        )
+        return model

@@ -3,7 +3,7 @@
 #  Date: 16/04/2019
 #  Time: 15:27
 
-from daytimetable import DayTimetable
+from .daytimetable import DayTimetable
 from random import choice
 
 
@@ -122,7 +122,7 @@ class Timetable:
             swapped = self.timetable[day1].swap_lectures(slot1, slot2)
 
         else:
-            if (slot1.is_occupied and slot2.is_occupied):
+            if slot1.is_occupied and slot2.is_occupied:
                 if slot1.time_slot.duration == slot2.time_slot.duration:  # proove
                     if slot1.room.can_accommodate(slot2.lecture.curriculum_item.section.size) \
                             and slot2.room.can_accommodate(slot1.lecture.curriculum_item.section.size):

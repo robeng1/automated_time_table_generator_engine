@@ -6,7 +6,7 @@
 
 class Section(object):
     """
-    A class used to represent a class
+    Used to represent a class
     we are calling it section here
     for eg. ``computer engineering 3``
 
@@ -99,3 +99,13 @@ class Section(object):
     @year.setter
     def year(self, year):
         self._year = year
+
+    @property
+    def to_json(self):
+        return dict(
+            name=self.name,
+            size=self.size,
+            year=self.year,
+            department=self.department,
+            faculty=self.faculty
+        )

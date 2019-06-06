@@ -1,6 +1,5 @@
-from flask import jsonify
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
-from flask_restful import Resource, reqparse, abort
+from flask_restful import Resource, reqparse
 from .models import (
     UserModel, RevokedTokenModel,
     ModuleModel, SectionModel,
@@ -8,9 +7,9 @@ from .models import (
     DepartmentModel, LecturerModel
 )
 from .parser import (
-    moduleParser, sectionParser,
-    classroomGroupParser, classroomParser,
-    departmentParser, lecturer_parser
+    module_parser, section_parser,
+    classroom_group_parser, classroom_parser,
+    department_parser, lecturer_parser
 )
 from . import status
 from flask_jwt_extended import (
@@ -134,7 +133,7 @@ class ModuleResource(Resource):
 
     @staticmethod
     def post():
-        data = moduleParser.parse_args(strict=True)
+        data = module_parser.parse_args(strict=True)
 
         # initializes a new module
         new_module = ModuleModel()
@@ -164,14 +163,14 @@ class ModuleResource(Resource):
 class SectionResource(Resource):
     @staticmethod
     def post():
-        data = sectionParser.parse_args()
+        data = section_parser.parse_args(strict=True)
         new_section = SectionModel()
         new_section.klass = data["klass"]
         new_section.code = data["code"]
         new_section.shared = data["shared"]
         try:
             new_section.save_to_db()
-        except IOError:
+        except IntegrityError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
         return new_section.to_json(), status.HTTP_201_CREATED
 
@@ -188,11 +187,12 @@ class SectionResource(Resource):
 class ClassRoomResource(Resource):
     @staticmethod
     def post():
-        data = classroomParser.parse_args()
+        data = classroom_parser.parse_args(strict=True)
         room = ClassRoomModel()
         room.name = data['name']
         room.capacity = data['capacity']
         room.allowance = data['allowance']
+        room.location = data['location']
         room.group_name = data['group_name']
         try:
             room.save_to_db()
@@ -207,15 +207,15 @@ class ClassRoomResource(Resource):
         return ClassRoomModel.return_all(), status.HTTP_200_OK
 
 
-class ClassRoomGroup(Resource):
+class ClassRoomGroupResource(Resource):
     @staticmethod
     def post():
-        data = classroomGroupParser.parse_args()
+        data = classroom_group_parser.parse_args(strict=True)
         grp = ClassRoomGroupModel()
         grp.name = data['name']
         try:
             grp.save_to_db()
-        except  IntegrityError:
+        except IntegrityError:
             return {'message': "{} already exists".format(data['name'])}
         except SQLAlchemyError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -226,7 +226,7 @@ class ClassRoomGroup(Resource):
         return ClassRoomGroupModel.return_all(), status.HTTP_200_OK
 
 
-class RoomGroup(Resource):
+class RoomGroupResource(Resource):
     @staticmethod
     def get(name=None):
         return ClassRoomGroupModel.find_by_name(name=name)
@@ -235,7 +235,7 @@ class RoomGroup(Resource):
 class DepartmentResource(Resource):
     @staticmethod
     def post():
-        data = departmentParser.parse_args()
+        data = department_parser.parse_args()
         dep = DepartmentModel()
         dep.name = data['name']
 
@@ -284,7 +284,7 @@ class LecturerResource(Resource):
         return LecturerModel.return_all(), status.HTTP_200_OK
 
 
-class SingleLecturer(Resource):
+class SingleLecturerResource(Resource):
     @staticmethod
     def get(name_or_id=None):
         if name_or_id is None:

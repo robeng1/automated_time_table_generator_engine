@@ -5,10 +5,10 @@ from app import app, db, api
 from app.models import RevokedTokenModel
 from app.resources import (
     UserRegistration, UserLogin, UserLogoutAccess,
-    UserLogoutRefresh, TokenRefresh,AllUsers,SecretResource,
-    ModuleResource, AllModules, ClassRoomResource, ClassRoomGroup,
-    RoomGroup, DepartmentResource, SingleDepartmentResource,
-    LecturerResource, SingleLecturer
+    UserLogoutRefresh, TokenRefresh, AllUsers, SecretResource,
+    ModuleResource, AllModules, ClassRoomResource, ClassRoomGroupResource,
+    RoomGroupResource, DepartmentResource, SingleDepartmentResource,
+    LecturerResource, SingleLecturerResource
 )
 
 
@@ -36,12 +36,12 @@ api.add_resource(SecretResource, '/secret')
 api.add_resource(ModuleResource, '/module')
 api.add_resource(AllModules, '/modules')
 api.add_resource(ClassRoomResource, '/classroom')
-api.add_resource(ClassRoomGroup, '/classroomgroup')
-api.add_resource(RoomGroup, '/classroomgroup/<name>')
+api.add_resource(ClassRoomGroupResource, '/classroomgroup')
+api.add_resource(RoomGroupResource, '/classroomgroup/<name>')
 api.add_resource(DepartmentResource, '/department')
 api.add_resource(SingleDepartmentResource, '/department/<name>')
 api.add_resource(LecturerResource, '/lecturers')
-api.add_resource(SingleLecturer, '/lecturers/<name_or_id>')
+api.add_resource(SingleLecturerResource, '/lecturers/<name_or_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)

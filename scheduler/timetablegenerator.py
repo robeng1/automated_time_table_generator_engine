@@ -53,7 +53,7 @@ class TimeTableGenerator(object):
         if best_slot:
             # TODO
             # modify add_lecture to merge adjaecent same slots
-            return self._timetable.add_lecture(best_slot.day,lecture,best_slot)
+            return self._timetable.add_lecture(best_slot.day, lecture, best_slot)
         else:
             # add after swapping
             return self.schedule_via_swap(lecture)
@@ -136,13 +136,13 @@ class TimeTableGenerator(object):
                         dest_slots.append(lslot)
                         total_duration += lslot.timetslot.duration
 
-                    #create a new temporary slot to accomodate the combination of slots
-                    
-                    tslot = Timeslot(dest_slots[0].time_slot.start,dest_slots[-1].time_slot.end)
-                    temp = TimetableSlot(dest_slots[0].day,dest_slots[0].room,tslot)
+                    # create a new temporary slot to accomodate the combination of slots
 
-                    #remove all dest_slots from timetable
-                    #add temp slot to timetable
+                    tslot = Timeslot(dest_slots[0].time_slot.start, dest_slots[-1].time_slot.end)
+                    temp = TimetableSlot(dest_slots[0].day, dest_slots[0].room, tslot)
+
+                    # remove all dest_slots from timetable
+                    # add temp slot to timetable
                     return dest_slots
 
     # duration check is problematic

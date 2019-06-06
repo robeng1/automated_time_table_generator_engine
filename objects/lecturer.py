@@ -4,7 +4,7 @@
 #  Time: 01:27
 
 class Lecturer(object):
-    #TODO add validation to setter methods
+    # TODO add validation to setter methods
     #     implement rank/priority for each lecturer        
     """
       A class for representing lecturers and academic staff
@@ -45,51 +45,51 @@ class Lecturer(object):
 
     """
 
-    def __init__(self,name,lect_id,title,department="",email="",off_num="", phone_num="",\
-         hours=[],rank = 0):
+    def __init__(self, name, lect_id, title, department="", email="", off_num="", phone_num="", \
+                 hours=[], rank=0):
 
         self._name = name
         self._id = lect_id
         self._title = title
         self._department = department
-        self._email =  email
-        self._phone_number =phone_num
+        self._email = email
+        self._phone_number = phone_num
         self._office_number = off_num
         self._office_hours = hours
-        self._rank = rank 
-    
+        self._rank = rank
+
     def __eq__(self, other):
-        if isinstance(self,other.__class__):
+        if isinstance(self, other.__class__):
             return self.name == other.name and self.id == other.id
         else:
             return NotImplemented
 
     def __ne__(self, other):
-        if isinstance(self,other.__class__):
+        if isinstance(self, other.__class__):
             return self.name != other.name or self.id != other.id
         else:
             return NotImplemented
-    
+
     def __hash__(self):
-        return hash((self.name,self.id))
+        return hash((self.name, self.id))
 
     def __str__(self):
-        return self._id+ '  '+self._title + '. ' + self._name + '\n'
-        
+        return self._id + '  ' + self._title + '. ' + self._name + '\n'
+
     @property
     def name(self):
         return self._name
-    
+
     @name.setter
-    def name(self,name):
+    def name(self, name):
         self._name = name
-        
+
     @property
     def id(self):
         return self._id
 
     @id.setter
-    def id(self,id):
+    def id(self, id):
         self._id = id
 
     @property
@@ -97,7 +97,7 @@ class Lecturer(object):
         return self._title
 
     @title.setter
-    def title(self,department):
+    def title(self, department):
         self._department = department
 
     @property
@@ -105,15 +105,15 @@ class Lecturer(object):
         return self._department
 
     @department.setter
-    def department(self,department):
+    def department(self, department):
         self._department = department
-    
+
     @property
     def email(self):
         return self._email
 
     @email.setter
-    def email(self,email):
+    def email(self, email):
         self._email = email
 
     @property
@@ -121,15 +121,15 @@ class Lecturer(object):
         return self._phone_number
 
     @phone_number.setter
-    def phone_number(self,number):
+    def phone_number(self, number):
         self._phone_number = number
-    
+
     @property
     def office_number(self):
         return self._office_number
-    
+
     @office_number.setter
-    def office_number(self,number):
+    def office_number(self, number):
         self._office_number = number
 
     @property
@@ -137,7 +137,7 @@ class Lecturer(object):
         return self._office_hours
 
     @office_hours.setter
-    def office_hours(self,hours):
+    def office_hours(self, hours):
         self._office_hours = hours
 
     @property
@@ -145,7 +145,5 @@ class Lecturer(object):
         return self._rank
 
     @rank.setter
-    def rank(self,rank=-1):
+    def rank(self, rank=-1):
         self._rank = rank
-
-

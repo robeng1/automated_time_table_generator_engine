@@ -152,3 +152,11 @@ class Course(object):
     @preferred_room.setter
     def preferred_room(self, preferred_room):
         self._preferred_room = preferred_room
+
+    @property
+    def to_json(self):
+        return dict(
+            name=self.name, code=self.code,
+            lecturer=self.lecturers[0],
+            sections=list(map(lambda x: x.to_json(), self.sections))
+        )
