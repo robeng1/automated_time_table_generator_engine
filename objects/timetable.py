@@ -5,7 +5,7 @@
 
 from .daytimetable import DayTimetable
 from random import choice
-
+from copy import deepcopy
 
 ##################################TODO######################################
 # 0. Complete logic for best_fit(self,lecture)
@@ -28,30 +28,30 @@ class Timetable:
     # does not handle business logic
     # assumes _days,timeslots etc make sense passed in make sense*
 
-    _days = []  # the _days for which lectures can be scheduled
+    #_days = []  # the _days for which lectures can be scheduled
     # format for _days decided by business logic
     # format must
-    timetable = {}  # holds the timetable for teach day
+   # timetable = {}  # holds the timetable for teach day
 
     # keys are the _days and the values are day timetables
 
-    def __init__(self, days=None, daytables=None):
+    def __init__(self, days=[], daytables=[]):
         # _days is the list of all _days open for scheduling
         # decide on business rule for validity of _days
         # daytables is a list of Daytimetables representing the timetable
         # _days must be the same as the day tables
         # decide on application rules to validate day tables
         # create timetable from _days and daytables
+        self._days = []
+        self.timetable = {}
+        self._days = deepcopy(days)
 
-        if daytables is None:
-            daytables = []
-        if days is None:
-            days = []
-        self._days = days
-
+        i= 0
         for day in self._days:
-            self.timetable[day] = daytables[self._days.index(day)]
-            self.timetable[day].day = day  # makes sure daytiemtable has a day
+            std= deepcopy(daytables[i])
+            self.timetable[day] = deepcopy(DayTimetable(std.rooms, std.time_slots, std.day))
+            self.timetable[day].day = deepcopy(day)  # makes sure daytiemtable has a day
+            i = i+1
             # verify
 
         # set the day for each timetable slot
@@ -78,6 +78,7 @@ class Timetable:
         # lecture and timetableslot assumed valid
 
         if self.day_is_valid(day):  # change to duck typing... catch exception
+            timetableslot.day = day
             return self.timetable[day].add_lecture(lecture, timetableslot, free)
 
         return False
@@ -91,15 +92,18 @@ class Timetable:
         # returns false if parameters are invalid
         # true only returned from the daytimetable.move_lecture
 
-        if sourceday == destday:
-            return self.timetable[sourceday].move_lecture(sourceslot, destslot)
-        else:
-            timetableslot = self.timetable[sourceday].timetableslot(sourceslot.room, sourceslot.time_slot)
+        try:
+            if sourceday == destday:
+                return self.timetable[sourceday].move_lecture(sourceslot, destslot)
+            else:
+                timetableslot = self.timetable[sourceday].timetableslot(sourceslot.room, sourceslot.time_slot)
 
-            if timetableslot.is_occupied:
-                if self.add_lecture(destday, timetableslot.lecture, destslot, free):
-                    if self.remove_lecture(sourceday, timetableslot):
-                        return True
+                if timetableslot.is_occupied:
+                    if self.add_lecture(destday, timetableslot.lecture, destslot, free):
+                        if self.remove_lecture(sourceday, timetableslot):
+                            return True
+        except Exception:
+            print(Exception)
         return False
 
     def swap_lectures(self, day1, slot1, day2, slot2):
@@ -138,9 +142,12 @@ class Timetable:
         # removes the lecture at day and timetable slot
         # leave timetableslot validation to daytimetable
 
-        if self.day_is_valid(day):
-            return self.timetable[day].remove_lecture(timetableslot)
-
+        try:
+            if self.day_is_valid(day):
+                return self.timetable[day].remove_lecture(timetableslot)
+        except Exception:
+            print(Exception)
+            
         return False
 
     def remove_all(self):
@@ -204,6 +211,22 @@ class Timetable:
         # leave validation of timeslo to daytimetable
         # calls unverified function
         return self.timetable[day].lecturer_is_free(lecturer, timeslot)
+    
+    def section_is_free(self,day,section,timeslot):
+        return self.timetable[day].section_is_free(section,timeslot)
+
+
+    def left_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].left_neighbours(ttslot)
+
+    def right_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].right_neighbours(ttslot)
+
+    def left_free_cont_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].left_free_cont_neighbours(ttslot)
+
+    def right_free_cont_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].right_free_cont_neighbours(ttslot)
 
     def room_is_free(self, day, room, timeslot):
         # returns true if room is free on day at timeslot, false otherwise
@@ -227,7 +250,7 @@ class Timetable:
         best_fits = []
 
         for day in self._days:
-            best_fits.append(self.timetable[day].best_fit)
+            best_fits.append(self.timetable[day].best_fit(lecture))
 
         # assuming all slots in best_fits are valid
         # deal with case where some of the slots are invalid
@@ -249,8 +272,8 @@ class Timetable:
     def remove_slot(self,day,room,timeslot):
         self.timetable[day].remove_time_table_slot(room,timeslot)
 
-    def insert_slot(self,day,room,ttslot):
-        self.timetable[day].insert_time_table_slot(room,ttslot)
+    def insert_slot(self,day,ttslot):
+        self.timetable[day].insert_time_table_slot(ttslot)
 
     def day_is_valid(self, day):  # returns true if the day is part of the initial _days
         for d in self._days:
@@ -258,6 +281,55 @@ class Timetable:
                 return True
 
         return False
+
+    def periods(self,day,room):
+        #returns all the slots on the given day and the room
+        return self.timetable[day].table[room]
+
+    def section_lectures(self,section,day):
+        #returns the number of lectures that the section has had on that day
+        count = 0 
+        for room in self.timetable[day].table:
+            for slot in self.timetable[day].table[room]:
+                if slot.is_occupied and slot.lecture.curriculum_item.section == section:
+                    count+=1
+
+        return count
+
+    def lecturer_lectures(self,lecturer,day):
+        #returns the number of lectures that the lecturer has already had on the day
+        count = 0 
+        for room in self.timetable[day].table:
+            for slot in self.timetable[day].table[room]:
+                if slot.is_occupied and slot.lecture.curriculum_item.lecturer == lecturer:
+                    count+=1
+
+        return count
+
+    def room_lectures(self,room,day):
+        #returns the number of lectures that have been scheduled in that room already on that day
+        count =0 
+
+        for slot in self.timetable[day].table[room]:
+            if slot.is_occupied:
+                count+=1
+
+        return count
+
+    def day_lectures(self,day):
+        #returns the number of lectures that have been scheduled already on that day
+
+        count =0
+
+        for room in self.timetable[day].table:
+            for slot in self.timetable[day].table[room]:
+                if slot.is_occupied:
+                    count+=1
+
+        return count
+
+    def c_item_on_day(self,day,c_item):
+        return self.timetable[day].c_item_on_day(c_item)
 
     def lecturer_clashes(self):
         clashes = []
@@ -273,3 +345,5 @@ class Timetable:
             clashes.append(self.timetable[day].lecturer_clashes())
 
         return clashes
+
+    

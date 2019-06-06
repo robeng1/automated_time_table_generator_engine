@@ -196,6 +196,7 @@ class TestDayTimetable(TestCase):
         self.assertEqual(self.timetable.right_neighbours(ttslot1), [])
 
     def test_insert_time_table_slot(self):
+<<<<<<< HEAD
         # TODO
         # do tests for slots  containing lectures
         # insert to the right
@@ -216,6 +217,26 @@ class TestDayTimetable(TestCase):
         room = Classroom('LT ', 45, 'PBOO2')
         ttslot = TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'), TimeSlot('8:00', '9:00'))
         self.assertFalse(self.timetable.insert_time_table_slot(room, ttslot), ttslot)
+=======
+        #TODO
+        #do tests for slots  containing lectures
+        #insert to the right
+        room =  Classroom('LT ', 45, 'PBOO2')
+        ttslot =  TimetableSlot('Mon', room,TimeSlot('17:00', '18:00'))
+        self.timetable.insert_time_table_slot(ttslot)
+        self.assertEqual(self.timetable.right_neighbour(TimetableSlot('Mon',room,TimeSlot('16:00', '17:00'))),ttslot)
+        
+        #test for inserting to the left
+        room =  Classroom('LT ', 45, 'PBOO2')
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('7:00', '8:00'))
+        self.timetable.insert_time_table_slot(ttslot)
+        self.assertEqual(self.timetable.left_neighbour(TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))),ttslot)
+
+        #test for inserting slot that already exists 
+        room =  Classroom('LT ', 45, 'PBOO2')
+        ttslot =  TimetableSlot('Mon', Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        self.assertFalse(self.timetable.insert_time_table_slot(ttslot),ttslot)
+>>>>>>> 4434ae1f824149787cc07a68879f82b15d83f389
 
     def test_remove_time_table_slot(self):
         self.timetable.remove_time_table_slot(Classroom('LT ', 45, 'PBOO2'), TimeSlot('8:00', '9:00'))
