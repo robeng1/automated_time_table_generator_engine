@@ -42,6 +42,8 @@ class TimeSlot(object):
         # used datetime for start and end instead of time
         # to allow for arithmetic on the start and end times
         # only time portion of datetime is of interest
+     
+    
         self._start = datetime.strptime(start, self.fmt)
         self._end = datetime.strptime(end, self.fmt)
 
@@ -69,6 +71,14 @@ class TimeSlot(object):
 
     def shift_end(self, duration):
         self._end += timedelta(minutes=duration)
+
+    @property 
+    def startstr(self):
+        return self.start.strftime(self.fmt)
+    
+    @property
+    def endstr(self):
+        return self.end.strftime(self.fmt)
 
     @property
     def duration(self):

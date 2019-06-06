@@ -108,7 +108,7 @@ class TimeTableGenerator(object):
         # change to get metric for obtaining the best
 
         if dest_slots:
-            return [choice(dest_slots)]  # return a list with a single dest slot
+            return choice(dest_slots)  # return a list with a single dest slot
 
         # we require merging slots to obtain a slot
         else:
@@ -131,21 +131,25 @@ class TimeTableGenerator(object):
 
                     dest_slots = []
                     for lslot in all_slots:
-                        if total_duration >= lecture.duration:
-                            break
                         dest_slots.append(lslot)
                         total_duration += lslot.timetslot.duration
+                        if total_duration >= lecture.duration:
+                            break
+                        
+                        
 
                     #create a new temporary slot to accomodate the combination of slots
                     
                     tslot = Timeslot(dest_slots[0].time_slot.start,dest_slots[-1].time_slot.end)
-                    temp = TimetableSlot(dest_slots[0].day,dest_slots[0].room,tslot)
+                    tempslot = TimetableSlot(dest_slots[0].day,dest_slots[0].room,tslot)
 
                     #remove all dest_slots from timetable
                     for slot in dest_slots:
-                        self.timetable.remove
+                        self.timetable.remove_slot(slot.day,slot.room,slot.time_slot)
                     #add temp slot to timetable
-                    return dest_slots
+                    self.timetable.insert_slot(tempslot.day,tempslot)
+
+                    return tempslot
 
     # duration check is problematic
     # remove checking for duration

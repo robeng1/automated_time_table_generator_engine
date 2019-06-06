@@ -90,3 +90,8 @@ class TimetableSlot:
     @property
     def is_occupied(self):
         return self._occupied
+
+    @is_occupied.setter
+    def is_occupied(self,val):
+        self._occupied = val
+

@@ -211,6 +211,22 @@ class Timetable:
         # leave validation of timeslo to daytimetable
         # calls unverified function
         return self.timetable[day].lecturer_is_free(lecturer, timeslot)
+    
+    def section_is_free(self,day,section,timeslot):
+        return self.timetable[day].section_is_free(section,timeslot)
+
+
+    def left_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].left_neighbours(ttslot)
+
+    def right_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].right_neighbours(ttslot)
+
+    def left_free_cont_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].left_free_cont_neighbours(ttslot)
+
+    def right_free_cont_neighbours(self,ttslot):
+        return self.timetable[ttslot.day].right_free_cont_neighbours(ttslot)
 
     def room_is_free(self, day, room, timeslot):
         # returns true if room is free on day at timeslot, false otherwise
@@ -256,8 +272,8 @@ class Timetable:
     def remove_slot(self,day,room,timeslot):
         self.timetable[day].remove_time_table_slot(room,timeslot)
 
-    def insert_slot(self,day,room,ttslot):
-        self.timetable[day].insert_time_table_slot(room,ttslot)
+    def insert_slot(self,day,ttslot):
+        self.timetable[day].insert_time_table_slot(ttslot)
 
     def day_is_valid(self, day):  # returns true if the day is part of the initial _days
         for d in self._days:
@@ -265,6 +281,55 @@ class Timetable:
                 return True
 
         return False
+
+    def periods(self,day,room):
+        #returns all the slots on the given day and the room
+        return self.timetable[day].table[room]
+
+    def section_lectures(self,section,day):
+        #returns the number of lectures that the section has had on that day
+        count = 0 
+        for room in self.timetable[day].table:
+            for slot in self.timetable[day].table[room]:
+                if slot.is_occupied and slot.lecture.curriculum_item.section == section:
+                    count+=1
+
+        return count
+
+    def lecturer_lectures(self,lecturer,day):
+        #returns the number of lectures that the lecturer has already had on the day
+        count = 0 
+        for room in self.timetable[day].table:
+            for slot in self.timetable[day].table[room]:
+                if slot.is_occupied and slot.lecture.curriculum_item.lecturer == lecturer:
+                    count+=1
+
+        return count
+
+    def room_lectures(self,room,day):
+        #returns the number of lectures that have been scheduled in that room already on that day
+        count =0 
+
+        for slot in self.timetable[day].table[room]:
+            if slot.is_occupied:
+                count+=1
+
+        return count
+
+    def day_lectures(self,day):
+        #returns the number of lectures that have been scheduled already on that day
+
+        count =0
+
+        for room in self.timetable[day].table:
+            for slot in self.timetable[day].table[room]:
+                if slot.is_occupied:
+                    count+=1
+
+        return count
+
+    def c_item_on_day(self,day,c_item):
+        return self.timetable[day].c_item_on_day(c_item)
 
     def lecturer_clashes(self):
         clashes = []
@@ -280,3 +345,5 @@ class Timetable:
             clashes.append(self.timetable[day].lecturer_clashes())
 
         return clashes
+
+    

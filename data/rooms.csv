@@ -1,21 +1,22 @@
 Name,Capacity
-A110,140
-E-CLASSROOM,120
-VCR,120
-PB214,200
-PB020,180
-PB014,200
-PB201,150
-PB214,150
-PB001,150
-N1,120
-LT,150
-PB212,175
-PB012,120
-206,180
-N2,120
-ENG AUD,700
-303,180
-304,180
-ROOM A,120
-ROOM B,120
+A110,140,Energy Center,30
+E-CLASSROOM,120,Energy Center,30
+VCR,150,Energy Center,30
+PB214,200,Petroleum Building,30
+PB020,200,Petroleum Building,30
+PB014,200,Petroleum Building,30
+PB201,200,Petroleum Building,30
+PB214,200,Petroleum Building,30
+PB001,200,Petroleum Building,30
+N1,120,Levine,30
+LT,150,Levine,30
+PB212,200,Petroleum Building,30
+PB012,1150,Petroleum Building,30
+PB312,150,Petroleum Building,30
+206,180,Aeroplane Building,30
+N2,120,Levine,30
+303,180,Aeroplane Building,30
+304,180,Aeroplane Building,30
+ROOM A,120,Levine,30
+ROOM B,120,Levine,30
+Levine Hall,150,Levine,30

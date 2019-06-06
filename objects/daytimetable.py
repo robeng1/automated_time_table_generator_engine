@@ -4,6 +4,10 @@
 #  Time: 15:27
 
 #  modifications  
+    #added left_free_cont_neighbours(self,ttlsot):
+    #added right_free_cont_neighbours(self,ttslot):
+    #to only return the left neighbours that are contigouos and are free
+    #change fixes repeated scheduling bug in timetable algorithm
 
 from classroom import Classroom
 from timetableslot import TimetableSlot
@@ -184,6 +188,7 @@ class DayTimetable:
         try:
             index = (self.table[time_table_slot.room]).index(time_table_slot)
         except Exception:
+            print(Exception)
             return False
         else:
             return 0 < index < len(self.table[time_table_slot.room])
@@ -192,6 +197,7 @@ class DayTimetable:
         try:
             index = self.table[time_table_slot.room].index(time_table_slot)
         except Exception:
+            print(Exception)
             return False
         else:
             return 0 <= index < len(self.table[time_table_slot.room]) - 1
@@ -216,7 +222,7 @@ class DayTimetable:
             index = self.table[time_table_slot.room].index(time_table_slot)
 
         except Exception:
-            pass
+            print(Exception)
         else:
 
             if index < len(self.table[time_table_slot.room]):
@@ -228,6 +234,51 @@ class DayTimetable:
         
         return neighbours
 
+    def left_free_cont_neighbours(self,time_table_slot):
+        #returns the contigous neighbours to the left of time_table_slot
+        #called when multiple timetable slots have to be merged to accomodate 
+        #a single slot
+        neighbours = []
+        try:
+
+            index = self.table[time_table_slot.room].index(time_table_slot)
+
+        except Exception:
+            print(Exception)
+        else:
+
+            if index < len(self.table[time_table_slot.room]):
+                for i in range(index - 1, -1, -1):
+                    if self.table[time_table_slot.room][i].time_slot.end \
+                    == self.table[time_table_slot.room][i+1].time_slot.start:
+                        if(self.table[time_table_slot.room][i].is_free):
+                            neighbours.append(self.table[time_table_slot.room][i])
+
+                        else:
+                            break
+                neighbours.sort(key=lambda ttslot: ttslot.time_slot.start)
+        
+        return neighbours
+
+    def right_free_cont_neighbours(self,time_table_slot):
+        neighbours = []
+
+        try:
+             index = self.table[time_table_slot.room].index(time_table_slot)
+        except Exception:
+            print(Exception)
+        else:
+            if index > 0:
+                for i in range(index + 1, len(self.table[time_table_slot.room])):
+                    if self.table[time_table_slot.room][i].time_slot.start \
+                    == self.table[time_table_slot.room][i-1].time_slot.end:
+                        if(self.table[time_table_slot.room][i].is_free):
+                            neighbours.append(self.table[time_table_slot.room][i])
+                        else:
+                            break
+                neighbours.sort(key=lambda ttslot: ttslot.time_slot.start)
+        return neighbours
+
     def right_neighbours(self, time_table_slot):
        
 
@@ -236,7 +287,7 @@ class DayTimetable:
         try:
              index = self.table[time_table_slot.room].index(time_table_slot)
         except Exception:
-            pass
+            print(Exception)
         else:
             if index > 0:
                 for i in range(index + 1, len(self.table[time_table_slot.room])):
@@ -246,15 +297,15 @@ class DayTimetable:
                 neighbours.sort(key=lambda ttslot: ttslot.time_slot.start)
         return neighbours
 
-    def insert_time_table_slot(self, room, time_table_slot):
+    def insert_time_table_slot(self,timetableslot):
         #TODO
         #handle the case where the slot inserted is not necessarilly in the timetable 
         #but there it overlaps with an existing slot
         inserted = False
 
-        if time_table_slot not in self.table[room]:
-            self.table[room].append(time_table_slot)
-            self.table[room].sort(key=lambda ttslot: ttslot.time_slot.start)
+        if timetableslot not in self.table[timetableslot.room]:
+            self.table[timetableslot.room].append(timetableslot)
+            self.table[timetableslot.room].sort(key=lambda ttslot: ttslot.time_slot.start)
             inserted = True
 
         return inserted
@@ -281,6 +332,7 @@ class DayTimetable:
             #then add the timtetableslot to the table and return
             if lecture.duration == time_table_slot.time_slot.duration:
                 self.table[time_table_slot.room][time_slot_index] = time_table_slot
+                self.table[time_table_slot.room][time_slot_index].is_occupied = True
                 return True
 
 
@@ -303,7 +355,7 @@ class DayTimetable:
                         time_table_slot.time_slot.shift_end(-time_diff)
                         self.table[time_table_slot.room][index + 1].time_slot.shift_start(-time_diff)
                         self.table[time_table_slot.room][index] = time_table_slot
-
+                        self.table[time_table_slot.room][index].is_occupied = True
                         return True
                 #do the same if it rather hase a left neighbour
                 if self.has_left_neighbour(time_table_slot) and \
@@ -312,6 +364,7 @@ class DayTimetable:
                         time_table_slot.time_slot.shift_start(time_diff)
                         self.table[time_table_slot.room][index - 1].time_slot.shift_end(time_diff)
                         self.table[time_table_slot.room][index] = time_table_slot
+                        self.table[time_table_slot.room][index].is_occupied = True
                         return True
 
             #if the duration is less then expand and create a new slot to accomodate the timetable slot
@@ -376,7 +429,7 @@ class DayTimetable:
             elif not free:  # assign lecture wether slot is free or not
                 lecture_added = self.assign_lecture(lecture, time_table_slot)
         except Exception as e:
-            print(e)
+            print(Exception)
             return False
         else:
             return lecture_added
@@ -421,6 +474,7 @@ class DayTimetable:
                         return True
 
         except Exception:
+            print(Exception)
             return False
 
         return False
@@ -505,6 +559,7 @@ class DayTimetable:
                 removed = True
 
         except Exception:
+            print(Exception)
             return False
 
         return removed
@@ -689,6 +744,7 @@ class DayTimetable:
                 if slot.time_slot == timeslot and slot.is_free:
                     return True
         except Exception:
+            print(Exception)
             return False
 
         return False
@@ -816,6 +872,13 @@ class DayTimetable:
                     print(str(slot.lecture))
 
     # check for or not check for clashes?
+
+    def c_item_on_day(self,c_item):
+        for room in self.rooms:
+            for slot in self.table[room]:
+                if slot.is_occupied and slot.lecture.curriculum_item == c_item:
+                    return True
+        return False
 
     def lecturer_clashes(self):
         # returns a list of tuples

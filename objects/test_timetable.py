@@ -73,6 +73,7 @@ class TestTimetable(TestCase):
         ttslot4 =  TimetableSlot('Monday', Classroom('LT ', 45, 'PBOO2'),TimeSlot('10:00', '11:00'))
         print(self.timetable)
         self.assertTrue(self.timetable.add_lecture('Monday',lecture,ttslot))
+        self.assertTrue(self.timetable.timetableslot('Monday',ttslot1.room,ttslot1.time_slot).is_occupied,True)
         self.assertTrue(self.timetable.add_lecture('Tuesday',lecture,ttslot1))
         self.assertTrue(self.timetable.add_lecture('Thursday',lecture,ttslot2))
         self.assertTrue(self.timetable.add_lecture('Friday',lecture,ttslot3))
@@ -557,6 +558,21 @@ class TestTimetable(TestCase):
         for day in self.days:
             self.assertTrue(self.timetable.day_is_valid(day))
         self.assertFalse(self.timetable.day_is_valid('Saturday'))
+
+    def test_remove_slot(self):
+        print('##################################### TEST_REMOVE_SLOT##############################')
+        self.timetable.remove_slot('Monday',Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        self.timetable.remove_slot('Monday',Classroom('LT ', 45, 'PBOO2'),TimeSlot('9:00', '10:00'))
+        self.timetable.remove_slot('Wednesday',Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        self.timetable.remove_slot('Thursday',Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '9:00'))
+        print(self.timetable)
+        print('################################# INSERT SLOT #####################################')
+        self.timetable.insert_slot('Monday',TimetableSlot('Monday',Classroom('LT ', 45, 'PBOO2'),TimeSlot('8:00', '10:00')))
+        print(self.timetable)
+
+    def test_insert_slot(self):
+        #tested in remove_slot()
+        pass
 
     #  def test_first_fit(self):
     #      pass
