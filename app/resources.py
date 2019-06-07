@@ -2,12 +2,13 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from flask_restful import Resource, reqparse
 from .models import (
     UserModel, RevokedTokenModel,
-    ModuleModel, SectionModel,
+    CourseModel, SectionModel,
     ClassRoomGroupModel, ClassRoomModel,
-    DepartmentModel, LecturerModel
+    DepartmentModel, LecturerModel, FlatTimeTableModel
 )
+from scheduler.timetablegenerator import Gen
 from .parser import (
-    module_parser, section_parser,
+    course_parser, section_parser,
     classroom_group_parser, classroom_parser,
     department_parser, lecturer_parser
 )
@@ -20,6 +21,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
     get_raw_jwt,
 )
+from . import helper
 
 parser = reqparse.RequestParser()
 parser.add_argument('username', help='This field cannot be blank', required=True)
@@ -123,65 +125,51 @@ class SecretResource(Resource):
         }
 
 
-class AllModules(Resource):
-    @staticmethod
-    def get():
-        return ModuleModel.return_all()
-
-
-class ModuleResource(Resource):
-
+class CourseResource(Resource):
     @staticmethod
     def post():
-        data = module_parser.parse_args(strict=True)
-
-        # initializes a new module
-        new_module = ModuleModel()
-        new_module.code = data['code']
-        new_module.name = data['name']
-        new_module.teaching = data['teaching']
-        new_module.practicals = data['practicals']
-        new_module.credit = data['credit']
-        new_module.first_examiner = data["first_examiner"]
-        new_module.second_examiner = data["second_examiner"]
+        data = course_parser.parse_args(strict=True)
+        course = CourseModel()
+        course.code = data['code']
+        course.name = data['name']
+        course.teaching = data['teaching']
+        course.practicals = data['practicals']
+        course.tutorial = data['tutorial']
+        course.credit = data['credit']
+        course.first_examiner = data["first_examiner"]
+        course.second_examiner = data["second_examiner"] or None
+        course.department = data['department']
+        if not helper.valid_level(data["year"]):
+            return {'message': 'Invalid level'}, status.HTTP_400_BAD_REQUEST
         try:
-            new_module.save_to_db()
-        except IOError:
+            course.save_to_db()
+        except SQLAlchemyError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
-        return new_module.to_json(), status.HTTP_201_CREATED
+        return course.to_json(), status.HTTP_201_CREATED
 
     @staticmethod
-    def get(code=None):
-        if code is None:
-            return {
-                'error': 'must provide the course code'
-            }
-        module = ModuleModel.find_module_by_course_code(code)
-        return module.to_json(), status.HTTP_200_OK
+    def get():
+        return CourseModel.return_all(), status.HTTP_200_OK
 
 
 class SectionResource(Resource):
     @staticmethod
     def post():
         data = section_parser.parse_args(strict=True)
-        new_section = SectionModel()
-        new_section.klass = data["klass"]
-        new_section.code = data["code"]
-        new_section.shared = data["shared"]
+        section = SectionModel()
+        section.name = data["name"]
+        section.department = data["department"]
+        section.year = data["year"]
+        section.size = data["size"]
         try:
-            new_section.save_to_db()
-        except IntegrityError:
+            section.save_to_db()
+        except SQLAlchemyError:
             return {'message': 'Something went wrong'}, status.HTTP_500_INTERNAL_SERVER_ERROR
-        return new_section.to_json(), status.HTTP_201_CREATED
+        return section.to_json(), status.HTTP_201_CREATED
 
     @staticmethod
-    def get(klass=None):
-        if klass is None:
-            return {
-                'error': 'must provide the klass identifier'
-            }
-        section = SectionModel.find_by_klass(klass)
-        return section.to_json(), status.HTTP_200_OK
+    def get():
+        return SectionModel.return_all(), status.HTTP_200_OK
 
 
 class ClassRoomResource(Resource):
@@ -193,7 +181,7 @@ class ClassRoomResource(Resource):
         room.capacity = data['capacity']
         room.allowance = data['allowance']
         room.location = data['location']
-        room.group_name = data['group_name']
+        room.group = data['group']
         try:
             room.save_to_db()
         except IntegrityError:
@@ -238,7 +226,7 @@ class DepartmentResource(Resource):
         data = department_parser.parse_args()
         dep = DepartmentModel()
         dep.name = data['name']
-
+        dep.code = data['code']
         try:
             dep.save_to_db()
         except IntegrityError:
@@ -267,7 +255,7 @@ class LecturerResource(Resource):
         lecturer = LecturerModel()
         lecturer.title = data['title']
         lecturer.name = data['name']
-        lecturer.ID = data['id']
+        lecturer.stuff_id = data['stuff_id']
         lecturer.email = data['email']
         lecturer.department = data['department']
         lecturer.office = data['office']
@@ -294,3 +282,16 @@ class SingleLecturerResource(Resource):
             return LecturerModel.find_by_id(id=val), status.HTTP_200_OK
         except ValueError:
             return LecturerModel.find_by_name(name=name_or_id), status.HTTP_200_OK
+
+
+class Flat(Resource):
+    @staticmethod
+    def get():
+        return FlatTimeTableModel.return_all()
+
+
+class Timetable(Resource):
+    @staticmethod
+    def get():
+        pp = Gen()
+        return pp.json()

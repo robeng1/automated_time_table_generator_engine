@@ -58,7 +58,7 @@ class CurriculumItem:
     @course.setter
     def course(self, value):
         if not isinstance(value, Course):
-            raise TypeError("Value must be of type Course")
+            raise TypeError("Value must be of type CourseModel")
         self._course = value
 
     @property

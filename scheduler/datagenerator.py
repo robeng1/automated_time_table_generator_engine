@@ -1,4 +1,4 @@
-from app.models import ModuleModel
+from app.models import CourseModel
 from objects.data import CurriculumItem, Curriculum
 from objects.lecture import Lecture
 
@@ -9,7 +9,7 @@ class DataGenerator:
         # eagerly loads sections related to each module
         # might be slow to set up but err tin will be in memory
         if data is None:
-            self.modules = ModuleModel.return_all_raw()
+            self.modules = CourseModel.return_all_raw()
         else:
             self.modules = data
 

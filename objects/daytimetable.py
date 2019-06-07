@@ -9,8 +9,8 @@
     #to only return the left neighbours that are contigouos and are free
     #change fixes repeated scheduling bug in timetable algorithm
 
-from classroom import Classroom
-from timetableslot import TimetableSlot
+from .classroom import Classroom
+from .timetableslot import TimetableSlot
 # from .lecturer import Lecturer
 # from .lecture import Lecture
 # from .timeslot import TimeSlot

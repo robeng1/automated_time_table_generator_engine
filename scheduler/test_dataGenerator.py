@@ -2,7 +2,7 @@ from .datagenerator import DataGenerator
 from objects.lecture import Lecture
 from objects.data import CurriculumItem
 import factory
-from app.models import ModuleModel, SectionModel
+from app.models import CourseModel, SectionModel
 from unittest import TestCase
 
 
@@ -28,7 +28,7 @@ class SectionFactory(factory.Factory):
 
 class ModuleFactory(factory.Factory):
     class Meta:
-        model = ModuleModel
+        model = CourseModel
 
     title = 'Mathematics'
     code = 'MATH 151'

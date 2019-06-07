@@ -65,6 +65,7 @@ class Timetable:
         
         return temp_str
 
+
     @property
     def day_table(self):
         return self.timetable

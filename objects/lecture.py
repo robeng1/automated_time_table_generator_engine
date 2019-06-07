@@ -25,7 +25,7 @@ class Lecture:
         ----------
         section: Section
             this is effectively a class eg. comp eng 3
-        course : Course
+        course : CourseModel
             this is course
         lecturers : Lecturer
             a list of lecturers thus the first and second examiner
@@ -41,7 +41,7 @@ class Lecture:
 
     def __str__(self):
         return str(self.curriculum_item.course) + '\n' + \
-               str(self.curriculum_item.section.name) + '\n' + \
+               str(self.curriculum_item.section.department) + ' '+str(self.curriculum_item.section.year) + '\n' + \
                str(self.curriculum_item.lecturer) + '\n' + \
                str(self.duration) + '\n' + '-----------------------------------------'
 

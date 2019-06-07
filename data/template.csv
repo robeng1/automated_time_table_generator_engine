@@ -1,4 +1,4 @@
-Course name,Department Code,Course code,T,P,C,Tutorial,Lecturer name,Lecturer Title,Lecturer Id,Section code,Section name,Year, Section Department
+CourseModel name,Department Code,CourseModel code,T,P,C,Tutorial,Lecturer name,Lecturer Title,Lecturer Id,Section code,Section name,Year, Section Department
 Applied Electricity,EE,151,2,2,3,0,E.A Frimpong,Dr,,,,1,Chemical
 Communication Skills I,ENGL,157,2,0,2,0,P. Yeboah,Dr,,,,1,Chemical
 Algebra,MATH,151,4,1,4,0,J. Ackora- Prah,Dr,,,,1,Chemical

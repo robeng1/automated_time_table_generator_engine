@@ -92,9 +92,8 @@ class Section(object):
     @property
     def to_json(self):
         return dict(
-            name=self.name,
+            code=self.code,
             size=self.size,
             year=self.year,
             department=self.department,
-            faculty=self.faculty
         )

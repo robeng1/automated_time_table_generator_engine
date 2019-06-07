@@ -283,7 +283,7 @@ class TestTimetable(TestCase):
     # def test_add_lecture(self):
     #     pass
     #     lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
-    #     course = Course('Embedded Systems','COE 361')
+    #     course = CourseModel('Embedded Systems','COE 361')
 
     #     section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
     #     c_item = CurriculumItem(section,course,lecturer)
@@ -313,7 +313,7 @@ class TestTimetable(TestCase):
     # def test_move_lecture(self):
     #     pass
     #     lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
-    #     course = Course('Embedded Systems','COE 361')
+    #     course = CourseModel('Embedded Systems','COE 361')
 
     #     section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
     #     c_item = CurriculumItem(section,course,lecturer)
@@ -362,7 +362,7 @@ class TestTimetable(TestCase):
     #     pass
     #     # #Test later, not called in generator at the moment
     #     # lecturer = Lecturer('Benjamin Kommey',4564541,'Mr')
-    #     # course = Course('Embedded Systems','COE 361')
+    #     # course = CourseModel('Embedded Systems','COE 361')
 
     #     # section = Section('ED CoE',25,3,'Electrical and Electronics Engineering','Computer Engineering')
     #     # c_item = CurriculumItem(section,course,lecturer)

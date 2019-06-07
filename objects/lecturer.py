@@ -74,19 +74,14 @@ class Lecturer(object):
         return hash((self.name, self.id))
 
     def __str__(self):
-<<<<<<< HEAD
-        return self._id + '  ' + self._title + '. ' + self._name + '\n'
 
-=======
         str_rep = ''
-
         if self.title:
             str_rep += self.title+'. '
         
         str_rep += self._name+'\n'
         return  str_rep
-        
->>>>>>> 4434ae1f824149787cc07a68879f82b15d83f389
+
     @property
     def name(self):
         return self._name

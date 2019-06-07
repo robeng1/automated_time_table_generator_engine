@@ -1,7 +1,7 @@
 from flask_restful import reqparse
 
-module_parser = reqparse.RequestParser()
-module_parser.add_argument(
+course_parser = reqparse.RequestParser()
+course_parser.add_argument(
     'name',
     type=str,
     required=True,
@@ -9,70 +9,97 @@ module_parser.add_argument(
 
 )
 
-module_parser.add_argument(
+course_parser.add_argument(
     'code',
     type=str,
     required=True,
     help="Code is required"
 
 )
-module_parser.add_argument(
+course_parser.add_argument(
     'teaching',
     type=int,
     required=True,
     help="Teaching is required"
 )
 
-module_parser.add_argument(
+course_parser.add_argument(
     'practicals',
     type=int,
     required=True,
     help="Practicals is required"
 )
-module_parser.add_argument(
+course_parser.add_argument(
+    'tutorial',
+    type=int,
+    required=False,
+)
+course_parser.add_argument(
     'credit',
     type=int,
     required=True,
     help="Credit hours is required"
 )
 
-module_parser.add_argument(
+course_parser.add_argument(
     'first_examiner',
     type=str,
     required=True,
     help="Credit hours is required"
 )
 
-module_parser.add_argument(
+course_parser.add_argument(
     'second_examiner',
     type=str,
     required=False,
     help="Fallback examiner in case the first examiner is unavailable"
 )
 
+course_parser.add_argument(
+    'year',
+    type=int,
+    required=True,
+
+)
+
+course_parser.add_argument(
+    'department',
+    type=int,
+    required=True,
+)
+
 section_parser = reqparse.RequestParser()
 section_parser.add_argument(
-    'klass',
+    'name',
     type=str,
     required=True,
     help="the class for this course"
 )
 
 section_parser.add_argument(
-    'code',
-    type=str,
+    'department',
+    type=int,
     required=True,
     help="course code for this section"
 )
 
 section_parser.add_argument(
-    'shared',
-    type=bool,
-    required=False,
-    help="set this to indicate that this is a shared a course, defaults to false"
+    'year',
+    type=int,
+    required=True,
+)
+section_parser.add_argument(
+    'size',
+    type=int,
+    required=True
 )
 
 classroom_parser=reqparse.RequestParser()
+classroom_parser.add_argument(
+    'group',
+    type=int,
+    required=True,
+)
 classroom_parser.add_argument(
     'name',
     type=str,
@@ -98,13 +125,6 @@ classroom_parser.add_argument(
     type=int,
     required=True
 )
-
-classroom_parser.add_argument(
-    'group_name',
-    type=str,
-    required=True
-)
-
 classroom_group_parser=reqparse.RequestParser()
 classroom_group_parser.add_argument(
     'name',
@@ -115,6 +135,12 @@ classroom_group_parser.add_argument(
 department_parser = reqparse.RequestParser()
 department_parser.add_argument(
     'name',
+    type=str,
+    required=True,
+)
+
+department_parser.add_argument(
+    'code',
     type=str,
     required=True,
 )
@@ -133,7 +159,7 @@ lecturer_parser.add_argument(
 )
 
 lecturer_parser.add_argument(
-    'id',
+    'stuff_id',
     type=int,
     required=True
 )
@@ -152,6 +178,6 @@ lecturer_parser.add_argument(
 
 lecturer_parser.add_argument(
     'department',
-    type=str,
+    type=int,
     required=True
 )
